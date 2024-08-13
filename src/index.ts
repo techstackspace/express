@@ -1,6 +1,7 @@
 import express from 'express';
 import { log } from './config/debugger';
 import connectionToDB from './config/database';
+import productRoutes from './routes';
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -11,9 +12,7 @@ app.use(express.json());
 connectionToDB();
 
 // Routes
-app.get('/', (_req, res) => {
-  res.send('Hello World!');
-});
+app.use('/api', productRoutes);
 
 app.listen(port, () => {
   log(`Server is running on http://localhost:${port}`);
