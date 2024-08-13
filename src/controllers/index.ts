@@ -4,9 +4,9 @@ import { error } from '../config/debugger';
 
 const getAllProducts = async (_req: express.Request, res: express.Response) => {
   try {
-    const product = await Product.find();
-    return res.status(200).json(product);
-  } catch (err) {
+    const products = await Product.find();
+    return res.status(200).json(products);
+  } catch (err: unknown) {
     if (err instanceof Error) {
       error('Server error!', err.message);
       return res.status(500).json({ error: err.message });
@@ -18,16 +18,18 @@ const getAllProducts = async (_req: express.Request, res: express.Response) => {
 
 const createProduct = async (req: express.Request, res: express.Response) => {
   const payload = req.body;
+
   if (!payload) {
-    return res.status(400).json({ message: 'Enter required field' });
+    return res.status(400).json({ message: 'Missing required fields' });
   }
+
   try {
     const product = new Product(payload);
     const savedProduct = await product.save();
     return res
       .status(201)
       .json({ message: 'Product created successfully', product: savedProduct });
-  } catch (err) {
+  } catch (err: unknown) {
     if (err instanceof Error) {
       error('Server error!', err.message);
       return res.status(500).json({ error: err.message });
