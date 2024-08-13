@@ -15,6 +15,7 @@ const getAllProducts = async (_req: express.Request, res: express.Response) => {
     }
   }
 };
+/* eslint-enable @typescript-eslint/no-unused-vars */
 
 const createProduct = async (req: express.Request, res: express.Response) => {
   const payload = req.body;
