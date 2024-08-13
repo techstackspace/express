@@ -1,0 +1,27 @@
+{
+  "name": "express",
+  "version": "1.0.0",
+  "description": "Learn everything express. Each version of a project introduce one or more of the core features of express - routing, middleware, request and response handling, templating engines, session management, security, error handling, static file serving, real-time communication, API development, database integration, deployment, extensibility, testing, internationalization (i18n), logging and monitoring, file uploads, webhooks, and command-line interface (CLI) ",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "node",
+    "express",
+    "mongodb",
+    "mongoose",
+    "typescript",
+    "nodemailer",
+    "json",
+    "web",
+    "token",
+    "graphql",
+    "redis",
+    "cookie-parser",
+    "authentication",
+    "api"
+  ],
+  "author": "Bello Osagie",
+  "license": "MIT"
+}
