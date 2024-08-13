@@ -1,11 +1,14 @@
 import express from 'express';
 import { log } from './config/debugger';
+import connectionToDB from './config/database';
 
 const app = express();
 const port = process.env.PORT || 5000;
 
 // Middleware
 app.use(express.json());
+
+connectionToDB();
 
 // Routes
 app.get('/', (_req, res) => {
