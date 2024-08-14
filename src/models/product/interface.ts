@@ -16,6 +16,7 @@ interface IProduct {
   stock: number;
   likes: IUser;
   comments: IComment;
+  version: string;
 }
 
 export type { IProduct };
