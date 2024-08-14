@@ -1,4 +1,4 @@
-import express from 'express';
+import express, { json } from 'express';
 import { log } from './config/debugger';
 import connectionToDB from './config/database';
 import productRoutes from './routes';
@@ -7,7 +7,7 @@ const app = express();
 const port = process.env.PORT || 5000;
 
 // Middleware
-app.use(express.json());
+app.use(json());
 
 connectionToDB();
 

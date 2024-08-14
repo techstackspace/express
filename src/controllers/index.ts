@@ -1,8 +1,8 @@
-import express from 'express';
+import { Request, Response } from 'express';
 import Product from '../models';
 import { error } from '../config/debugger';
 
-const getAllProducts = async (_req: express.Request, res: express.Response) => {
+const getAllProducts = async (_req: Request, res: Response) => {
   try {
     const products = await Product.find();
     return res.status(200).json(products);
@@ -16,7 +16,7 @@ const getAllProducts = async (_req: express.Request, res: express.Response) => {
   }
 };
 
-const getProductById = async (req: express.Request, res: express.Response) => {
+const getProductById = async (req: Request, res: Response) => {
   const id = req.params.id;
   try {
     const product = await Product.findById(id);
@@ -34,7 +34,7 @@ const getProductById = async (req: express.Request, res: express.Response) => {
   }
 };
 
-const createProduct = async (req: express.Request, res: express.Response) => {
+const createProduct = async (req: Request, res: Response) => {
   const payload = req.body;
 
   if (!payload) {
@@ -57,10 +57,7 @@ const createProduct = async (req: express.Request, res: express.Response) => {
   }
 };
 
-const updateProductPartial = async (
-  req: express.Request,
-  res: express.Response
-) => {
+const updateProductPartial = async (req: Request, res: Response) => {
   const id = req.params.id;
   const payload = req.body;
   if (!payload || Object.keys(payload).length === 0) {
@@ -89,7 +86,7 @@ const updateProductPartial = async (
   }
 };
 
-const deleteProduct = async (req: express.Request, res: express.Response) => {
+const deleteProduct = async (req: Request, res: Response) => {
   const id = req.params.id;
   const product = await Product.findByIdAndDelete(id);
   if (!product) {
