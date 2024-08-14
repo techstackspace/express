@@ -2,7 +2,7 @@ import express, { json } from 'express';
 import { log } from './config/debugger';
 import connectionToDB from './config/database';
 import productRoutes from './routes/product';
-import userRoutes from './routes/auth/register';
+import userRoutes from './routes/auth';
 
 const app = express();
 const port = process.env.PORT || 5000;
