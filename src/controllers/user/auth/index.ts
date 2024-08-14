@@ -1,4 +1,5 @@
 import { Request, Response } from 'express';
+import bcrypt from 'bcrypt';
 import User from '../../../models/user';
 
 const getAllUsers = async (_req: Request, res: Response) => {
@@ -22,11 +23,12 @@ const createUser = async (req: Request, res: Response) => {
   }
 
   try {
+    const hashedPassword = await bcrypt.hash(password, 10);
     const user = new User({
       name,
       username,
       email,
-      password,
+      password: hashedPassword,
     });
     const savedUser = await user.save();
     return res.status(201).json({ user: savedUser });
