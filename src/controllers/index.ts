@@ -91,7 +91,7 @@ const deleteProduct = async (req: Request, res: Response) => {
   try {
     const product = await Product.findByIdAndDelete(id);
     if (!product) {
-      return res.status(404).json({ message: 'Product not found!' });
+      return res.status(404).json({ message: 'Product not found' });
     }
     return res
       .status(200)
