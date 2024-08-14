@@ -3,6 +3,6 @@ import register from '../../../controllers/user/auth/register';
 
 const router = Router();
 
-router.post('/register', register);
+router.post('/user/register', register);
 
 export default router;
