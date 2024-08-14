@@ -9,7 +9,11 @@ const register = async (req: Request, res: Response) => {
   }
 
   try {
-    const user = new User();
+    const user = new User({
+      username,
+      email,
+      password,
+    });
     const savedUser = await user.save();
     return res.status(201).json({ user: savedUser });
   } catch (err) {
