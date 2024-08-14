@@ -49,7 +49,7 @@ This project is a Node.js application using Express and TypeScript, with integra
   npm start
   ```
 
-- **Dev:** Start the application in development mode using `ts-node`, which allows running TypeScript files directly.
+- **Dev:** Start the application in development mode using `ts-node-dev`, which allows running TypeScript files directly.
   
   ```bash
   npm run dev
@@ -123,7 +123,8 @@ To clone and initialize the project:
 
 This project is licensed under the [MIT License](LICENSE).
 
-### Summary:
+### Summary
+
 - The **Installation** section guides users through cloning the repository and installing dependencies.
 - **Scripts** section describes each npm script and its purpose.
 - **Development** explains how to run the project in development mode and check code quality.
