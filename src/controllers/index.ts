@@ -57,7 +57,7 @@ const createProduct = async (req: Request, res: Response) => {
   }
 };
 
-const updateProductPartial = async (req: Request, res: Response) => {
+const updateProduct = async (req: Request, res: Response) => {
   const id = req.params.id;
   const payload = req.body;
   if (!payload || Object.keys(payload).length === 0) {
@@ -76,7 +76,7 @@ const updateProductPartial = async (req: Request, res: Response) => {
     return res
       .status(200)
       .json({ message: 'Product updated successfully', product });
-  } catch (err) {
+  } catch (err: unknown) {
     if (err instanceof Error) {
       error('Server error!', err.message);
       return res.status(500).json({ error: err.message });
@@ -88,15 +88,15 @@ const updateProductPartial = async (req: Request, res: Response) => {
 
 const deleteProduct = async (req: Request, res: Response) => {
   const id = req.params.id;
-  const product = await Product.findByIdAndDelete(id);
-  if (!product) {
-    return res.status(404).json({ message: 'Product not found!' });
-  }
   try {
+    const product = await Product.findByIdAndDelete(id);
+    if (!product) {
+      return res.status(404).json({ message: 'Product not found!' });
+    }
     return res
       .status(200)
       .json({ message: 'Product deleted successfully', product });
-  } catch (err) {
+  } catch (err: unknown) {
     if (err instanceof Error) {
       error('Server error!', err.message);
       return res.status(500).json({ error: err.message });
@@ -110,6 +110,6 @@ export {
   getAllProducts,
   createProduct,
   getProductById,
-  updateProductPartial,
+  updateProduct,
   deleteProduct,
 };

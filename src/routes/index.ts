@@ -4,7 +4,7 @@ import {
   deleteProduct,
   getAllProducts,
   getProductById,
-  updateProductPartial,
+  updateProduct,
 } from '../controllers';
 
 const router = Router();
@@ -12,7 +12,7 @@ const router = Router();
 router.get('/products', getAllProducts);
 router.get('/products/:id', getProductById);
 router.post('/products', createProduct);
-router.patch('/products/:id', updateProductPartial);
+router.patch('/products/:id', updateProduct);
 router.delete('/products/:id', deleteProduct);
 
 export default router;
