@@ -15,7 +15,24 @@ const getAllProducts = async (_req: express.Request, res: express.Response) => {
     }
   }
 };
-/* eslint-enable @typescript-eslint/no-unused-vars */
+
+const getProductById = async (req: express.Request, res: express.Response) => {
+  const id = req.params.id;
+  try {
+    const product = await Product.findById(id);
+    if (!product) {
+      return res.status(404).json({ message: 'Product not found' });
+    }
+    return res.status(200).json(product);
+  } catch (err: unknown) {
+    if (err instanceof Error) {
+      error('Server error!', err.message);
+      return res.status(500).json({ error: err.message });
+    } else {
+      return res.status(500).json({ error: 'Unknown error occurred' });
+    }
+  }
+};
 
 const createProduct = async (req: express.Request, res: express.Response) => {
   const payload = req.body;
@@ -40,4 +57,62 @@ const createProduct = async (req: express.Request, res: express.Response) => {
   }
 };
 
-export { getAllProducts, createProduct };
+const updateProductPartial = async (
+  req: express.Request,
+  res: express.Response
+) => {
+  const id = req.params.id;
+  const payload = req.body;
+  if (!payload || Object.keys(payload).length === 0) {
+    return res.status(400).json({ message: 'Missing required fields' });
+  }
+  try {
+    const product = await Product.findByIdAndUpdate(
+      id,
+      { $set: payload },
+      { new: true }
+    );
+    if (!product) {
+      return res.status(404).json({ message: 'Product not found' });
+    }
+
+    return res
+      .status(200)
+      .json({ message: 'Product updated successfully', product });
+  } catch (err) {
+    if (err instanceof Error) {
+      error('Server error!', err.message);
+      return res.status(500).json({ error: err.message });
+    } else {
+      return res.status(500).json({ error: 'Unknown error occurred' });
+    }
+  }
+};
+
+const deleteProduct = async (req: express.Request, res: express.Response) => {
+  const id = req.params.id;
+  const product = await Product.findByIdAndDelete(id);
+  if (!product) {
+    return res.status(404).json({ message: 'Product not found!' });
+  }
+  try {
+    return res
+      .status(200)
+      .json({ message: 'Product deleted successfully', product });
+  } catch (err) {
+    if (err instanceof Error) {
+      error('Server error!', err.message);
+      return res.status(500).json({ error: err.message });
+    } else {
+      return res.status(500).json({ error: 'Unknown error occurred' });
+    }
+  }
+};
+
+export {
+  getAllProducts,
+  createProduct,
+  getProductById,
+  updateProductPartial,
+  deleteProduct,
+};
