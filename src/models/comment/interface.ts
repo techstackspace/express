@@ -5,6 +5,7 @@ interface IComment {
   content: string;
   user: IUser;
   product: IProduct;
+  version: number;
 }
 
 export type { IComment };

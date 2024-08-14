@@ -17,6 +17,7 @@ const ProductSchema = new Schema<IProduct & Document>(
     stock: { type: Number, required: true },
     likes: [{ type: Schema.Types.ObjectId, ref: 'User', default: [] }],
     comments: [{ type: Schema.Types.ObjectId, ref: 'Comment', default: [] }],
+    version: { type: Number, default: 1 },
   },
   { timestamps: true }
 );
