@@ -1,15 +1,29 @@
 import { Request, Response } from 'express';
 import User from '../../../models/user';
 
-const registerUser = async (req: Request, res: Response) => {
-  const { username, email, password } = req.body;
+const getAllUsers = (_req: Request, res: Response) => {
+  try {
+    const users = User.find();
+    res.status(200).json(users);
+  } catch (err) {
+    if (err instanceof Error) {
+      return res.status(500).json({ error: err.message });
+    } else {
+      return res.status(500).json({ error: 'Unknown error occured' });
+    }
+  }
+};
 
-  if (!username || !email || !password) {
+const createUser = async (req: Request, res: Response) => {
+  const { name, username, email, password } = req.body;
+
+  if (!name || !username || !email || !password) {
     return res.status(400).json({ message: 'Missing required field' });
   }
 
   try {
     const user = new User({
+      name,
       username,
       email,
       password,
@@ -42,4 +56,4 @@ const deleteUser = async (req: Request, res: Response) => {
   }
 };
 
-export { registerUser, deleteUser };
+export { getAllUsers, createUser, deleteUser };
