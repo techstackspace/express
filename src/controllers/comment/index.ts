@@ -114,10 +114,46 @@ const deleteComment = async (req: Request, res: Response) => {
   }
 };
 
+const toggleLikeComment = async (req: Request, res: Response) => {
+  const { commentId } = req.params;
+  const userId = req.body.user;
+
+  try {
+    const comment = await Comment.findById(commentId);
+    if (!comment) {
+      return res.status(404).json({ message: 'Comment not found' });
+    }
+
+    const userHasLiked = comment.likes.includes(userId);
+
+    if (userHasLiked) {
+      // User already liked the comment, so remove the like
+      comment.likes.pull(userId);
+    } else {
+      // User has not liked the comment, so add the like
+      comment.likes.push(userId);
+    }
+
+    await comment.save();
+
+    return res
+      .status(200)
+      .json({ message: 'Like toggled successfully', comment });
+  } catch (err) {
+    if (err instanceof Error) {
+      error('Server error!', err.message);
+      return res.status(500).json({ error: err.message });
+    } else {
+      return res.status(500).json({ error: 'Unknown error occurred' });
+    }
+  }
+};
+
 export {
   getAllComments,
   getCommentById,
   createComment,
   updateComment,
   deleteComment,
+  toggleLikeComment,
 };
