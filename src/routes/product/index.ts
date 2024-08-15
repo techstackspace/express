@@ -4,6 +4,7 @@ import {
   deleteProduct,
   getAllProducts,
   getProductById,
+  toggleLikeProduct,
   updateProduct,
 } from '../../controllers/product';
 
@@ -14,5 +15,6 @@ router.get('/products/:id', getProductById);
 router.post('/products', createProduct);
 router.patch('/products/:id', updateProduct);
 router.delete('/products/:id', deleteProduct);
+router.post('/products/:productId/like', toggleLikeProduct);
 
 export default router;
