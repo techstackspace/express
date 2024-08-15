@@ -19,16 +19,20 @@
       color: #333;
     }
 
+    a:active {
+      color: #3532f1;
+    }
+
     pre {
       background: #f4f4f4;
-      padding: 10px;
+      padding: 0 10px 10px;
       border-radius: 5px;
       overflow-x: auto;
     }
 
     .note {
       background-color: #f9f9f9;
-      border-left: 5px solid #4CAF50;
+      border-left: 5px solid #3532f1;
       padding: 15px;
       margin: 20px 0;
       font-family: Arial, sans-serif;
@@ -49,6 +53,10 @@
       background: #e2e2e2;
       padding: 2px 5px;
       border-radius: 3px;
+    }
+
+    pre code {
+      background-color: transparent;
     }
 
     .endpoint {
@@ -84,7 +92,7 @@
     <h3>Note:</h3>
     <p>Use any port, but in this guide, we will use port 5000 for demonstration purposes.</p>
     <p>No token generation or authentication security is implemented here, as we are only creating a user (registration)
-      without login. Authentication and token generation will be covered in a later section.</p>
+      without login. Authentication and token generation will be covered in a later versions.</p>
   </aside>
 
   <h2>Overview</h2>
@@ -128,15 +136,17 @@
     <p><strong>Description:</strong> Creates a new product.</p>
     <p><strong>Authentication:</strong> Not required.</p>
     <p><strong>Body:</strong></p>
-    <pre><code>{
-    "name": "Product Name",
-    "description": "Product Description",
-    "price": 100,
-    "category": "Category",
-    "tags": ["tag1", "tag2"],
-    "brand": "Brand",
-    "stock": 10
-}</code></pre>
+<pre><code>
+{
+  "name": "Product Name",
+  "description": "Product Description",
+  "price": 100,
+  "category": "Category",
+  "tags": ["tag1", "tag2"],
+  "brand": "Brand",
+  "stock": 10
+}
+</code></pre>
     <p><strong>Testing in Postman:</strong></p>
     <ul>
       <li>Set method to <code>POST</code></li>
@@ -189,9 +199,11 @@
     <p><strong>Description:</strong> Toggles a like on a product for the current user.</p>
     <p><strong>Authentication:</strong> Token required.</p>
     <p><strong>Body:</strong></p>
-    <pre><code>{
-    "user": "user_id"
-}</code></pre>
+<pre><code>
+{
+  "user": "user_id"
+}
+</code></pre>
     <p><strong>Testing in Postman:</strong></p>
     <ul>
       <li>Set method to <code>POST</code></li>
@@ -243,11 +255,13 @@
     <p><strong>Description:</strong> Creates a new comment.</p>
     <p><strong>Authentication:</strong> Token required.</p>
     <p><strong>Body:</strong></p>
-    <pre><code>{
-    "user": "user_id",
-    "product": "product_id",
-    "content": "Comment content"
-}</code></pre>
+<pre><code>
+{
+  "user": "user_id",
+  "product": "product_id",
+  "content": "Comment content"
+}
+</code></pre>
     <p><strong>Testing in Postman:</strong></p>
     <ul>
       <li>Set method to <code>POST</code></li>
@@ -303,9 +317,11 @@
     <p><strong>Description:</strong> Toggles a like on a comment for the current user.</p>
     <p><strong>Authentication:</strong> Token required.</p>
     <p><strong>Body:</strong></p>
-    <pre><code>{
-    "user": "user_id"
-}</code></pre>
+<pre><code>
+{
+  "user": "user_id"
+}
+</code></pre>
     <p><strong>Testing in Postman:</strong></p>
     <ul>
       <li>Set method to <code>POST</code></li>
@@ -357,12 +373,14 @@
     <p><strong>Description:</strong> Creates a new user.</p>
     <p><strong>Authentication:</strong> Not required.</p>
     <p><strong>Body:</strong></p>
-    <pre><code>{
-    "name": "User Name",
-    "username": "username",
-    "email": "user@example.com",
-    "password": "password"
-}</code></pre>
+<pre><code>
+{
+  "name": "User Name",
+  "username": "username",
+  "email": "user@example.com",
+  "password": "password"
+}
+</code></pre>
     <p><strong>Testing in Postman:</strong></p>
     <ul>
       <li>Set method to <code>POST</code></li>
@@ -410,7 +428,7 @@
     </ul>
   </div>
 
-  <div class="endpoint">
+  <!-- <div class="endpoint">
     <h3>Login</h3>
     <p><strong>Method:</strong> <code>POST</code></p>
     <p><strong>Endpoint:</strong> <code>/api/users/login</code></p>
@@ -430,7 +448,7 @@
       <li>Enter the JSON payload above</li>
       <li>Click <code>Send</code></li>
     </ul>
-  </div>
+  </div> -->
 
   <h2>Additional Information</h2>
 
