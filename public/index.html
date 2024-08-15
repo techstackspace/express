@@ -26,6 +26,25 @@
       overflow-x: auto;
     }
 
+    .note {
+      background-color: #f9f9f9;
+      border-left: 5px solid #4CAF50;
+      padding: 15px;
+      margin: 20px 0;
+      font-family: Arial, sans-serif;
+      border-radius: 5px;
+    }
+
+    .note h3 {
+      margin-top: 0;
+      color: #333;
+    }
+
+    .note p {
+      margin: 0;
+      color: #666;
+    }
+
     code {
       background: #e2e2e2;
       padding: 2px 5px;
@@ -53,15 +72,20 @@
 
 <body>
   <h1>API Testing Guide for Version 1.0.0</h1>
-  <p>This guide provides instructions on how to test various API endpoints using HTTP clients such as <a href="https://www.postman.com/product/rest-client" target="_blank" rel="noopener noreferrer">Postman</a>, <a href="https://www.usebruno.com" target="_blank" rel="noopener noreferrer">Bruno</a>,
-    and <a href='https://www.thunderclient.com' target="_blank" rel="noopener noreferrer">Thunder Client</a>, <a href='https://www.indomnia.com' target="_blank" rel="noopener noreferrer">Thunder Client</a>. Note that in version 1.0.0 of the API, authentication tokens are required for certain endpoints.
+  <p>This guide provides instructions on how to test various API endpoints using HTTP clients such as <a
+      href="https://www.postman.com/product/rest-client" target="_blank" rel="noopener noreferrer">Postman</a>, <a
+      href="https://www.usebruno.com" target="_blank" rel="noopener noreferrer">Bruno</a>,
+    and <a href='https://www.thunderclient.com' target="_blank" rel="noopener noreferrer">Thunder Client</a>, <a
+      href='https://www.indomnia.com' target="_blank" rel="noopener noreferrer">Thunder Client</a>. Note that in version
+    1.0.0 of the API, authentication tokens are required for certain endpoints.
   </p>
 
   <aside class="note">
     <h3>Note:</h3>
     <p>Use any port, but in this guide, we will use port 5000 for demonstration purposes.</p>
-    <p>No token generation or authentication security is implemented here, as we are only creating a user (registration) without login. Authentication and token generation will be covered in a later section.</p>
-</aside>
+    <p>No token generation or authentication security is implemented here, as we are only creating a user (registration)
+      without login. Authentication and token generation will be covered in a later section.</p>
+  </aside>
 
   <h2>Overview</h2>
   <p>The API includes endpoints for managing products, comments, and users. Here's how you can test each endpoint:</p>
