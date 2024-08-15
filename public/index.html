@@ -53,6 +53,52 @@
       line-height: 1.6;
       margin: 20px;
       padding: 0;
+      position: relative;
+    }
+
+    body::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-image: url('./assets/icons/logo.avif');
+      background-repeat: no-repeat;
+      background-position: center;
+      opacity: 0.5;
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    nav img {
+      border: 1px solid #827f7f;
+      border-radius: 100%;
+    }
+
+    nav a {
+      padding: 10px 15px;
+      border: 1px solid transparent;
+    }
+
+    nav a:hover {
+      background-color: #0000EE;
+      border: 1px solid #827f7f;
+      border-radius: 4px;
+    }
+
+    .download {
+      color: #fff;
+      background-color: #000;
+      border-radius: 4px;
+      border: 1px solid #827f7f;
+      text-decoration: none;
     }
 
     h1,
@@ -118,24 +164,83 @@
     .endpoint ul {
       padding-left: 20px;
     }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      margin: 0;
+      padding: 0;
+    }
+
+    .hamburger-menu {
+      display: none;
+      cursor: pointer;
+    }
+
+    .hamburger-menu div {
+      width: 25px;
+      height: 3px;
+      background-color: #fff;
+      margin: 5px 0;
+    }
+
+    @media screen and (max-width: 1048px) {
+      nav ul {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        position: absolute;
+        top: 60px;
+        left: 0;
+        background-color: #333;
+        margin-block: 20px;
+      }
+
+      nav li {
+        margin-block: 10px;
+        margin-left: 1rem;
+      }
+
+      nav a {
+        display: block;
+        border-radius: 0;
+      }
+
+      nav ul.show {
+        display: flex;
+      }
+
+      .hamburger-menu {
+        display: block;
+      }
+    }
   </style>
 </head>
 
 <body>
   <nav style="background: #333; color: #fff; padding: 1rem;">
-    <ul style="list-style: none; display: flex; margin: 0; padding: 0;">
+    <img src="./assets/icons/logo.svg" width="50" height="50" />
+
+    <div class="hamburger-menu">
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+
+    <ul>
       <li style="margin-right: 1rem;"><a href="/" style="color: #fff; text-decoration: none;">Home</a></li>
       <li style="margin-right: 1rem;"><a href="/api/products" style="color: #fff; text-decoration: none;">Products</a>
       </li>
+      <li style="margin-right: 1rem;"><a href="/api/users" style="color: #fff; text-decoration: none;">Users</a></li>
       <li style="margin-right: 1rem;"><a href="/api/comments" style="color: #fff; text-decoration: none;">Comments</a>
       </li>
       <li style="margin-right: 1rem;"><a href="https://x.com/techstackspace" target="_blank" rel="noopener noreferrer"
           style="color: #fff; text-decoration: none;">Contact</a></li>
       <li style="margin-right: 1rem;"><a href="https://github.com/techstackspace/express" target="_blank"
           rel="noopener noreferrer" style="color: #fff; text-decoration: none;">GitHub</a></li>
-      <li style="margin-right: 1rem;"><a href="https://github.com/techstackspace/express/releases/tag/v1.0.0"
-          target="_blank" rel="noopener noreferrer" style="color: #fff; text-decoration: none;">Download Source Code</a>
-      </li>
+      <li style="margin-right: 1rem;"><a class='download'
+          href="https://github.com/techstackspace/express/releases/tag/v1.0.0" target="_blank"
+          rel="noopener noreferrer">Download Source Code</a></li>
     </ul>
   </nav>
 
@@ -144,7 +249,7 @@
       href="https://www.postman.com/product/rest-client" target="_blank" rel="noopener noreferrer">Postman</a>, <a
       href="https://www.usebruno.com" target="_blank" rel="noopener noreferrer">Bruno</a>,
     and <a href='https://www.thunderclient.com' target="_blank" rel="noopener noreferrer">Thunder Client</a>, <a
-      href='https://www.indomnia.com' target="_blank" rel="noopener noreferrer">Thunder Client</a>. Note that in version
+      href='https://www.indomnia.com' target="_blank" rel="noopener noreferrer">Indomnia</a>. Note that in version
     1.0.0 of the API, authentication tokens are required for certain endpoints.
   </p>
 
@@ -532,9 +637,21 @@
     <p><a href="https://techstackspace.com/about" style="color: #fff; text-decoration: none;">About Us</a> | <a
         href="https://techstackspace.com/privacy" style="color: #fff; text-decoration: none;">Privacy Policy</a> | <a
         href="https://techstackspace.com/terms" style="color: #fff; text-decoration: none;">Terms of Service</a></p>
-    <span>Made with ❤️ by <a href="https://bio.link/bello" target="_blank" rel="noopener noreferrer" style="color: #fff;">Bello
+    <span>Made with ❤️ by <a href="https://bio.link/bello" target="_blank" rel="noopener noreferrer"
+        style="color: #fff;">Bello
         Osagie</a></span>
   </footer>
+  <script defer>
+    document.addEventListener('DOMContentLoaded', function () {
+      const menu = document.querySelector('nav ul');
+      const hamburger = document.querySelector('.hamburger-menu');
+
+      hamburger.addEventListener('click', function () {
+        menu.classList.toggle('show');
+      });
+    });
+
+  </script>
 </body>
 
 </html>
