@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import Product from '../../models/product';
 import { error } from '../../config/debugger';
+import { Types } from 'mongoose';
 
 const getAllProducts = async (_req: Request, res: Response) => {
   try {
@@ -106,10 +107,45 @@ const deleteProduct = async (req: Request, res: Response) => {
   }
 };
 
+const toggleLikeProduct = async (req: Request, res: Response) => {
+  const { productId } = req.params;
+  const userId = req.body.user;
+  if (!Types.ObjectId.isValid(productId) || !Types.ObjectId.isValid(userId)) {
+    return res
+      .status(400)
+      .json({ message: 'Invalid ID format or Missing required field' });
+  }
+  try {
+    const product = await Product.findById(productId);
+    if (!product) {
+      return res.status(404).json({ message: 'Product not found' });
+    }
+    const userHasLiked = product.likes.includes(userId);
+    if (userHasLiked) {
+      const index = product.likes.findIndex((id) => id === userId);
+      product.likes.splice(index, 1);
+    } else {
+      product.likes.push(userId);
+    }
+    const savedProduct = await product.save();
+    return res
+      .status(201)
+      .json({ message: 'Like toggled successfully', product: savedProduct });
+  } catch (err) {
+    if (err instanceof Error) {
+      error('Server error!', err.message);
+      return res.status(500).json({ error: err.message });
+    } else {
+      return res.status(500).json({ error: 'Unknown error occurred' });
+    }
+  }
+};
+
 export {
   getAllProducts,
   createProduct,
   getProductById,
   updateProduct,
   deleteProduct,
+  toggleLikeProduct,
 };
