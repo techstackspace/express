@@ -1,3 +1,4 @@
+import { ObjectId } from 'mongoose';
 import { IProduct } from '../product/interface';
 import { IUser } from '../user/interface';
 
@@ -5,7 +6,7 @@ interface IComment {
   content: string;
   user: IUser;
   product: IProduct;
-  likes: IUser;
+  likes: ObjectId[];
   version: number;
 }
 
