@@ -14,7 +14,7 @@ connectionToDB();
 
 app.use(express.static('public'));
 app.use(express.static('public/assets/favicon'));
-app.use('/api', productRoutes);
+app.use('/api', productRoutes);git branch
 app.use('/api', userRoutes);
 app.use('/api', commentRoutes);
 
