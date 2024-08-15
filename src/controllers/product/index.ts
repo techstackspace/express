@@ -19,7 +19,7 @@ const getAllProducts = async (_req: Request, res: Response) => {
 const getProductById = async (req: Request, res: Response) => {
   const id = req.params.id;
   try {
-    const product = await Product.findById(id);
+    const product = await Product.findById(id).populate('comments');
     if (!product) {
       return res.status(404).json({ message: 'Product not found' });
     }

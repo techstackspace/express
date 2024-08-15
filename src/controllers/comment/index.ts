@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import { error } from '../../config/debugger';
 import Comment from '../../models/comment';
+import Product from '../../models/product';
 
 const getAllComments = async (_req: Request, res: Response) => {
   try {
@@ -44,6 +45,9 @@ const createComment = async (req: Request, res: Response) => {
   try {
     const comment = new Comment({ user, product, content });
     const savedComment = await comment.save();
+    await Product.findByIdAndUpdate(product, {
+      $push: { comments: savedComment._id },
+    });
     return res.status(201).json({ comment: savedComment });
   } catch (err) {
     if (err instanceof Error) {
@@ -90,6 +94,11 @@ const deleteComment = async (req: Request, res: Response) => {
     if (!comment) {
       return res.status(404).json({ message: 'Comment not found' });
     }
+
+    await Product.findByIdAndUpdate(comment.product, {
+      $pull: { comments: comment._id },
+    });
+
     return res
       .status(200)
       .json({ message: 'Comment deleted successfully', comment });
