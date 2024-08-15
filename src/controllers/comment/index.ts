@@ -127,10 +127,8 @@ const toggleLikeComment = async (req: Request, res: Response) => {
     const userHasLiked = comment.likes.includes(userId);
 
     if (userHasLiked) {
-      // User already liked the comment, so remove the like
       comment.likes.pull(userId);
     } else {
-      // User has not liked the comment, so add the like
       comment.likes.push(userId);
     }
 
