@@ -173,13 +173,22 @@
     <p><strong>Body:</strong></p>
     <pre><code>
 {
-  "name": "Product Name",
-  "description": "Product Description",
-  "price": 100,
-  "category": "Category",
-  "tags": ["tag1", "tag2"],
-  "brand": "Brand",
-  "stock": 10
+  "name": "Product Name",             // Required
+  "description": "Product Description", // Required
+  "price": 100,                       // Required
+  "category": "Category",             // Required
+  "tags": ["tag1", "tag2"],           // Required
+  "brand": "Brand",                   // Required
+  "stock": 10,                        // Required
+
+  // Optional Fields
+  "rating": 4.5,                      // Optional
+  "reviews": "Excellent product!",    // Optional
+  "likes": [],                        // Optional
+  "comments": [],                     // Optional
+  "image": [],                        // Optional
+  "video": [],                        // Optional
+  "pdf": []                           // Optional
 }
 </code></pre>
     <p><strong>Testing in Postman:</strong></p>
