@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import { error } from '../../config/debugger';
 import Comment from '../../models/comment';
 import Product from '../../models/product';
+import { Types } from 'mongoose';
 
 const getAllComments = async (_req: Request, res: Response) => {
   try {
@@ -118,16 +119,33 @@ const toggleLikeComment = async (req: Request, res: Response) => {
   const { commentId } = req.params;
   const userId = req.body.user;
 
+  if (!Types.ObjectId.isValid(commentId) || !Types.ObjectId.isValid(userId)) {
+    return res.status(400).json({ message: 'Invalid ID format' });
+  }
+
   try {
     const comment = await Comment.findById(commentId);
     if (!comment) {
       return res.status(404).json({ message: 'Comment not found' });
     }
 
+    // const userHasLiked = comment.likes.some(like => like.equals(userId));
     const userHasLiked = comment.likes.includes(userId);
 
+    // if (userHasLiked) {
+    //    // User already liked the comment, so remove the like
+    //    await Comment.findByIdAndUpdate(commentId, { $pull: { likes: userId } });
+    //  } else {
+    //    // User has not liked the comment, so add the like
+    //    await Comment.findByIdAndUpdate(commentId, { $push: { likes: userId } });
+    //  }
+
+    // const updatedComment = await Comment.findById(commentId); // Get the updated comment
+
     if (userHasLiked) {
-      comment.likes.pull(userId);
+      //  comment.likes.pull(userId);
+      const index = comment.likes.findIndex((id) => id === userId);
+      comment.likes.splice(index, 1);
     } else {
       comment.likes.push(userId);
     }
