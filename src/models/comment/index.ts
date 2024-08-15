@@ -6,6 +6,7 @@ const CommentSchema = new Schema<IComment & Document>(
     content: { type: String, required: true },
     user: { type: Schema.Types.ObjectId, ref: 'User', required: true },
     product: { type: Schema.Types.ObjectId, ref: 'Product', required: true },
+    likes: [{ type: Schema.Types.ObjectId, ref: 'User', default: [] }],
     version: { type: Number, default: 1 },
   },
   { timestamps: true }
