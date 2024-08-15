@@ -5,6 +5,7 @@ interface IComment {
   content: string;
   user: IUser;
   product: IProduct;
+  likes: IUser;
   version: number;
 }
 
