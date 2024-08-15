@@ -129,21 +129,8 @@ const toggleLikeComment = async (req: Request, res: Response) => {
       return res.status(404).json({ message: 'Comment not found' });
     }
 
-    // const userHasLiked = comment.likes.some(like => like.equals(userId));
     const userHasLiked = comment.likes.includes(userId);
-
-    // if (userHasLiked) {
-    //    // User already liked the comment, so remove the like
-    //    await Comment.findByIdAndUpdate(commentId, { $pull: { likes: userId } });
-    //  } else {
-    //    // User has not liked the comment, so add the like
-    //    await Comment.findByIdAndUpdate(commentId, { $push: { likes: userId } });
-    //  }
-
-    // const updatedComment = await Comment.findById(commentId); // Get the updated comment
-
     if (userHasLiked) {
-      //  comment.likes.pull(userId);
       const index = comment.likes.findIndex((id) => id === userId);
       comment.likes.splice(index, 1);
     } else {
