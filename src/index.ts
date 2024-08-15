@@ -13,7 +13,7 @@ app.use(json());
 connectionToDB();
 
 app.use(express.static('public'));
-app.use('/favicon', express.static('public/assets/favicon'));
+app.use(express.static('public/assets/favicon'));
 app.use('/api', productRoutes);
 app.use('/api', userRoutes);
 app.use('/api', commentRoutes);
