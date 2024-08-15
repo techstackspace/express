@@ -10,6 +10,7 @@ const port = process.env.PORT || 5000;
 
 // Middleware
 app.use(json());
+// app.use(static())
 
 connectionToDB();
 
@@ -17,6 +18,7 @@ connectionToDB();
 app.use('/api', productRoutes);
 app.use('/api', userRoutes);
 app.use('/api', commentRoutes);
+app.use(express.static('public'));
 
 app.listen(port, () => {
   log(`Server is running on http://localhost:${port}`);
