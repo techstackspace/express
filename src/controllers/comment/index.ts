@@ -45,9 +45,11 @@ const createComment = async (req: Request, res: Response) => {
   try {
     const comment = new Comment({ user, product, content });
     const savedComment = await comment.save();
+
     await Product.findByIdAndUpdate(product, {
       $push: { comments: savedComment._id },
     });
+
     return res.status(201).json({ comment: savedComment });
   } catch (err) {
     if (err instanceof Error) {
