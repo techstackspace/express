@@ -261,7 +261,8 @@
     <p>Use any port, but in this guide, we will use port 5000 for demonstration purposes.</p>
     <p>No token generation or authentication security is implemented here, as we are only creating a user (registration)
       without login. Authentication and token generation will be covered in a <a
-        href="https://github.com/techstackspace/express/tags" target="_blank" rel="noopener noreferrer>later versions</a>.</p>
+        href="https://github.com/techstackspace/express/tags" target="_blank" rel="noopener noreferrer">later
+        versions</a>.</p>
   </aside>
 
   <h2>Overview</h2>
@@ -269,44 +270,44 @@
 
   <h2>1. Products Endpoints</h2>
 
-  <div class=" endpoint">
-        <h3>Get All Products</h3>
-        <p><strong>Method:</strong> <code>GET</code></p>
-        <p><strong>Endpoint:</strong> <code>/api/products</code></p>
-        <p><strong>Description:</strong> Retrieves a list of all products.</p>
-        <p><strong>Authentication:</strong> Not required.</p>
-        <p><strong>Testing in Postman:</strong></p>
-        <ul>
-          <li>Set method to <code>GET</code></li>
-          <li>Enter URL: <code>http://localhost:5000/api/products</code></li>
-          <li>Click <code>Send</code></li>
-        </ul>
-        </div>
+  <div class="endpoint">
+    <h3>Get All Products</h3>
+    <p><strong>Method:</strong> <code>GET</code></p>
+    <p><strong>Endpoint:</strong> <code>/api/products</code></p>
+    <p><strong>Description:</strong> Retrieves a list of all products.</p>
+    <p><strong>Authentication:</strong> Not required.</p>
+    <p><strong>Testing in Postman:</strong></p>
+    <ul>
+      <li>Set method to <code>GET</code></li>
+      <li>Enter URL: <code>http://localhost:5000/api/products</code></li>
+      <li>Click <code>Send</code></li>
+    </ul>
+  </div>
 
-        <div class="endpoint">
-          <h3>Get Product By ID</h3>
-          <p><strong>Method:</strong> <code>GET</code></p>
-          <p><strong>Endpoint:</strong> <code>/api/products/:id</code></p>
-          <p><strong>Description:</strong> Retrieves a single product by its ID.</p>
-          <p><strong>Authentication:</strong> Not required.</p>
-          <p><strong>Testing in Postman:</strong></p>
-          <ul>
-            <li>Set method to <code>GET</code></li>
-            <li>Enter URL: <code>http://localhost:5000/api/products/{id}</code> (Replace <code>{id}</code> with the
-              actual
-              product ID)</li>
-            <li>Click <code>Send</code></li>
-          </ul>
-        </div>
+  <div class="endpoint">
+    <h3>Get Product By ID</h3>
+    <p><strong>Method:</strong> <code>GET</code></p>
+    <p><strong>Endpoint:</strong> <code>/api/products/:id</code></p>
+    <p><strong>Description:</strong> Retrieves a single product by its ID.</p>
+    <p><strong>Authentication:</strong> Not required.</p>
+    <p><strong>Testing in Postman:</strong></p>
+    <ul>
+      <li>Set method to <code>GET</code></li>
+      <li>Enter URL: <code>http://localhost:5000/api/products/{id}</code> (Replace <code>{id}</code> with the
+        actual
+        product ID)</li>
+      <li>Click <code>Send</code></li>
+    </ul>
+  </div>
 
-        <div class="endpoint">
-          <h3>Create Product</h3>
-          <p><strong>Method:</strong> <code>POST</code></p>
-          <p><strong>Endpoint:</strong> <code>/api/products</code></p>
-          <p><strong>Description:</strong> Creates a new product.</p>
-          <p><strong>Authentication:</strong> Not required.</p>
-          <p><strong>Body:</strong></p>
-          <pre><code>
+  <div class="endpoint">
+    <h3>Create Product</h3>
+    <p><strong>Method:</strong> <code>POST</code></p>
+    <p><strong>Endpoint:</strong> <code>/api/products</code></p>
+    <p><strong>Description:</strong> Creates a new product.</p>
+    <p><strong>Authentication:</strong> Not required.</p>
+    <p><strong>Body:</strong></p>
+    <pre><code>
 {
   // Required Fields
   "name": "Product Name",
@@ -327,241 +328,243 @@
   "pdfs": []
 }
 </code></pre>
-          <p><strong>Testing in Postman:</strong></p>
-          <ul>
-            <li>Set method to <code>POST</code></li>
-            <li>Enter URL: <code>http://localhost:5000/api/products</code></li>
-            <li>Select <code>Body</code> tab</li>
-            <li>Choose <code>raw</code> and set format to <code>JSON</code></li>
-            <li>Enter the JSON payload above</li>
-            <li>Click <code>Send</code></li>
-          </ul>
-        </div>
+    <p><strong>Testing in Postman:</strong></p>
+    <ul>
+      <li>Set method to <code>POST</code></li>
+      <li>Enter URL: <code>http://localhost:5000/api/products</code></li>
+      <li>Select <code>Body</code> tab</li>
+      <li>Choose <code>raw</code> and set format to <code>JSON</code></li>
+      <li>Enter the JSON payload above</li>
+      <li>Click <code>Send</code></li>
+    </ul>
+  </div>
 
-        <div class="endpoint">
-          <h3>Update Product</h3>
-          <p><strong>Method:</strong> <code>PATCH</code></p>
-          <p><strong>Endpoint:</strong> <code>/api/products/:id</code></p>
-          <p><strong>Description:</strong> Updates an existing product by its ID.</p>
-          <p><strong>Authentication:</strong> Not required.</p>
-          <p><strong>Body:</strong> JSON object with fields to update.</p>
-          <p><strong>Testing in Postman:</strong></p>
-          <ul>
-            <li>Set method to <code>PATCH</code></li>
-            <li>Enter URL: <code>http://localhost:5000/api/products/{id}</code> (Replace <code>{id}</code> with the
-              actual
-              product ID)</li>
-            <li>Select <code>Body</code> tab</li>
-            <li>Choose <code>raw</code> and set format to <code>JSON</code></li>
-            <li>Enter the JSON payload with fields to update</li>
-            <li>Click <code>Send</code></li>
-          </ul>
-        </div>
+  <div class="endpoint">
+    <h3>Update Product</h3>
+    <p><strong>Method:</strong> <code>PATCH</code></p>
+    <p><strong>Endpoint:</strong> <code>/api/products/:id</code></p>
+    <p><strong>Description:</strong> Updates an existing product by its ID.</p>
+    <p><strong>Authentication:</strong> Not required.</p>
+    <p><strong>Body:</strong> JSON object with fields to update.</p>
+    <p><strong>Testing in Postman:</strong></p>
+    <ul>
+      <li>Set method to <code>PATCH</code></li>
+      <li>Enter URL: <code>http://localhost:5000/api/products/{id}</code> (Replace <code>{id}</code> with the
+        actual
+        product ID)</li>
+      <li>Select <code>Body</code> tab</li>
+      <li>Choose <code>raw</code> and set format to <code>JSON</code></li>
+      <li>Enter the JSON payload with fields to update</li>
+      <li>Click <code>Send</code></li>
+    </ul>
+  </div>
 
-        <div class="endpoint">
-          <h3>Delete Product</h3>
-          <p><strong>Method:</strong> <code>DELETE</code></p>
-          <p><strong>Endpoint:</strong> <code>/api/products/:id</code></p>
-          <p><strong>Description:</strong> Deletes a product by its ID.</p>
-          <p><strong>Authentication:</strong> Not required.</p>
-          <p><strong>Testing in Postman:</strong></p>
-          <ul>
-            <li>Set method to <code>DELETE</code></li>
-            <li>Enter URL: <code>http://localhost:5000/api/products/{id}</code> (Replace <code>{id}</code> with the
-              actual
-              product ID)</li>
-            <li>Click <code>Send</code></li>
-          </ul>
-        </div>
+  <div class="endpoint">
+    <h3>Delete Product</h3>
+    <p><strong>Method:</strong> <code>DELETE</code></p>
+    <p><strong>Endpoint:</strong> <code>/api/products/:id</code></p>
+    <p><strong>Description:</strong> Deletes a product by its ID.</p>
+    <p><strong>Authentication:</strong> Not required.</p>
+    <p><strong>Testing in Postman:</strong></p>
+    <ul>
+      <li>Set method to <code>DELETE</code></li>
+      <li>Enter URL: <code>http://localhost:5000/api/products/{id}</code> (Replace <code>{id}</code> with the
+        actual
+        product ID)</li>
+      <li>Click <code>Send</code></li>
+    </ul>
+  </div>
 
-        <div class="endpoint">
-          <h3>Toggle Like Product</h3>
-          <p><strong>Method:</strong> <code>POST</code></p>
-          <p><strong>Endpoint:</strong> <code>/api/products/:productId/like</code></p>
-          <p><strong>Description:</strong> Toggles a like on a product for the current user.</p>
-          <p><strong>Authentication:</strong> Token required.</p>
-          <p><strong>Body:</strong></p>
-          <pre><code>
+  <div class="endpoint">
+    <h3>Toggle Like Product</h3>
+    <p><strong>Method:</strong> <code>POST</code></p>
+    <p><strong>Endpoint:</strong> <code>/api/products/:productId/like</code></p>
+    <p><strong>Description:</strong> Toggles a like on a product for the current user.</p>
+    <p><strong>Authentication:</strong> Token required.</p>
+    <p><strong>Body:</strong></p>
+    <pre><code>
 {
   "user": "user_id"
 }
 </code></pre>
-          <p><strong>Testing in Postman:</strong></p>
-          <ul>
-            <li>Set method to <code>POST</code></li>
-            <li>Enter URL: <code>http://localhost:5000/api/products/{productId}/like</code> (Replace
-              <code>{productId}</code>
-              with the actual product ID)</li>
-            <li>Select <code>Body</code> tab</li>
-            <li>Choose <code>raw</code> and set format to <code>JSON</code></li>
-            <li>Enter the JSON payload above</li>
-            <li>Add <code>Authorization</code> header with <code>Bearer YOUR_TOKEN</code></li>
-            <li>Click <code>Send</code></li>
-          </ul>
-        </div>
+    <p><strong>Testing in Postman:</strong></p>
+    <ul>
+      <li>Set method to <code>POST</code></li>
+      <li>Enter URL: <code>http://localhost:5000/api/products/{productId}/like</code> (Replace
+        <code>{productId}</code>
+        with the actual product ID)
+      </li>
+      <li>Select <code>Body</code> tab</li>
+      <li>Choose <code>raw</code> and set format to <code>JSON</code></li>
+      <li>Enter the JSON payload above</li>
+      <li>Add <code>Authorization</code> header with <code>Bearer YOUR_TOKEN</code></li>
+      <li>Click <code>Send</code></li>
+    </ul>
+  </div>
 
-        <h2>2. Comments Endpoints</h2>
+  <h2>2. Comments Endpoints</h2>
 
-        <div class="endpoint">
-          <h3>Get All Comments</h3>
-          <p><strong>Method:</strong> <code>GET</code></p>
-          <p><strong>Endpoint:</strong> <code>/api/comments</code></p>
-          <p><strong>Description:</strong> Retrieves a list of all comments.</p>
-          <p><strong>Authentication:</strong> Not required.</p>
-          <p><strong>Testing in Postman:</strong></p>
-          <ul>
-            <li>Set method to <code>GET</code></li>
-            <li>Enter URL: <code>http://localhost:5000/api/comments</code></li>
-            <li>Click <code>Send</code></li>
-          </ul>
-        </div>
+  <div class="endpoint">
+    <h3>Get All Comments</h3>
+    <p><strong>Method:</strong> <code>GET</code></p>
+    <p><strong>Endpoint:</strong> <code>/api/comments</code></p>
+    <p><strong>Description:</strong> Retrieves a list of all comments.</p>
+    <p><strong>Authentication:</strong> Not required.</p>
+    <p><strong>Testing in Postman:</strong></p>
+    <ul>
+      <li>Set method to <code>GET</code></li>
+      <li>Enter URL: <code>http://localhost:5000/api/comments</code></li>
+      <li>Click <code>Send</code></li>
+    </ul>
+  </div>
 
-        <div class="endpoint">
-          <h3>Get Comment By ID</h3>
-          <p><strong>Method:</strong> <code>GET</code></p>
-          <p><strong>Endpoint:</strong> <code>/api/comments/:id</code></p>
-          <p><strong>Description:</strong> Retrieves a single comment by its ID.</p>
-          <p><strong>Authentication:</strong> Not required.</p>
-          <p><strong>Testing in Postman:</strong></p>
-          <ul>
-            <li>Set method to <code>GET</code></li>
-            <li>Enter URL: <code>http://localhost:5000/api/comments/{id}</code> (Replace <code>{id}</code> with the
-              actual
-              comment ID)</li>
-            <li>Click <code>Send</code></li>
-          </ul>
-        </div>
+  <div class="endpoint">
+    <h3>Get Comment By ID</h3>
+    <p><strong>Method:</strong> <code>GET</code></p>
+    <p><strong>Endpoint:</strong> <code>/api/comments/:id</code></p>
+    <p><strong>Description:</strong> Retrieves a single comment by its ID.</p>
+    <p><strong>Authentication:</strong> Not required.</p>
+    <p><strong>Testing in Postman:</strong></p>
+    <ul>
+      <li>Set method to <code>GET</code></li>
+      <li>Enter URL: <code>http://localhost:5000/api/comments/{id}</code> (Replace <code>{id}</code> with the
+        actual
+        comment ID)</li>
+      <li>Click <code>Send</code></li>
+    </ul>
+  </div>
 
-        <div class="endpoint">
-          <h3>Create Comment</h3>
-          <p><strong>Method:</strong> <code>POST</code></p>
-          <p><strong>Endpoint:</strong> <code>/api/comments</code></p>
-          <p><strong>Description:</strong> Creates a new comment.</p>
-          <p><strong>Authentication:</strong> Token required.</p>
-          <p><strong>Body:</strong></p>
-          <pre><code>
+  <div class="endpoint">
+    <h3>Create Comment</h3>
+    <p><strong>Method:</strong> <code>POST</code></p>
+    <p><strong>Endpoint:</strong> <code>/api/comments</code></p>
+    <p><strong>Description:</strong> Creates a new comment.</p>
+    <p><strong>Authentication:</strong> Token required.</p>
+    <p><strong>Body:</strong></p>
+    <pre><code>
 {
   "user": "user_id",
   "product": "product_id",
   "content": "Comment content"
 }
 </code></pre>
-          <p><strong>Testing in Postman:</strong></p>
-          <ul>
-            <li>Set method to <code>POST</code></li>
-            <li>Enter URL: <code>http://localhost:5000/api/comments</code></li>
-            <li>Select <code>Body</code> tab</li>
-            <li>Choose <code>raw</code> and set format to <code>JSON</code></li>
-            <li>Enter the JSON payload above</li>
-            <li>Add <code>Authorization</code> header with <code>Bearer YOUR_TOKEN</code></li>
-            <li>Click <code>Send</code></li>
-          </ul>
-        </div>
+    <p><strong>Testing in Postman:</strong></p>
+    <ul>
+      <li>Set method to <code>POST</code></li>
+      <li>Enter URL: <code>http://localhost:5000/api/comments</code></li>
+      <li>Select <code>Body</code> tab</li>
+      <li>Choose <code>raw</code> and set format to <code>JSON</code></li>
+      <li>Enter the JSON payload above</li>
+      <li>Add <code>Authorization</code> header with <code>Bearer YOUR_TOKEN</code></li>
+      <li>Click <code>Send</code></li>
+    </ul>
+  </div>
 
-        <div class="endpoint">
-          <h3>Update Comment</h3>
-          <p><strong>Method:</strong> <code>PATCH</code></p>
-          <p><strong>Endpoint:</strong> <code>/api/comments/:id</code></p>
-          <p><strong>Description:</strong> Updates an existing comment by its ID.</p>
-          <p><strong>Authentication:</strong> Token required.</p>
-          <p><strong>Body:</strong> JSON object with fields to update.</p>
-          <p><strong>Testing in Postman:</strong></p>
-          <ul>
-            <li>Set method to <code>PATCH</code></li>
-            <li>Enter URL: <code>http://localhost:5000/api/comments/{id}</code> (Replace <code>{id}</code> with the
-              actual
-              comment ID)</li>
-            <li>Select <code>Body</code> tab</li>
-            <li>Choose <code>raw</code> and set format to <code>JSON</code></li>
-            <li>Enter the JSON payload with fields to update</li>
-            <li>Add <code>Authorization</code> header with <code>Bearer YOUR_TOKEN</code></li>
-            <li>Click <code>Send</code></li>
-          </ul>
-        </div>
+  <div class="endpoint">
+    <h3>Update Comment</h3>
+    <p><strong>Method:</strong> <code>PATCH</code></p>
+    <p><strong>Endpoint:</strong> <code>/api/comments/:id</code></p>
+    <p><strong>Description:</strong> Updates an existing comment by its ID.</p>
+    <p><strong>Authentication:</strong> Token required.</p>
+    <p><strong>Body:</strong> JSON object with fields to update.</p>
+    <p><strong>Testing in Postman:</strong></p>
+    <ul>
+      <li>Set method to <code>PATCH</code></li>
+      <li>Enter URL: <code>http://localhost:5000/api/comments/{id}</code> (Replace <code>{id}</code> with the
+        actual
+        comment ID)</li>
+      <li>Select <code>Body</code> tab</li>
+      <li>Choose <code>raw</code> and set format to <code>JSON</code></li>
+      <li>Enter the JSON payload with fields to update</li>
+      <li>Add <code>Authorization</code> header with <code>Bearer YOUR_TOKEN</code></li>
+      <li>Click <code>Send</code></li>
+    </ul>
+  </div>
 
-        <div class="endpoint">
-          <h3>Delete Comment</h3>
-          <p><strong>Method:</strong> <code>DELETE</code></p>
-          <p><strong>Endpoint:</strong> <code>/api/comments/:id</code></p>
-          <p><strong>Description:</strong> Deletes a comment by its ID.</p>
-          <p><strong>Authentication:</strong> Token required.</p>
-          <p><strong>Testing in Postman:</strong></p>
-          <ul>
-            <li>Set method to <code>DELETE</code></li>
-            <li>Enter URL: <code>http://localhost:5000/api/comments/{id}</code> (Replace <code>{id}</code> with the
-              actual
-              comment ID)</li>
-            <li>Add <code>Authorization</code> header with <code>Bearer YOUR_TOKEN</code></li>
-            <li>Click <code>Send</code></li>
-          </ul>
-        </div>
+  <div class="endpoint">
+    <h3>Delete Comment</h3>
+    <p><strong>Method:</strong> <code>DELETE</code></p>
+    <p><strong>Endpoint:</strong> <code>/api/comments/:id</code></p>
+    <p><strong>Description:</strong> Deletes a comment by its ID.</p>
+    <p><strong>Authentication:</strong> Token required.</p>
+    <p><strong>Testing in Postman:</strong></p>
+    <ul>
+      <li>Set method to <code>DELETE</code></li>
+      <li>Enter URL: <code>http://localhost:5000/api/comments/{id}</code> (Replace <code>{id}</code> with the
+        actual
+        comment ID)</li>
+      <li>Add <code>Authorization</code> header with <code>Bearer YOUR_TOKEN</code></li>
+      <li>Click <code>Send</code></li>
+    </ul>
+  </div>
 
-        <div class="endpoint">
-          <h3>Toggle Like Comment</h3>
-          <p><strong>Method:</strong> <code>POST</code></p>
-          <p><strong>Endpoint:</strong> <code>/api/comments/:commentId/like</code></p>
-          <p><strong>Description:</strong> Toggles a like on a comment for the current user.</p>
-          <p><strong>Authentication:</strong> Token required.</p>
-          <p><strong>Body:</strong></p>
-          <pre><code>
+  <div class="endpoint">
+    <h3>Toggle Like Comment</h3>
+    <p><strong>Method:</strong> <code>POST</code></p>
+    <p><strong>Endpoint:</strong> <code>/api/comments/:commentId/like</code></p>
+    <p><strong>Description:</strong> Toggles a like on a comment for the current user.</p>
+    <p><strong>Authentication:</strong> Token required.</p>
+    <p><strong>Body:</strong></p>
+    <pre><code>
 {
   "user": "user_id"
 }
 </code></pre>
-          <p><strong>Testing in Postman:</strong></p>
-          <ul>
-            <li>Set method to <code>POST</code></li>
-            <li>Enter URL: <code>http://localhost:5000/api/comments/{commentId}/like</code> (Replace
-              <code>{commentId}</code>
-              with the actual comment ID)</li>
-            <li>Select <code>Body</code> tab</li>
-            <li>Choose <code>raw</code> and set format to <code>JSON</code></li>
-            <li>Enter the JSON payload above</li>
-            <li>Add <code>Authorization</code> header with <code>Bearer YOUR_TOKEN</code></li>
-            <li>Click <code>Send</code></li>
-          </ul>
-        </div>
+    <p><strong>Testing in Postman:</strong></p>
+    <ul>
+      <li>Set method to <code>POST</code></li>
+      <li>Enter URL: <code>http://localhost:5000/api/comments/{commentId}/like</code> (Replace
+        <code>{commentId}</code>
+        with the actual comment ID)
+      </li>
+      <li>Select <code>Body</code> tab</li>
+      <li>Choose <code>raw</code> and set format to <code>JSON</code></li>
+      <li>Enter the JSON payload above</li>
+      <li>Add <code>Authorization</code> header with <code>Bearer YOUR_TOKEN</code></li>
+      <li>Click <code>Send</code></li>
+    </ul>
+  </div>
 
-        <h2>3. Users Endpoints</h2>
+  <h2>3. Users Endpoints</h2>
 
-        <div class="endpoint">
-          <h3>Get All Users</h3>
-          <p><strong>Method:</strong> <code>GET</code></p>
-          <p><strong>Endpoint:</strong> <code>/api/users</code></p>
-          <p><strong>Description:</strong> Retrieves a list of all users.</p>
-          <p><strong>Authentication:</strong> Not required.</p>
-          <p><strong>Testing in Postman:</strong></p>
-          <ul>
-            <li>Set method to <code>GET</code></li>
-            <li>Enter URL: <code>http://localhost:5000/api/users</code></li>
-            <li>Click <code>Send</code></li>
-          </ul>
-        </div>
+  <div class="endpoint">
+    <h3>Get All Users</h3>
+    <p><strong>Method:</strong> <code>GET</code></p>
+    <p><strong>Endpoint:</strong> <code>/api/users</code></p>
+    <p><strong>Description:</strong> Retrieves a list of all users.</p>
+    <p><strong>Authentication:</strong> Not required.</p>
+    <p><strong>Testing in Postman:</strong></p>
+    <ul>
+      <li>Set method to <code>GET</code></li>
+      <li>Enter URL: <code>http://localhost:5000/api/users</code></li>
+      <li>Click <code>Send</code></li>
+    </ul>
+  </div>
 
-        <div class="endpoint">
-          <h3>Get User By ID</h3>
-          <p><strong>Method:</strong> <code>GET</code></p>
-          <p><strong>Endpoint:</strong> <code>/api/users/:id</code></p>
-          <p><strong>Description:</strong> Retrieves a single user by its ID.</p>
-          <p><strong>Authentication:</strong> Not required.</p>
-          <p><strong>Testing in Postman:</strong></p>
-          <ul>
-            <li>Set method to <code>GET</code></li>
-            <li>Enter URL: <code>http://localhost:5000/api/users/{id}</code> (Replace <code>{id}</code> with the actual
-              user
-              ID)</li>
-            <li>Click <code>Send</code></li>
-          </ul>
-        </div>
+  <div class="endpoint">
+    <h3>Get User By ID</h3>
+    <p><strong>Method:</strong> <code>GET</code></p>
+    <p><strong>Endpoint:</strong> <code>/api/users/:id</code></p>
+    <p><strong>Description:</strong> Retrieves a single user by its ID.</p>
+    <p><strong>Authentication:</strong> Not required.</p>
+    <p><strong>Testing in Postman:</strong></p>
+    <ul>
+      <li>Set method to <code>GET</code></li>
+      <li>Enter URL: <code>http://localhost:5000/api/users/{id}</code> (Replace <code>{id}</code> with the actual
+        user
+        ID)</li>
+      <li>Click <code>Send</code></li>
+    </ul>
+  </div>
 
-        <div class="endpoint">
-          <h3>Create User</h3>
-          <p><strong>Method:</strong> <code>POST</code></p>
-          <p><strong>Endpoint:</strong> <code>/api/users/register</code></p>
-          <p><strong>Description:</strong> Creates a new user.</p>
-          <p><strong>Authentication:</strong> Not required.</p>
-          <p><strong>Body:</strong></p>
-          <pre><code>
+  <div class="endpoint">
+    <h3>Create User</h3>
+    <p><strong>Method:</strong> <code>POST</code></p>
+    <p><strong>Endpoint:</strong> <code>/api/users/register</code></p>
+    <p><strong>Description:</strong> Creates a new user.</p>
+    <p><strong>Authentication:</strong> Not required.</p>
+    <p><strong>Body:</strong></p>
+    <pre><code>
 {
   "name": "User Name",
   "username": "username",
@@ -569,80 +572,80 @@
   "password": "password"
 }
 </code></pre>
-          <p><strong>Testing in Postman:</strong></p>
-          <ul>
-            <li>Set method to <code>POST</code></li>
-            <li>Enter URL: <code>http://localhost:5000/api/users/register</code></li>
-            <li>Select <code>Body</code> tab</li>
-            <li>Choose <code>raw</code> and set format to <code>JSON</code></li>
-            <li>Enter the JSON payload above</li>
-            <li>Click <code>Send</code></li>
-          </ul>
-        </div>
+    <p><strong>Testing in Postman:</strong></p>
+    <ul>
+      <li>Set method to <code>POST</code></li>
+      <li>Enter URL: <code>http://localhost:5000/api/users/register</code></li>
+      <li>Select <code>Body</code> tab</li>
+      <li>Choose <code>raw</code> and set format to <code>JSON</code></li>
+      <li>Enter the JSON payload above</li>
+      <li>Click <code>Send</code></li>
+    </ul>
+  </div>
 
-        <div class="endpoint">
-          <h3>Delete User</h3>
-          <p><strong>Method:</strong> <code>DELETE</code></p>
-          <p><strong>Endpoint:</strong> <code>/api/users/:id</code></p>
-          <p><strong>Description:</strong> Deletes a user by its ID.</p>
-          <p><strong>Authentication:</strong> Not required.</p>
-          <p><strong>Testing in Postman:</strong></p>
-          <ul>
-            <li>Set method to <code>DELETE</code></li>
-            <li>Enter URL: <code>http://localhost:5000/api/users/{id}</code> (Replace <code>{id}</code> with the actual
-              user
-              ID)</li>
-            <li>Click <code>Send</code></li>
-          </ul>
-        </div>
+  <div class="endpoint">
+    <h3>Delete User</h3>
+    <p><strong>Method:</strong> <code>DELETE</code></p>
+    <p><strong>Endpoint:</strong> <code>/api/users/:id</code></p>
+    <p><strong>Description:</strong> Deletes a user by its ID.</p>
+    <p><strong>Authentication:</strong> Not required.</p>
+    <p><strong>Testing in Postman:</strong></p>
+    <ul>
+      <li>Set method to <code>DELETE</code></li>
+      <li>Enter URL: <code>http://localhost:5000/api/users/{id}</code> (Replace <code>{id}</code> with the actual
+        user
+        ID)</li>
+      <li>Click <code>Send</code></li>
+    </ul>
+  </div>
 
-        <div class="endpoint">
-          <h3>Update User</h3>
-          <p><strong>Method:</strong> <code>PATCH</code></p>
-          <p><strong>Endpoint:</strong> <code>/api/users/:id</code></p>
-          <p><strong>Description:</strong> Updates an existing user by its ID.</p>
-          <p><strong>Authentication:</strong> Token required.</p>
-          <p><strong>Body:</strong> JSON object with fields to update.</p>
-          <p><strong>Testing in Postman:</strong></p>
-          <ul>
-            <li>Set method to <code>PATCH</code></li>
-            <li>Enter URL: <code>http://localhost:5000/api/users/{id}</code> (Replace <code>{id}</code> with the actual
-              user
-              ID)</li>
-            <li>Select <code>Body</code> tab</li>
-            <li>Choose <code>raw</code> and set format to <code>JSON</code></li>
-            <li>Enter the JSON payload with fields to update</li>
-            <p><strong>Authentication:</strong> Not required.</p>
-            <li>Click <code>Send</code></li>
-          </ul>
-        </div>
+  <div class="endpoint">
+    <h3>Update User</h3>
+    <p><strong>Method:</strong> <code>PATCH</code></p>
+    <p><strong>Endpoint:</strong> <code>/api/users/:id</code></p>
+    <p><strong>Description:</strong> Updates an existing user by its ID.</p>
+    <p><strong>Authentication:</strong> Token required.</p>
+    <p><strong>Body:</strong> JSON object with fields to update.</p>
+    <p><strong>Testing in Postman:</strong></p>
+    <ul>
+      <li>Set method to <code>PATCH</code></li>
+      <li>Enter URL: <code>http://localhost:5000/api/users/{id}</code> (Replace <code>{id}</code> with the actual
+        user
+        ID)</li>
+      <li>Select <code>Body</code> tab</li>
+      <li>Choose <code>raw</code> and set format to <code>JSON</code></li>
+      <li>Enter the JSON payload with fields to update</li>
+      <p><strong>Authentication:</strong> Not required.</p>
+      <li>Click <code>Send</code></li>
+    </ul>
+  </div>
 
-        <h2>Additional Information</h2>
-        <p>Check out <a href="https://github.com/techstackspace/express/tags" target="_blank"
-            rel="noopener noreferrer">subsequent versions</a> of the Express application.</p>
+  <h2>Additional Information</h2>
+  <p>Check out <a href="https://github.com/techstackspace/express/tags" target="_blank"
+      rel="noopener noreferrer">subsequent versions</a> of the Express application.</p>
 
 
-        <footer style="background: #333; color: #fff; padding: 1rem; text-align: center;">
-          <p>&copy; 2024 TechStackSpace. All rights reserved.</p>
-          <p><a href="https://techstackspace.com/about" style="color: #fff; text-decoration: none;">About Us</a> | <a
-              href="https://techstackspace.com/privacy" style="color: #fff; text-decoration: none;">Privacy Policy</a> |
-            <a href="https://techstackspace.com/terms" style="color: #fff; text-decoration: none;">Terms of Service</a>
-          </p>
-          <span>Made with ❤️ by <a href="https://bio.link/bello" target="_blank" rel="noopener noreferrer"
-              style="color: #fff;">Bello
-              Osagie</a></span>
-        </footer>
-        <script defer>
-          document.addEventListener('DOMContentLoaded', function () {
-            const menu = document.querySelector('nav ul');
-            const hamburger = document.querySelector('.hamburger-menu');
+  <footer style="background: #333; color: #fff; padding: 1rem; text-align: center;">
+    <p>&copy; 2024 TechStackSpace. All rights reserved.</p>
+    <p><a href="https://techstackspace.com/about" style="color: #fff; text-decoration: none;">About Us</a> | <a
+        href="https://techstackspace.com/privacy" style="color: #fff; text-decoration: none;">Privacy Policy</a> |
+      <a href="https://techstackspace.com/terms" style="color: #fff; text-decoration: none;">Terms of Service</a>
+    </p>
+    <span>Made with ❤️ by <a href="https://bio.link/bello" target="_blank" rel="noopener noreferrer"
+        style="color: #fff;">Bello
+        Osagie</a></span>
+  </footer>
+  <script defer>
+    document.addEventListener('DOMContentLoaded', function () {
+      const menu = document.querySelector('nav ul');
+      const hamburger = document.querySelector('.hamburger-menu');
 
-            hamburger.addEventListener('click', function () {
-              menu.classList.toggle('show');
-            });
-          });
+      hamburger.addEventListener('click', function () {
+        menu.classList.toggle('show');
+      });
+    });
 
-        </script>
+  </script>
 </body>
 
 </html>
