@@ -1,17 +1,16 @@
 import { ObjectId } from 'mongoose';
 import { IComment } from '../comment/interface';
-import { IUser } from '../user/interface';
 
 interface IProduct {
   name: string;
   description: string;
   price: number;
-  image?: string[];
-  video?: string[];
-  pdf?: string[];
+  images?: string[];
+  videos?: string[];
+  pdfs?: string[];
   category: string;
   rating?: number;
-  reviews?: string;
+  reviews?: string[];
   tags: string[];
   brand: string;
   stock: number;
