@@ -4,29 +4,30 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TechStackSpace API Testing Guide for Version 1.0.0 | TechStackSpace Learning Center</title>
+  <title>TechStackSpace Express JS API Testing Guide | Version 1.0.0</title>
   <meta name="description"
-    content="Learn how to create and test CRUD API endpoints for TechStackSpace Version 1.0.0 using popular tools like Postman, Bruno, and more. Detailed instructions and examples included.">
-  <meta name="keywords"
-    content="API testing, Postman, Bruno, Thunder Client, API guide, TechStackSpace, version 1.0.0, API documentation, CRUD operations, Express, Mongoose, MongoDB">
+    content="Learn how to create and test CRUD API endpoints in the TechStackSpace Express App (Version 1.0.0) using tools like Postman, Bruno, and more.">
+  <meta name="keywords" content="API testing, Express, CRUD, Postman, TechStackSpace, MongoDB, version 1.0.0">
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="author" content="TechStackSpace">
-  <meta property="og:title" content="TechStackSpace API Testing Guide for Version 1.0.0">
+  <meta property="og:title" content="TechStackSpace API Express App Testing Guide for Version 1.0.0">
   <meta property="og:description"
     content="Step-by-step guide to testing API endpoints with tools like Postman and Bruno for TechStackSpace Version 1.0.0.">
   <meta property="og:image"
-    content="https://res.cloudinary.com/bizstak/image/upload/v1722984123/icon_cjiqvy_dqvp2u.png">
+    content="https://res.cloudinary.com/bizstak/image/upload/v1723811350/express-v100_ysdzyg.png">
   <meta property="og:url" content="https://express-v100.techstackspace.com">
   <meta property="og:type" content="website">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="TechStackSpace API Testing Guide for Version 1.0.0">
+  <meta name="twitter:title" content="TechStackSpace API Express App Testing Guide for Version 1.0.0">
   <meta name="twitter:description"
-    content="Learn how to create and test TechStackSpace API endpoints effectively using Postman and other tools.">
-  <meta name="twitter:image" content="https://x.com/techstackspace/photo">
+    content="Learn how to create and test CRUD API endpoints in the TechStackSpace Express App (Version 1.0.0) using tools like Postman, Bruno, and more.">
   <meta name="twitter:image"
-    content="https://res.cloudinary.com/bizstak/image/upload/v1722984123/icon_cjiqvy_dqvp2u.png">
+    content="https://res.cloudinary.com/bizstak/image/upload/v1723811350/express-v100_ysdzyg.png">
   <meta name="twitter:site" content="@techstackspace">
+  <meta name="twitter:image:width" content="1200">
+  <meta name="twitter:image:height" content="630">
   <link rel="canonical" href="https://express-v100.techstackspace.com">
   <link rel="apple-touch-icon" sizes="57x57" href="./assets/favicon/apple-icon-57x57.png">
   <link rel="apple-touch-icon" sizes="60x60" href="./assets/favicon/apple-icon-60x60.png">
@@ -305,22 +306,23 @@
     <p><strong>Body:</strong></p>
     <pre><code>
 {
-  "name": "Product Name",             // Required
-  "description": "Product Description", // Required
-  "price": 100,                       // Required
-  "category": "Category",             // Required
-  "tags": ["tag1", "tag2"],           // Required
-  "brand": "Brand",                   // Required
-  "stock": 10,                        // Required
+  // Required Fields
+  "name": "Product Name",
+  "description": "Product Description",
+  "price": 100,
+  "category": "Category",
+  "tags": ["tag1", "tag2"],
+  "brand": "Brand",
+  "stock": 10,
 
   // Optional Fields
-  "rating": 4.5,                      // Optional
-  "reviews": "Excellent product!",    // Optional
-  "likes": [],                        // Optional
-  "comments": [],                     // Optional
-  "image": [],                        // Optional
-  "video": [],                        // Optional
-  "pdf": []                           // Optional
+  "rating": 4.5,
+  "reviews": [],
+  "likes": [],
+  "comments": [],
+  "images": [],
+  "videos": [],
+  "pdfs": []
 }
 </code></pre>
     <p><strong>Testing in Postman:</strong></p>
@@ -573,13 +575,12 @@
     <p><strong>Method:</strong> <code>DELETE</code></p>
     <p><strong>Endpoint:</strong> <code>/api/users/:id</code></p>
     <p><strong>Description:</strong> Deletes a user by its ID.</p>
-    <p><strong>Authentication:</strong> Token required.</p>
+    <p><strong>Authentication:</strong> Not required.</p>
     <p><strong>Testing in Postman:</strong></p>
     <ul>
       <li>Set method to <code>DELETE</code></li>
       <li>Enter URL: <code>http://localhost:5000/api/users/{id}</code> (Replace <code>{id}</code> with the actual user
         ID)</li>
-      <li>Add <code>Authorization</code> header with <code>Bearer YOUR_TOKEN</code></li>
       <li>Click <code>Send</code></li>
     </ul>
   </div>
@@ -599,14 +600,15 @@
       <li>Select <code>Body</code> tab</li>
       <li>Choose <code>raw</code> and set format to <code>JSON</code></li>
       <li>Enter the JSON payload with fields to update</li>
-      <li>Add <code>Authorization</code> header with <code>Bearer YOUR_TOKEN</code></li>
+      <p><strong>Authentication:</strong> Not required.</p>
       <li>Click <code>Send</code></li>
     </ul>
   </div>
 
   <h2>Additional Information</h2>
-  <p><strong>Headers:</strong> Ensure you set the <code>Content-Type</code> header to <code>application/json</code> when
-    sending JSON payloads.</p>
+  <p>Check out <a href="https://github.com/techstackspace/express/tags" target="_blank"
+      rel="noopener noreferrer">subsequent versions</a> of the Express application.</p>
+
 
   <footer style="background: #333; color: #fff; padding: 1rem; text-align: center;">
     <p>&copy; 2024 TechStackSpace. All rights reserved.</p>
