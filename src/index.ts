@@ -12,14 +12,6 @@ app.use(json());
 
 connectionToDB();
 
-// const publicDir = join(__dirname, '..', 'public');
-// const faviconDir = join(publicDir, 'assets', 'favicon');
-
-// app.use(express.static(publicDir));
-// app.use(express.static(faviconDir));
-
-// or
-
 app.use(express.static('public'));
 app.use(express.static('public/assets/favicon'));
 app.use('/api', productRoutes);
