@@ -10,13 +10,14 @@ interface IProduct {
   pdfs?: string[];
   category: string;
   rating?: number;
-  reviews?: string[];
+  reviews?: ObjectId[];
   tags: string[];
   brand: string;
   stock: number;
   likes: ObjectId[];
-  comments: IComment;
+  comments: IComment[];
   version: number;
+  calculateAverageRating(): Promise<void>;
 }
 
 export type { IProduct };
