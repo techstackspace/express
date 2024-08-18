@@ -28,7 +28,9 @@ const getReviewById = async (req: Request, res: Response) => {
   const { reviewId } = req.params;
 
   try {
-    const review = await Review.findById(reviewId).populate('user').populate('product');
+    const review = await Review.findById(reviewId)
+      .populate('user')
+      .populate('product');
 
     if (!review) {
       return res.status(404).json({ message: 'Review not found' });
@@ -49,7 +51,9 @@ const createReview = async (req: Request, res: Response) => {
 
   try {
     if (rating < 1 || rating > 5) {
-      return res.status(400).json({ message: 'Rating must be between 1 and 5' });
+      return res
+        .status(400)
+        .json({ message: 'Rating must be between 1 and 5' });
     }
 
     const product = await Product.findById(productId);
@@ -59,10 +63,15 @@ const createReview = async (req: Request, res: Response) => {
       return res.status(404).json({ message: 'Product or User not found' });
     }
 
-    const userReviewCount = await Review.countDocuments({ user: userId, product: productId });
+    const userReviewCount = await Review.countDocuments({
+      user: userId,
+      product: productId,
+    });
 
     if (userReviewCount >= 5) {
-      return res.status(400).json({ message: 'You have already created 5 reviews for this product.' });
+      return res.status(400).json({
+        message: 'You have already created 5 reviews for this product.',
+      });
     }
 
     const review = new Review({
@@ -96,7 +105,9 @@ const updateReview = async (req: Request, res: Response) => {
 
   try {
     if (rating && (rating < 1 || rating > 5)) {
-      return res.status(400).json({ message: 'Rating must be between 1 and 5' });
+      return res
+        .status(400)
+        .json({ message: 'Rating must be between 1 and 5' });
     }
 
     const review = await Review.findById(reviewId);
@@ -190,4 +201,11 @@ const toggleLikeReview = async (req: Request, res: Response) => {
   }
 };
 
-export { getAllReviews, getReviewById, createReview, updateReview, deleteReview, toggleLikeReview };
+export {
+  getAllReviews,
+  getReviewById,
+  createReview,
+  updateReview,
+  deleteReview,
+  toggleLikeReview,
+};

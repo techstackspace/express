@@ -31,14 +31,13 @@ ProductSchema.methods.calculateAverageRating = async function () {
     await this.save();
     return;
   }
-  
+
   const totalRating = reviews.reduce((sum, review) => sum + review.rating, 0);
   const averageRating = totalRating / totalReviews;
 
   this.ratingAverage = Math.max(1, Math.min(averageRating, 5));
   await this.save();
 };
-
 
 ProductSchema.methods.calculateAverageRating = async function () {
   const reviews = await Review.find({ product: this._id });
