@@ -167,6 +167,25 @@ const deleteReview = async (req: Request, res: Response) => {
   }
 };
 
+export const reportReview = async (req: Request, res: Response) => {
+  const { reviewId } = req.params;
+  const { report } = req.body;
+
+  try {
+    const review = await Review.findById(reviewId);
+    if (!review) {
+      return res.status(404).json({ message: 'Review not found' });
+    }
+
+    review.report = report;
+    await review.save();
+
+    res.status(200).json({ message: 'Review reported successfully', review });
+  } catch (error) {
+    res.status(500).json({ message: 'Server error', error });
+  }
+};
+
 const toggleLikeReview = async (req: Request, res: Response) => {
   const { reviewId } = req.params;
   const { userId } = req.body;
