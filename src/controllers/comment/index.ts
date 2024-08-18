@@ -19,7 +19,7 @@ const getAllComments = async (_req: Request, res: Response) => {
 };
 
 const getCommentById = async (req: Request, res: Response) => {
-  const id = req.params.id;
+  const { id } = req.params;
   try {
     const comment = await Comment.findById(id);
     if (!comment) {
@@ -64,7 +64,7 @@ const createComment = async (req: Request, res: Response) => {
 
 const updateComment = async (req: Request, res: Response) => {
   const payload = req.body;
-  const id = req.params.id;
+  const { id } = req.params;
   if (!payload || Object.keys(payload).length === 0) {
     return res.status(400).json({ message: 'Missing required field' });
   }
@@ -91,7 +91,7 @@ const updateComment = async (req: Request, res: Response) => {
 };
 
 const deleteComment = async (req: Request, res: Response) => {
-  const id = req.params.id;
+  const { id } = req.params;
   try {
     const comment = await Comment.findByIdAndDelete(id);
     if (!comment) {
@@ -117,7 +117,7 @@ const deleteComment = async (req: Request, res: Response) => {
 
 const toggleLikeComment = async (req: Request, res: Response) => {
   const { commentId } = req.params;
-  const userId = req.body.user;
+  const { user: userId } = req.body;
 
   if (!Types.ObjectId.isValid(commentId) || !Types.ObjectId.isValid(userId)) {
     return res.status(400).json({ message: 'Invalid ID format' });
