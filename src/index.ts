@@ -4,6 +4,7 @@ import connectionToDB from './config/database';
 import productRoutes from './routes/product';
 import userRoutes from './routes/user';
 import commentRoutes from './routes/comment';
+import reviewRoutes from './routes/review';
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -17,6 +18,7 @@ app.use(express.static('public/assets/favicon'));
 app.use('/api', productRoutes);
 app.use('/api', userRoutes);
 app.use('/api', commentRoutes);
+app.use('/api', reviewRoutes);
 
 app.listen(port, () => {
   log(`Server is running on http://localhost:${port}`);
