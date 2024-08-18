@@ -684,6 +684,32 @@
   </div>
 
   <div class="endpoint">
+    <h3>Create Report Review</h3>
+    <p><strong>Method:</strong> <code>POST</code></p>
+    <p><strong>Endpoint:</strong> <code>/api/reviews/{id}/report</code></p>
+    <p><strong>Description:</strong> Creates a new product report review by its ID.</p>
+    <p><strong>Authentication:</strong> Not required.</p>
+    <p><strong>Body:</strong></p>
+    <pre><code>
+{<p>
+  "report": "report message",
+}
+</code></pre>
+    <p><strong>Testing in Postman:</strong></p>
+    <ul>
+      <li>Set method to <code>POST</code></li>
+      <li>Enter URL: <code>http://localhost:5000/api/reviews/:reviewId/report</code> (Replace <code>{reviewId}</code>
+        with the
+        actual
+        report review ID)</li>
+      <li>Select <code>Body</code> tab</li>
+      <li>Choose <code>raw</code> and set format to <code>JSON</code></li>
+      <li>Enter the JSON payload above</li>
+      <li>Click <code>Send</code></li>
+    </ul>
+  </div>
+
+  <div class="endpoint">
     <h3>Update Review</h3>
     <p><strong>Method:</strong> <code>PUT</code></p>
     <p><strong>Endpoint:</strong> <code>/api/reviews/:id</code></p>
