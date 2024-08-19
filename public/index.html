@@ -772,6 +772,73 @@
     </ul>
   </div>
 
+  <div class="endpoint">
+    <h3>Create Feedback</h3>
+    <p><strong>Method:</strong> <code>POST</code></p>
+    <p><strong>Endpoint:</strong> <code>/api/feedback</code></p>
+    <p><strong>Description:</strong> Creates a new feedback.</p>
+    <p><strong>Authentication:</strong> Not required.</p>
+    <p><strong>Body:</strong></p>
+    <pre><code>
+{
+  "userId": "user_id",
+  "productId": "product_id",
+  "orderId": "order_id",
+  "rating": 4.5,
+  "feedbackType": "product", // or "service" or "delivery"
+  "title": "Feedback title",
+  "comments": "Feedback short comment.",
+  "suggestions": "Feedback suggestion.",
+  "images": [
+    {
+      "url": "https://example.com/image1.jpg",
+      "description": "Image of the damaged packaging"
+    },
+    {
+      "url": "https://example.com/image2.jpg",
+      "description": "Image of the product inside the packaging"
+    }
+  ],
+    "contactPermission": true,
+    "browserInfo": "Chrome/92.0.4515.159"
+}
+      
+</code></pre>
+    <p><strong>Testing in Postman:</strong></p>
+    <ul>
+      <li>Set method to <code>POST</code></li>
+      <li>Enter URL: <code>http://localhost:5000/api/feedback</code></li>
+      <li>Select <code>Body</code> tab</li>
+      <li>Choose <code>raw</code> and set format to <code>JSON</code></li>
+      <li>Enter the JSON payload above</li>
+      <li>Click <code>Send</code></li>
+    </ul>
+  </div>
+
+  <div class="endpoint">
+    <h3>Create Subscription</h3>
+    <p><strong>Method:</strong> <code>POST</code></p>
+    <p><strong>Endpoint:</strong> <code>/api/subscribe</code></p>
+    <p><strong>Description:</strong> Creates a new subscriber.</p>
+    <p><strong>Authentication:</strong> Not required.</p>
+    <p><strong>Body:</strong></p>
+    <pre><code>
+{
+  "email": "example@mail.com",
+}
+      
+</code></pre>
+    <p><strong>Testing in Postman:</strong></p>
+    <ul>
+      <li>Set method to <code>POST</code></li>
+      <li>Enter URL: <code>http://localhost:5000/api/subscirbe</code></li>
+      <li>Select <code>Body</code> tab</li>
+      <li>Choose <code>raw</code> and set format to <code>JSON</code></li>
+      <li>Enter the JSON payload above</li>
+      <li>Click <code>Send</code></li>
+    </ul>
+  </div>
+
   <h2>Additional Information</h2>
   <p>Check out the <a href="https://github.com/techstackspace/express/tags" target="_blank"
       rel="noopener noreferrer">subsequent versions</a> of the Express application on GitHub.</p>
