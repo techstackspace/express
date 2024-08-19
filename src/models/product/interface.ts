@@ -2,6 +2,7 @@ import { ObjectId } from 'mongoose';
 import { IComment } from '../comment/interface';
 
 interface IProduct {
+  _id: ObjectId;
   name: string;
   description: string;
   price: number;
