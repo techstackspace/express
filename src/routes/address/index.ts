@@ -8,9 +8,9 @@ import {
 
 const router = express.Router();
 
-router.post('/', createAddress);
-router.put('/:addressId', updateAddress);
-router.get('/', getUserAddresses);
-router.delete('/:addressId', deleteAddress);
+router.post('/address', createAddress);
+router.put('/address/:addressId', updateAddress);
+router.get('/address', getUserAddresses);
+router.delete('/address/:addressId', deleteAddress);
 
 export default router;
