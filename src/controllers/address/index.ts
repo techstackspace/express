@@ -1,12 +1,7 @@
 import { Request, Response } from 'express';
 import Address from '../../models/address';
-import { IUser } from '../../models/user/interface';
 
-interface AuthenticatedRequest extends Request {
-  user: IUser;
-}
-
-export const createAddress = async (req: Request, res: Response) => {
+const createAddress = async (req: Request, res: Response) => {
   try {
     const {
       user,
@@ -47,7 +42,7 @@ export const createAddress = async (req: Request, res: Response) => {
   }
 };
 
-export const updateAddress = async (req: Request, res: Response) => {
+const updateAddress = async (req: Request, res: Response) => {
   try {
     const { addressId } = req.params;
     const {
@@ -90,10 +85,7 @@ export const updateAddress = async (req: Request, res: Response) => {
   }
 };
 
-export const getUserAddresses = async (
-  req: AuthenticatedRequest,
-  res: Response
-) => {
+const getUserAddresses = async (req: any, res: Response) => {
   try {
     const addresses = await Address.find({ user: req.user._id });
     res.status(200).json(addresses);
@@ -108,7 +100,7 @@ export const getUserAddresses = async (
   }
 };
 
-export const deleteAddress = async (req: Request, res: Response) => {
+const deleteAddress = async (req: Request, res: Response) => {
   try {
     const { addressId } = req.params;
     const address = await Address.findById(addressId);
@@ -128,3 +120,5 @@ export const deleteAddress = async (req: Request, res: Response) => {
     }
   }
 };
+
+export { getUserAddresses, createAddress, updateAddress, deleteAddress };
