@@ -1,31 +1,65 @@
 import { Request, Response } from 'express';
-import Product from '../../models/product';
 import Order from '../../models/order';
+import Cart from '../../models/cart';
+import Address from '../../models/address';
 
 export const createOrder = async (req: Request, res: Response) => {
   try {
-    const { user, products, shippingAddress, paymentMethod } = req.body;
+    const { user, shippingAddress, paymentMethod } = req.body;
+
+    let address = shippingAddress;
+    if (!address) {
+      const defaultAddress = await Address.findOne({ user, isDefault: true });
+      if (!defaultAddress) {
+        return res
+          .status(400)
+          .json({ error: 'No default shipping address found' });
+      }
+      address = defaultAddress;
+    }
+
+    const cartItems = await Cart.find({ user }).populate('product');
+
+    if (!cartItems || cartItems.length === 0) {
+      return res.status(400).json({ error: 'No items in the cart' });
+    }
 
     let totalAmount = 0;
-    for (const item of products) {
-      const product = await Product.findById(item.product);
-      if (product) {
-        totalAmount += product.price * item.quantity;
-      }
+    const orderProducts = [];
+
+    for (const item of cartItems) {
+      const price = item.product.price;
+      const quantity = item.quantity;
+
+      totalAmount += price * quantity;
+      orderProducts.push({
+        product: item.product._id,
+        quantity: quantity,
+        price: price,
+      });
     }
 
     const newOrder = new Order({
       user,
-      products,
+      products: orderProducts,
       totalAmount,
-      shippingAddress,
+      shippingAddress: address,
       paymentMethod,
     });
 
     await newOrder.save();
+
+    await Cart.deleteMany({ user });
+
     res.status(201).json(newOrder);
   } catch (error) {
-    res.status(500).json({ error: 'Failed to create order' });
+    if (error instanceof Error) {
+      res
+        .status(500)
+        .json({ error: `Failed to create order: ${error.message}` });
+    } else {
+      res.status(500).json({ error: 'Unknown error occurred' });
+    }
   }
 };
 
@@ -35,11 +69,17 @@ export const getOrder = async (req: Request, res: Response) => {
       .populate('user')
       .populate('products.product');
     if (!order) {
-      return res.status(404).json({ error: 'Order not found' });
+      res.status(404).json({ error: `Order not found` });
     }
     res.status(200).json(order);
   } catch (error) {
-    res.status(500).json({ error: 'Failed to fetch order' });
+    if (error instanceof Error) {
+      res
+        .status(500)
+        .json({ error: `Failed to fetch order: ${error.message}` });
+    } else {
+      res.status(500).json({ error: 'Unknown error occurred' });
+    }
   }
 };
 
@@ -62,7 +102,13 @@ export const updateOrderStatus = async (req: Request, res: Response) => {
     await order.save();
     res.status(200).json(order);
   } catch (error) {
-    res.status(500).json({ error: 'Failed to update order status' });
+    if (error instanceof Error) {
+      res
+        .status(500)
+        .json({ error: `Failed to update order status: ${error.message}` });
+    } else {
+      res.status(500).json({ error: 'Unknown error occurred' });
+    }
   }
 };
 
@@ -73,6 +119,12 @@ export const getAllOrders = async (req: Request, res: Response) => {
       .populate('products.product');
     res.status(200).json(orders);
   } catch (error) {
-    res.status(500).json({ error: 'Failed to fetch orders' });
+    if (error instanceof Error) {
+      res
+        .status(500)
+        .json({ error: `Failed to fetch orders: ${error.message}` });
+    } else {
+      res.status(500).json({ error: 'Unknown error occurred' });
+    }
   }
 };
