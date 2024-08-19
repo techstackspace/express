@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import Address from '../../models/address';
+import User from '../../models/user';
 
 const createAddress = async (req: Request, res: Response) => {
   try {
@@ -85,9 +86,10 @@ const updateAddress = async (req: Request, res: Response) => {
   }
 };
 
-const getUserAddresses = async (_req: Request, res: Response) => {
+const getUserAddresses = async (req: Request, res: Response) => {
+  const user = await User.findById(req.body.user);
   try {
-    const addresses = await Address.find();
+    const addresses = await Address.find({ user });
     res.status(200).json(addresses);
   } catch (error) {
     if (error instanceof Error) {
