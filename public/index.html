@@ -838,6 +838,254 @@
     </ul>
   </div>
 
+  <h2>4. Address Endpoints</h2>
+
+  <div class="endpoint">
+    <h3>Get All Addresses</h3>
+    <p><strong>Method:</strong> <code>GET</code></p>
+    <p><strong>Endpoint:</strong> <code>/api/addresses</code></p>
+    <p><strong>Description:</strong> Retrieves a list of all addresses.</p>
+    <p><strong>Authentication:</strong> Not required.</p>
+    <p><strong>Testing in Postman:</strong></p>
+    <ul>
+      <li>Set method to <code>GET</code></li>
+      <li>Enter URL: <code>http://localhost:5000/api/addresses</code></li>
+      <li>Click <code>Send</code></li>
+    </ul>
+  </div>
+
+  <div class="endpoint">
+    <h3>Get Address By ID</h3>
+    <p><strong>Method:</strong> <code>GET</code></p>
+    <p><strong>Endpoint:</strong> <code>/api/addresses/:id</code></p>
+    <p><strong>Description:</strong> Retrieves a single address by its ID.</p>
+    <p><strong>Authentication:</strong> Not required.</p>
+    <p><strong>Testing in Postman:</strong></p>
+    <ul>
+      <li>Set method to <code>GET</code></li>
+      <li>Enter URL: <code>http://localhost:5000/api/addresses/{id}</code> (Replace <code>{id}</code> with the actual
+        address ID)</li>
+      <li>Click <code>Send</code></li>
+    </ul>
+  </div>
+
+  <div class="endpoint">
+    <h3>Create Address</h3>
+    <p><strong>Method:</strong> <code>POST</code></p>
+    <p><strong>Endpoint:</strong> <code>/api/addresses</code></p>
+    <p><strong>Description:</strong> Creates a new address.</p>
+    <p><strong>Authentication:</strong> Not required.</p>
+    <p><strong>Body:</strong></p>
+    <pre><code>
+{
+  "user": "user_id",
+  "street": "123 Main St",
+  "city": "City Name",
+  "state": "State Name",
+  "zip": "12345",
+  "country": "Country Name"
+}
+</code></pre>
+    <p><strong>Testing in Postman:</strong></p>
+    <ul>
+      <li>Set method to <code>POST</code></li>
+      <li>Enter URL: <code>http://localhost:5000/api/addresses</code></li>
+      <li>Select <code>Body</code> tab</li>
+      <li>Choose <code>raw</code> and set format to <code>JSON</code></li>
+      <li>Enter the JSON payload above</li>
+      <li>Click <code>Send</code></li>
+    </ul>
+  </div>
+
+  <div class="endpoint">
+    <h3>Update Address</h3>
+    <p><strong>Method:</strong> <code>PATCH</code></p>
+    <p><strong>Endpoint:</strong> <code>/api/addresses/:id</code></p>
+    <p><strong>Description:</strong> Updates an existing address by its ID.</p>
+    <p><strong>Authentication:</strong> Not required.</p>
+    <p><strong>Body:</strong> JSON object with fields to update.</p>
+    <p><strong>Testing in Postman:</strong></p>
+    <ul>
+      <li>Set method to <code>PATCH</code></li>
+      <li>Enter URL: <code>http://localhost:5000/api/addresses/{id}</code> (Replace <code>{id}</code> with the actual
+        address ID)</li>
+      <li>Select <code>Body</code> tab</li>
+      <li>Choose <code>raw</code> and set format to <code>JSON</code></li>
+      <li>Enter the JSON payload with fields to update</li>
+      <li>Click <code>Send</code></li>
+    </ul>
+  </div>
+
+  <div class="endpoint">
+    <h3>Delete Address</h3>
+    <p><strong>Method:</strong> <code>DELETE</code></p>
+    <p><strong>Endpoint:</strong> <code>/api/addresses/:id</code></p>
+    <p><strong>Description:</strong> Deletes an address by its ID.</p>
+    <p><strong>Authentication:</strong> Not required.</p>
+    <p><strong>Testing in Postman:</strong></p>
+    <ul>
+      <li>Set method to <code>DELETE</code></li>
+      <li>Enter URL: <code>http://localhost:5000/api/addresses/{id}</code> (Replace <code>{id}</code> with the actual
+        address ID)</li>
+      <li>Click <code>Send</code></li>
+    </ul>
+  </div>
+
+  <h2>5. Order Endpoints</h2>
+
+  <div class="endpoint">
+    <h3>Get All Orders</h3>
+    <p><strong>Method:</strong> <code>GET</code></p>
+    <p><strong>Endpoint:</strong> <code>/api/orders</code></p>
+    <p><strong>Description:</strong> Retrieves a list of all orders.</p>
+    <p><strong>Authentication:</strong> Not required.</p>
+    <p><strong>Testing in Postman:</strong></p>
+    <ul>
+      <li>Set method to <code>GET</code></li>
+      <li>Enter URL: <code>http://localhost:5000/api/orders</code></li>
+      <li>Click <code>Send</code></li>
+    </ul>
+  </div>
+
+  <div class="endpoint">
+    <h3>Get Order By ID</h3>
+    <p><strong>Method:</strong> <code>GET</code></p>
+    <p><strong>Endpoint:</strong> <code>/api/orders/:id</code></p>
+    <p><strong>Description:</strong> Retrieves a single order by its ID.</p>
+    <p><strong>Authentication:</strong> Not required.</p>
+    <p><strong>Testing in Postman:</strong></p>
+    <ul>
+      <li>Set method to <code>GET</code></li>
+      <li>Enter URL: <code>http://localhost:5000/api/orders/{id}</code> (Replace <code>{id}</code> with the actual order
+        ID)</li>
+      <li>Click <code>Send</code></li>
+    </ul>
+  </div>
+
+  <div class="endpoint">
+    <h3>Create Order</h3>
+    <p><strong>Method:</strong> <code>POST</code></p>
+    <p><strong>Endpoint:</strong> <code>/api/orders</code></p>
+    <p><strong>Description:</strong> Creates a new order.</p>
+    <p><strong>Authentication:</strong> Not required.</p>
+    <p><strong>Body:</strong></p>
+    <pre><code>
+{
+  "user": "user_id",
+  "products": [
+    {
+      "productId": "product_id",
+      "quantity": 2
+    }
+  ],
+  "total": 200,
+  "status": "pending",
+  "address": "address_id"
+}
+</code></pre>
+    <p><strong>Testing in Postman:</strong></p>
+    <ul>
+      <li>Set method to <code>POST</code></li>
+      <li>Enter URL: <code>http://localhost:5000/api/orders</code></li>
+      <li>Select <code>Body</code> tab</li>
+      <li>Choose <code>raw</code> and set format to <code>JSON</code></li>
+      <li>Enter the JSON payload above</li>
+      <li>Click <code>Send</code></li>
+    </ul>
+  </div>
+
+  <div class="endpoint">
+    <h3>Update Order</h3>
+    <p><strong>Method:</strong> <code>PATCH</code></p>
+    <p><strong>Endpoint:</strong> <code>/api/orders/:id</code></p>
+    <p><strong>Description:</strong> Updates an existing order by its ID.</p>
+    <p><strong>Authentication:</strong> Not required.</p>
+    <p><strong>Body:</strong> JSON object with fields to update.</p>
+    <p><strong>Testing in Postman:</strong></p>
+    <ul>
+      <li>Set method to <code>PATCH</code></li>
+      <li>Enter URL: <code>http://localhost:5000/api/orders/{id}</code> (Replace <code>{id}</code> with the actual order
+        ID)</li>
+      <li>Select <code>Body</code> tab</li>
+      <li>Choose <code>raw</code> and set format to <code>JSON</code></li>
+      <li>Enter the JSON payload with fields to update</li>
+      <li>Click <code>Send</code></li>
+    </ul>
+  </div>
+
+  <div class="endpoint">
+    <h3>Delete Order</h3>
+    <p><strong>Method:</strong> <code>DELETE</code></p>
+    <p><strong>Endpoint:</strong> <code>/api/orders/:id</code></p>
+    <p><strong>Description:</strong> Deletes an order by its ID.</p>
+    <p><strong>Authentication:</strong> Not required.</p>
+    <p><strong>Testing in Postman:</strong></p>
+    <ul>
+      <li>Set method to <code>DELETE</code></li>
+      <li>Enter URL: <code>http://localhost:5000/api/orders/{id}</code> (Replace <code>{id}</code> with the actual order
+        ID)</li>
+      <li>Click <code>Send</code></li>
+    </ul>
+  </div>
+
+  <h2>3. Bookmark Route</h2>
+
+  <div class="endpoint">
+    <h3>Get All Bookmarks</h3>
+    <p><strong>Method:</strong> <code>GET</code></p>
+    <p><strong>Endpoint:</strong> <code>/api/bookmarks</code></p>
+    <p><strong>Description:</strong> Retrieves a list of all bookmarks for the current user.</p>
+    <p><strong>Authentication:</strong> Required.</p>
+    <p><strong>Testing in Postman:</strong></p>
+    <ul>
+      <li>Set method to <code>GET</code></li>
+      <li>Enter URL: <code>http://localhost:5000/api/bookmarks</code></li>
+      <li>Include the <code>Authorization</code> header with a valid JWT token</li>
+      <li>Click <code>Send</code></li>
+    </ul>
+  </div>
+
+  <div class="endpoint">
+    <h3>Create Bookmark</h3>
+    <p><strong>Method:</strong> <code>POST</code></p>
+    <p><strong>Endpoint:</strong> <code>/api/bookmarks</code></p>
+    <p><strong>Description:</strong> Creates a new bookmark for a product.</p>
+    <p><strong>Authentication:</strong> Required.</p>
+    <p><strong>Body:</strong></p>
+    <pre><code>
+{
+  "user": "user_id",
+  "product": "product_id"
+}
+</code></pre>
+    <p><strong>Testing in Postman:</strong></p>
+    <ul>
+      <li>Set method to <code>POST</code></li>
+      <li>Enter URL: <code>http://localhost:5000/api/bookmarks</code></li>
+      <li>Select <code>Body</code> tab</li>
+      <li>Choose <code>raw</code> and set format to <code>JSON</code></li>
+      <li>Enter the JSON payload above</li>
+      <li>Include the <code>Authorization</code> header with a valid JWT token</li>
+      <li>Click <code>Send</code></li>
+    </ul>
+  </div>
+
+  <div class="endpoint">
+    <h3>Delete Bookmark</h3>
+    <p><strong>Method:</strong> <code>DELETE</code></p>
+    <p><strong>Endpoint:</strong> <code>/api/bookmarks/:id</code></p>
+    <p><strong>Description:</strong> Deletes a bookmark by its ID.</p>
+    <p><strong>Authentication:</strong> Required.</p>
+    <p><strong>Testing in Postman:</strong></p>
+    <ul>
+      <li>Set method to <code>DELETE</code></li>
+      <li>Enter URL: <code>http://localhost:5000/api/bookmarks/{id}</code> (Replace <code>{id}</code> with the actual
+        bookmark ID)</li>
+      <li>Include the <code>Authorization</code> header with a valid JWT token</li>
+      <li>Click <code>Send</code></li>
+    </ul>
+  </div>
+
   <h2>Additional Information</h2>
   <p>Check out the <a href="https://github.com/techstackspace/express/tags" target="_blank"
       rel="noopener noreferrer">subsequent versions</a> of the Express application on GitHub.</p>
