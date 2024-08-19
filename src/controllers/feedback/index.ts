@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import Feedback from '../../models/feedback';
+import { error } from '../../config/debugger';
 
 const createFeedback = async (req: Request, res: Response) => {
   const {
@@ -63,11 +64,13 @@ const createFeedback = async (req: Request, res: Response) => {
       feedbackId: savedFeedback._id,
       submittedAt: savedFeedback.dateSubmitted,
     });
-  } catch (error) {
-    console.error('Error saving feedback:', error);
+  } catch (err) {
+    if (err instanceof Error) {
+      error('Error saving feedback:', err.message);
     return res
       .status(500)
       .json({ error: 'An error occurred while submitting feedback.' });
+    }
   }
 };
 
