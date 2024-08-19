@@ -67,9 +67,9 @@ const createFeedback = async (req: Request, res: Response) => {
   } catch (err) {
     if (err instanceof Error) {
       error('Error saving feedback:', err.message);
-    return res
-      .status(500)
-      .json({ error: 'An error occurred while submitting feedback.' });
+      return res
+        .status(500)
+        .json({ error: 'An error occurred while submitting feedback.' });
     }
   }
 };
