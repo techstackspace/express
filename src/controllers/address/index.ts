@@ -85,9 +85,9 @@ const updateAddress = async (req: Request, res: Response) => {
   }
 };
 
-const getUserAddresses = async (req: any, res: Response) => {
+const getUserAddresses = async (_req: Request, res: Response) => {
   try {
-    const addresses = await Address.find({ user: req.user._id });
+    const addresses = await Address.find();
     res.status(200).json(addresses);
   } catch (error) {
     if (error instanceof Error) {
