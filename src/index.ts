@@ -6,6 +6,7 @@ import userRoutes from './routes/user';
 import commentRoutes from './routes/comment';
 import reviewRoutes from './routes/review';
 import subscribeRoutes from './routes/subscribe';
+import feedbackRoutes from './routes/feedback';
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -21,6 +22,7 @@ app.use('/api', userRoutes);
 app.use('/api', commentRoutes);
 app.use('/api', reviewRoutes);
 app.use('/api', subscribeRoutes);
+app.use('/api', feedbackRoutes);
 
 app.listen(port, () => {
   log(`Server is running on http://localhost:${port}`);
