@@ -1,4 +1,4 @@
-import express from 'express';
+import { Router } from 'express';
 import {
   createOrder,
   getOrder,
@@ -6,7 +6,7 @@ import {
   getAllOrders,
 } from '../../controllers/order';
 
-const router = express.Router();
+const router = Router();
 
 router.post('/orders', createOrder);
 router.get('/orders/:id', getOrder);
