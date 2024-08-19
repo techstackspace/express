@@ -10,6 +10,7 @@ import feedbackRoutes from './routes/feedback';
 import cartRoutes from './routes/cart';
 import bookmarkRoutes from './routes/bookmark';
 import orderRoutes from './routes/order';
+import addressRoutes from './routes/address'
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -29,6 +30,7 @@ app.use('/api', feedbackRoutes);
 app.use('/api', cartRoutes);
 app.use('/api', bookmarkRoutes);
 app.use('/api', orderRoutes);
+app.use('/api', addressRoutes);
 
 app.listen(port, () => {
   log(`Server is running on http://localhost:${port}`);
