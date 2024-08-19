@@ -10,7 +10,7 @@ import feedbackRoutes from './routes/feedback';
 import cartRoutes from './routes/cart';
 import bookmarkRoutes from './routes/bookmark';
 import orderRoutes from './routes/order';
-import addressRoutes from './routes/address'
+import addressRoutes from './routes/address';
 
 const app = express();
 const port = process.env.PORT || 5000;
