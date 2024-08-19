@@ -5,6 +5,7 @@ interface IProduct {
   name: string;
   description: string;
   price: number;
+  quantity: number;
   images?: string[];
   videos?: string[];
   pdfs?: string[];
