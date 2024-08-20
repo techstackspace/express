@@ -2,9 +2,8 @@ import { Request, Response } from 'express';
 import ProfileSettings from '../../models/setting';
 
 const getProfileSettings = async (req: Request, res: Response) => {
-  const { user } = req.params
   try {
-    const settings = await ProfileSettings.findOne({ user });
+    const settings = await ProfileSettings.findOne();
     if (!settings) {
       return res.status(404).json({ message: 'Settings not found' });
     }
@@ -18,11 +17,10 @@ const createOrUpdateProfileSettings = async (
   req: Request,
   res: Response
 ) => {
-  const { user } = req.params;
   try {
     const { theme, profileVisibility, dataSharing } = req.body;
 
-    let settings = await ProfileSettings.findOne({ user });
+    let settings = await ProfileSettings.findOne();
     if (settings) {
       settings.theme = theme || settings.theme;
       settings.profileVisibility =
@@ -44,9 +42,8 @@ const createOrUpdateProfileSettings = async (
 };
 
 const deleteProfileSettings = async (req: Request, res: Response) => {
-  const { user } = req.params
   try {
-    const settings = await ProfileSettings.findOneAndDelete({ user });
+    const settings = await ProfileSettings.findOneAndDelete();
     if (!settings) {
       return res.status(404).json({ message: 'Settings not found' });
     }
