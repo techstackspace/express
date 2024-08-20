@@ -1,11 +1,11 @@
-import express from 'express';
+import { Router } from 'express';
 import {
   createOrUpdateProfileSettings,
   deleteProfileSettings,
   getProfileSettings,
 } from '../../controllers/setting';
 
-const router = express.Router();
+const router = Router();
 
 router.get('/settings', getProfileSettings);
 router.post('/settings', createOrUpdateProfileSettings);
