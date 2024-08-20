@@ -1,9 +1,9 @@
 import { Request, Response } from 'express';
-import ProfileSettings from '../../models/setting';
+import Settings from '../../models/setting';
 
-const getProfileSettings = async (_req: Request, res: Response) => {
+const getSettings = async (_req: Request, res: Response) => {
   try {
-    const settings = await ProfileSettings.findOne();
+    const settings = await Settings.findOne();
     if (!settings) {
       return res.status(404).json({ message: 'Settings not found' });
     }
@@ -13,14 +13,11 @@ const getProfileSettings = async (_req: Request, res: Response) => {
   }
 };
 
-const createOrUpdateProfileSettings = async (
-  req: Request,
-  res: Response
-) => {
+const createOrUpdateSettings = async (req: Request, res: Response) => {
   try {
     const { theme, profileVisibility, dataSharing } = req.body;
 
-    let settings = await ProfileSettings.findOne();
+    let settings = await Settings.findOne();
     if (settings) {
       settings.theme = theme || settings.theme;
       settings.profileVisibility =
@@ -30,7 +27,7 @@ const createOrUpdateProfileSettings = async (
       await settings.save();
       return res.json({ message: 'Settings updated successfully', settings });
     } else {
-      settings = new ProfileSettings({ theme, profileVisibility, dataSharing });
+      settings = new Settings({ theme, profileVisibility, dataSharing });
       await settings.save();
       return res
         .status(201)
@@ -41,9 +38,9 @@ const createOrUpdateProfileSettings = async (
   }
 };
 
-const deleteProfileSettings = async (_req: Request, res: Response) => {
+const deleteSettings = async (_req: Request, res: Response) => {
   try {
-    const settings = await ProfileSettings.findOneAndDelete();
+    const settings = await Settings.findOneAndDelete();
     if (!settings) {
       return res.status(404).json({ message: 'Settings not found' });
     }
@@ -53,4 +50,4 @@ const deleteProfileSettings = async (_req: Request, res: Response) => {
   }
 };
 
-export { getProfileSettings, createOrUpdateProfileSettings, deleteProfileSettings }
+export { getSettings, createOrUpdateSettings, deleteSettings };

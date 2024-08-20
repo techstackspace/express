@@ -7,7 +7,7 @@ import ISetting from './interface';
 //   System = 'system',
 // }
 
-const ProfileSettingsSchema = new Schema<ISetting & Document>(
+const SettingsSchema = new Schema<ISetting & Document>(
   {
     theme: {
       type: String,
@@ -29,6 +29,6 @@ const ProfileSettingsSchema = new Schema<ISetting & Document>(
   { timestamps: true }
 );
 
-const ProfileSettings = model('ProfileSettings', ProfileSettingsSchema);
+const Settings = model('Settings', SettingsSchema);
 
-export default ProfileSettings;
+export default Settings;

@@ -1,14 +1,14 @@
 import { Router } from 'express';
 import {
-  createOrUpdateProfileSettings,
-  deleteProfileSettings,
-  getProfileSettings,
+  createOrUpdateSettings,
+  deleteSettings,
+  getSettings,
 } from '../../controllers/setting';
 
 const router = Router();
 
-router.get('/settings', getProfileSettings);
-router.post('/settings', createOrUpdateProfileSettings);
-router.delete('/settings', deleteProfileSettings);
+router.get('/settings', getSettings);
+router.post('/settings', createOrUpdateSettings);
+router.delete('/settings', deleteSettings);
 
 export default router;
