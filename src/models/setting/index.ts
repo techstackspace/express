@@ -1,18 +1,20 @@
 import { Document, Schema, model } from 'mongoose';
 import ISetting from './interface';
 
-export enum Theme {
-  Light = 'light',
-  Dark = 'dark',
-  System = 'system',
-}
+// enum Theme {
+//   Light = 'light',
+//   Dark = 'dark',
+//   System = 'system',
+// }
 
 const ProfileSettingsSchema = new Schema<ISetting & Document>(
   {
     theme: {
       type: String,
-      enum: Object.values(Theme),
-      default: Theme.System,
+      // enum: [Theme.Light, Theme.Dark, Theme.System],
+      enum: ['light', 'dark', 'system'],
+      // default: Theme.System,
+      default: 'system',
     },
     profileVisibility: {
       type: String,
