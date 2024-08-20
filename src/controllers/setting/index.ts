@@ -1,9 +1,10 @@
 import { Request, Response } from 'express';
 import ProfileSettings from '../../models/setting';
 
-export const getProfileSettings = async (req: Request, res: Response) => {
+const getProfileSettings = async (req: Request, res: Response) => {
+  const { user } = req.params
   try {
-    const settings = await ProfileSettings.findOne();
+    const settings = await ProfileSettings.findOne({ user });
     if (!settings) {
       return res.status(404).json({ message: 'Settings not found' });
     }
@@ -13,14 +14,15 @@ export const getProfileSettings = async (req: Request, res: Response) => {
   }
 };
 
-export const createOrUpdateProfileSettings = async (
+const createOrUpdateProfileSettings = async (
   req: Request,
   res: Response
 ) => {
+  const { user } = req.params;
   try {
     const { theme, profileVisibility, dataSharing } = req.body;
 
-    let settings = await ProfileSettings.findOne();
+    let settings = await ProfileSettings.findOne({ user });
     if (settings) {
       settings.theme = theme || settings.theme;
       settings.profileVisibility =
@@ -41,9 +43,10 @@ export const createOrUpdateProfileSettings = async (
   }
 };
 
-export const deleteProfileSettings = async (req: Request, res: Response) => {
+const deleteProfileSettings = async (req: Request, res: Response) => {
+  const { user } = req.params
   try {
-    const settings = await ProfileSettings.findOneAndDelete();
+    const settings = await ProfileSettings.findOneAndDelete({ user });
     if (!settings) {
       return res.status(404).json({ message: 'Settings not found' });
     }
@@ -52,3 +55,5 @@ export const deleteProfileSettings = async (req: Request, res: Response) => {
     res.status(500).json({ message: 'Server error', error });
   }
 };
+
+export { getProfileSettings, createOrUpdateProfileSettings, deleteProfileSettings }
