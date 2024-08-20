@@ -7,8 +7,8 @@ import {
 
 const router = Router();
 
-router.get('/settings/:user', getProfileSettings);
-router.post('/settings/:user', createOrUpdateProfileSettings);
-router.delete('/settings/:user', deleteProfileSettings);
+router.get('/settings', getProfileSettings);
+router.post('/settings', createOrUpdateProfileSettings);
+router.delete('/settings', deleteProfileSettings);
 
 export default router;
