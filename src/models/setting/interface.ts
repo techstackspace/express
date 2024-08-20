@@ -3,4 +3,5 @@ interface ISetting {
   profileVisibility: 'private' | 'public';
   dataSharing: boolean;
 }
+
 export default ISetting;
