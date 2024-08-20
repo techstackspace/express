@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import ProfileSettings from '../../models/setting';
 
-const getProfileSettings = async (req: Request, res: Response) => {
+const getProfileSettings = async (_req: Request, res: Response) => {
   try {
     const settings = await ProfileSettings.findOne();
     if (!settings) {
@@ -41,7 +41,7 @@ const createOrUpdateProfileSettings = async (
   }
 };
 
-const deleteProfileSettings = async (req: Request, res: Response) => {
+const deleteProfileSettings = async (_req: Request, res: Response) => {
   try {
     const settings = await ProfileSettings.findOneAndDelete();
     if (!settings) {
