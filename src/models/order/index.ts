@@ -22,6 +22,7 @@ const OrderSchema = new Schema<IOrderProduct & IOrder & Document>(
     isPaid: { type: Boolean, default: false },
     paidAt: { type: Date },
     deliveredAt: { type: Date },
+    version: { type: Number, default: 1 },
   },
   { timestamps: true }
 );

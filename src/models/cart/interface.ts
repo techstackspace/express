@@ -5,6 +5,7 @@ interface ICart {
   user: IUser;
   product: IProduct;
   quantity: number;
+  version: number;
 }
 
 export type { ICart };

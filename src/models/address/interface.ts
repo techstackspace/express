@@ -9,6 +9,7 @@ interface IAddress {
   postalCode: string;
   country: string;
   isDefault: boolean;
+  version: number;
 }
 
 export type { IAddress };

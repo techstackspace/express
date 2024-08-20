@@ -10,6 +10,7 @@ const AddressSchema = new Schema<IAddress & Document>({
   postalCode: { type: String, required: true },
   country: { type: String, required: true },
   isDefault: { type: Boolean, default: false },
+  version: { type: Number, default: 1 },
 });
 
 const Address = model<IAddress & Document>('Address', AddressSchema);

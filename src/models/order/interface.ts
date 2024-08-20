@@ -17,6 +17,7 @@ interface IOrder extends Document {
   isPaid: boolean;
   paidAt?: Date;
   deliveredAt?: Date;
+  version: number;
 }
 
 export type { IOrderProduct, IOrder };
