@@ -18,6 +18,9 @@ interface IProduct {
   stock: number;
   likes: ObjectId[];
   comments: IComment[];
+  isPublished: boolean;
+  slug: string;
+  status: 'draft' | 'review' | 'published';
   version: number;
   calculateAverageRating(): Promise<void>;
 }
