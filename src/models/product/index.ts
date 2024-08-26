@@ -1,6 +1,7 @@
 import { Document, model, Schema } from 'mongoose';
 import { IProduct } from './interface';
 import Review from '../review';
+import slugify from 'slugify';
 
 const ProductSchema = new Schema<IProduct & Document>(
   {
@@ -19,10 +20,24 @@ const ProductSchema = new Schema<IProduct & Document>(
     stock: { type: Number, required: true },
     likes: [{ type: Schema.Types.ObjectId, ref: 'User', default: [] }],
     comments: [{ type: Schema.Types.ObjectId, ref: 'Comment', default: [] }],
+    isPublished: { type: Boolean, default: false },
     version: { type: Number, default: 1 },
+    slug: { type: String, unique: true },
+    status: {
+      type: String,
+      enum: ['draft', 'review', 'published'],
+      default: 'draft',
+    },
   },
   { timestamps: true }
 );
+
+ProductSchema.pre('save', function (next) {
+  if (this.isModified('name') || this.isNew) {
+    this.slug = `${slugify(this.name, { lower: true })}-${this._id}`;
+  }
+  next();
+});
 
 ProductSchema.methods.calculateAverageRating = async function () {
   const reviews = await Review.find({ product: this._id });
@@ -37,14 +52,6 @@ ProductSchema.methods.calculateAverageRating = async function () {
   const averageRating = totalRating / totalReviews;
 
   this.ratingAverage = Math.max(1, Math.min(averageRating, 5));
-  await this.save();
-};
-
-ProductSchema.methods.calculateAverageRating = async function () {
-  const reviews = await Review.find({ product: this._id });
-  const averageRating =
-    reviews.reduce((sum, review) => sum + review.rating, 0) / reviews.length;
-  this.rating = averageRating;
   await this.save();
 };
 
