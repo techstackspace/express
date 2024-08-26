@@ -35,6 +35,37 @@ const getProductById = async (req: Request, res: Response) => {
   }
 };
 
+// const getProductBySlug = async (req: Request, res: Response) => {
+//   const slug = req.params.slug;
+//   try {
+//     const product = await Product.findOne({ slug }).populate('comments');
+//     if (!product) {
+//       return res.status(404).json({ message: 'Product not found' });
+//     }
+//     return res.status(200).json(product);
+//   } catch (err: unknown) {
+//     if (err instanceof Error) {
+//       error('Server error!', err.message);
+//       return res.status(500).json({ error: err.message });
+//     } else {
+//       return res.status(500).json({ error: 'Unknown error occurred' });
+//     }
+//   }
+// };
+
+// const getAllPublishedProducts = async (_req: Request, res: Response) => {
+//   try {
+//     const publishedProducts = await Product.find({ status: 'published' });
+//     return res.status(200).json(publishedProducts);
+//   } catch (error: unknown) {
+//     if (error instanceof Error) {
+//       return res.status(500).json({ error: error.message });
+//     } else {
+//       return res.status(500).json({ error: 'Unknown error occurred' });
+//     }
+//   }
+// };
+
 const createProduct = async (req: Request, res: Response) => {
   const payload = req.body;
 
@@ -148,4 +179,6 @@ export {
   updateProduct,
   deleteProduct,
   toggleLikeProduct,
+  // getProductBySlug,
+  // getAllPublishedProducts,
 };
