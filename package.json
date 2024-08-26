@@ -36,7 +36,8 @@
     "bcrypt": "^5.1.1",
     "express": "^4.19.2",
     "globals": "^15.9.0",
-    "mongoose": "^8.5.2"
+    "mongoose": "^8.5.2",
+    "slugify": "^1.6.6"
   },
   "husky": {
     "hooks": {
