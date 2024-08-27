@@ -1,5 +1,4 @@
 import { Request, Response } from 'express';
-import { error } from '../../config/debugger';
 import Cart from '../../models/cart';
 
 const getCartItems = async (req: Request, res: Response) => {
@@ -10,7 +9,6 @@ const getCartItems = async (req: Request, res: Response) => {
     return res.status(200).json(cartItems);
   } catch (err) {
     if (err instanceof Error) {
-      error('Error getting cart items:', err.message);
       return res
         .status(500)
         .json({ error: 'An error occurred getting cart items.' });
@@ -40,7 +38,6 @@ const addToCart = async (req: Request, res: Response) => {
     }
   } catch (err) {
     if (err instanceof Error) {
-      error('Error adding to cart:', err.message);
       return res
         .status(500)
         .json({ error: 'An error occurred while adding to cart.' });
@@ -64,7 +61,6 @@ const deleteFromCart = async (req: Request, res: Response) => {
     return res.status(200).json({ message: 'Cart item deleted successfully.' });
   } catch (err) {
     if (err instanceof Error) {
-      error('Error deleting from cart:', err.message);
       return res
         .status(500)
         .json({ error: 'An error occurred while deleting from cart.' });
