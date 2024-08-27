@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
-import { hash } from 'bcrypt';
+import { hash, compare } from 'bcrypt';
 import User from '../../models/user';
+import { sign } from 'jsonwebtoken';
 
 const getAllUsers = async (_req: Request, res: Response) => {
   try {
@@ -58,6 +59,56 @@ const createUser = async (req: Request, res: Response) => {
   }
 };
 
+const loginUser = async (req: Request, res: Response) => {
+  const { email, password } = req.body;
+
+  if (!email || !password) {
+    return res.status(400).json({ message: 'Missing required fields' });
+  }
+
+  try {
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    const isMatch = await compare(password, user.password);
+    if (!isMatch) {
+      return res.status(401).json({ message: 'Invalid credentials' });
+    }
+
+    const token = sign(
+      { id: user._id, email: user.email },
+      process.env.JWT_SECRET!,
+      { expiresIn: '15d' }
+    );
+
+    res.cookie('token', token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      maxAge: 15 * 24 * 60 * 60 * 1000,
+    });
+
+    return res.status(200).json({ message: 'Login successful', token });
+  } catch (err) {
+    if (err instanceof Error) {
+      return res.status(500).json({ error: err.message });
+    } else {
+      return res.status(500).json({ error: 'Unknown error occurred' });
+    }
+  }
+};
+
+const logoutUser = (req: Request, res: Response) => {
+  res.clearCookie('token', {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === 'production',
+    sameSite: 'strict',
+  });
+
+  return res.status(200).json({ message: 'Logout successful' });
+};
+
 const deleteUser = async (req: Request, res: Response) => {
   const id = req.params.id;
   try {
@@ -75,4 +126,11 @@ const deleteUser = async (req: Request, res: Response) => {
   }
 };
 
-export { getAllUsers, getUserById, createUser, deleteUser };
+export {
+  getAllUsers,
+  getUserById,
+  createUser,
+  deleteUser,
+  loginUser,
+  logoutUser,
+};
