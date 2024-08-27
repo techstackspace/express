@@ -4,30 +4,30 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TechStackSpace Express JS API Testing Guide | Version 1.5.0</title>
+  <title>TechStackSpace Express JS API Testing Guide | Version 1.6.0</title>
   <meta name="description"
-    content="Learn how to create and test CRUD API endpoints in the TechStackSpace Express App (Version 1.5.0) using tools like Postman, Bruno, and more.">
-  <meta name="keywords" content="API testing, Express, CRUD, Postman, TechStackSpace, MongoDB, version 1.5.0">
-  <meta name="author" content="TechStackSpace">
-  <meta property="og:title" content="TechStackSpace API Express App Testing Guide for Version 1.5.0">
+    content="Learn how to create and test CRUD API endpoints in the TechStackSpace Express App (Version 1.6.0) using tools like Postman, Bruno, and more.">
+  <meta name="keywords" content="API testing, Express, CRUD operations, Postman, TechStackSpace, MongoDB, version 1.6.0, authentication, bcrypt, JWT, cookie-based authentication" />
+  <meta name="author" content="Bello Osagie">
+  <meta property="og:title" content="TechStackSpace API Express App Testing Guide for Version 1.6.0">
   <meta property="og:description"
-    content="Step-by-step guide to testing API endpoints with tools like Postman and Bruno for TechStackSpace Version 1.5.0.">
+    content="Step-by-step guide to testing API endpoints with tools like Postman and Bruno for TechStackSpace Version 1.6.0.">
   <meta property="og:image"
-    content="https://res.cloudinary.com/bizstak/image/upload/v1724161007/Express%20Social%20Media%20Thumbnails/express-v150_lawoo3.png">
-  <meta property="og:url" content="https://express-v150.techstackspace.com">
+    content="https://res.cloudinary.com/bizstak/image/upload/v1724765579/Express%20Social%20Media%20Thumbnails/express-v160_na5kj3.png">
+  <meta property="og:url" content="https://express-v160.techstackspace.com">
   <meta property="og:type" content="website">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="TechStackSpace API Express App Testing Guide for Version 1.5.0">
+  <meta name="twitter:title" content="TechStackSpace API Express App Testing Guide for Version 1.6.0">
   <meta name="twitter:description"
-    content="Learn how to create and test CRUD API endpoints in the TechStackSpace Express App (Version 1.5.0) using tools like Postman, Bruno, and more.">
+    content="Learn how to create and test CRUD API endpoints in the TechStackSpace Express App (Version 1.6.0) using tools like Postman, Bruno, and more.">
   <meta name="twitter:image"
-    content="https://res.cloudinary.com/bizstak/image/upload/v1724161007/Express%20Social%20Media%20Thumbnails/express-v150_lawoo3.png">
+    content="https://res.cloudinary.com/bizstak/image/upload/v1724765337/Express%20Social%20Media%20Thumbnails/twitter-express-v160_h5izmf.png">
   <meta name="twitter:site" content="@techstackspace">
   <meta name="twitter:image:width" content="1200">
   <meta name="twitter:image:height" content="630">
-  <link rel="canonical" href="https://express-v150.techstackspace.com">
+  <link rel="canonical" href="https://express-v160.techstackspace.com">
   <link rel="apple-touch-icon" sizes="57x57" href="./assets/favicon/apple-icon-57x57.png">
   <link rel="apple-touch-icon" sizes="60x60" href="./assets/favicon/apple-icon-60x60.png">
   <link rel="apple-touch-icon" sizes="72x72" href="./assets/favicon/apple-icon-72x72.png">
@@ -253,7 +253,7 @@
     </ul>
   </nav>
 
-  <h1>Express API Testing Guide for Version 1.5.0</h1>
+  <h1>Express API Testing Guide for Version 1.6.0</h1>
   <p>This guide provides instructions on how to test various API endpoints using HTTP clients such as <a
       href="https://www.postman.com/product/rest-client" target="_blank" rel="noopener noreferrer">Postman</a>, <a
       href="https://www.usebruno.com" target="_blank" rel="noopener noreferrer">Bruno</a>, <a
@@ -281,7 +281,7 @@
     <p><strong>Method:</strong> <code>GET</code></p>
     <p><strong>Endpoint:</strong> <code>/api/products</code></p>
     <p><strong>Description:</strong> Retrieves a list of all products.</p>
-    <p><strong>Authentication:</strong> Not required.</p>
+    <p><strong>Authentication:</strong> Required.</p>
     <p><strong>Testing in Postman:</strong></p>
     <ul>
       <li>Set method to <code>GET</code></li>
@@ -295,7 +295,7 @@
     <p><strong>Method:</strong> <code>GET</code></p>
     <p><strong>Endpoint:</strong> <code>/api/products/:id</code></p>
     <p><strong>Description:</strong> Retrieves a single product by its ID.</p>
-    <p><strong>Authentication:</strong> Not required.</p>
+    <p><strong>Authentication:</strong> Required.</p>
     <p><strong>Testing in Postman:</strong></p>
     <ul>
       <li>Set method to <code>GET</code></li>
@@ -311,7 +311,7 @@
     <p><strong>Method:</strong> <code>POST</code></p>
     <p><strong>Endpoint:</strong> <code>/api/products</code></p>
     <p><strong>Description:</strong> Creates a new product.</p>
-    <p><strong>Authentication:</strong> Not required.</p>
+    <p><strong>Authentication:</strong> Required.</p>
     <p><strong>Body:</strong></p>
     <pre><code>
 {
@@ -347,7 +347,7 @@
     <p><strong>Method:</strong> <code>PATCH</code></p>
     <p><strong>Endpoint:</strong> <code>/api/products/:id</code></p>
     <p><strong>Description:</strong> Updates an existing product by its ID.</p>
-    <p><strong>Authentication:</strong> Not required.</p>
+    <p><strong>Authentication:</strong> Required.</p>
     <p><strong>Body:</strong> JSON object with fields to update.</p>
     <p><strong>Testing in Postman:</strong></p>
     <ul>
@@ -367,7 +367,7 @@
     <p><strong>Method:</strong> <code>DELETE</code></p>
     <p><strong>Endpoint:</strong> <code>/api/products/:id</code></p>
     <p><strong>Description:</strong> Deletes a product by its ID.</p>
-    <p><strong>Authentication:</strong> Not required.</p>
+    <p><strong>Authentication:</strong> Required.</p>
     <p><strong>Testing in Postman:</strong></p>
     <ul>
       <li>Set method to <code>DELETE</code></li>
@@ -383,7 +383,7 @@
     <p><strong>Method:</strong> <code>POST</code></p>
     <p><strong>Endpoint:</strong> <code>/api/products/:productId/like</code></p>
     <p><strong>Description:</strong> Toggles a like on a product for the current user.</p>
-    <p><strong>Authentication:</strong> Not required.</p>
+    <p><strong>Authentication:</strong> Required.</p>
     <p><strong>Body:</strong></p>
     <pre><code>
 {
@@ -400,7 +400,7 @@
       <li>Select <code>Body</code> tab</li>
       <li>Choose <code>raw</code> and set format to <code>JSON</code></li>
       <li>Enter the JSON payload above</li>
-      <li>Authentication is not required</li>
+      <li>Authentication is required</li>
       <li>Click <code>Send</code></li>
     </ul>
   </div>
@@ -412,7 +412,7 @@
     <p><strong>Method:</strong> <code>GET</code></p>
     <p><strong>Endpoint:</strong> <code>/api/comments</code></p>
     <p><strong>Description:</strong> Retrieves a list of all comments.</p>
-    <p><strong>Authentication:</strong> Not required.</p>
+    <p><strong>Authentication:</strong> Required.</p>
     <p><strong>Testing in Postman:</strong></p>
     <ul>
       <li>Set method to <code>GET</code></li>
@@ -426,7 +426,7 @@
     <p><strong>Method:</strong> <code>GET</code></p>
     <p><strong>Endpoint:</strong> <code>/api/comments/:id</code></p>
     <p><strong>Description:</strong> Retrieves a single comment by its ID.</p>
-    <p><strong>Authentication:</strong> Not required.</p>
+    <p><strong>Authentication:</strong> Required.</p>
     <p><strong>Testing in Postman:</strong></p>
     <ul>
       <li>Set method to <code>GET</code></li>
@@ -442,7 +442,7 @@
     <p><strong>Method:</strong> <code>POST</code></p>
     <p><strong>Endpoint:</strong> <code>/api/comments</code></p>
     <p><strong>Description:</strong> Creates a new comment.</p>
-    <p><strong>Authentication:</strong> Not required.</p>
+    <p><strong>Authentication:</strong> Required.</p>
     <p><strong>Body:</strong></p>
     <pre><code>
 {
@@ -458,7 +458,7 @@
       <li>Select <code>Body</code> tab</li>
       <li>Choose <code>raw</code> and set format to <code>JSON</code></li>
       <li>Enter the JSON payload above</li>
-      <li>Authentication is not required</li>
+      <li>Authentication is required</li>
       <li>Click <code>Send</code></li>
     </ul>
   </div>
@@ -468,7 +468,7 @@
     <p><strong>Method:</strong> <code>PATCH</code></p>
     <p><strong>Endpoint:</strong> <code>/api/comments/:id</code></p>
     <p><strong>Description:</strong> Updates an existing comment by its ID.</p>
-    <p><strong>Authentication:</strong> Not required.</p>
+    <p><strong>Authentication:</strong> Required.</p>
     <p><strong>Body:</strong> JSON object with fields to update.</p>
     <p><strong>Testing in Postman:</strong></p>
     <ul>
@@ -479,7 +479,7 @@
       <li>Select <code>Body</code> tab</li>
       <li>Choose <code>raw</code> and set format to <code>JSON</code></li>
       <li>Enter the JSON payload with fields to update</li>
-      <li>Authentication is not required</li>
+      <li>Authentication is required</li>
       <li>Click <code>Send</code></li>
     </ul>
   </div>
@@ -489,14 +489,14 @@
     <p><strong>Method:</strong> <code>DELETE</code></p>
     <p><strong>Endpoint:</strong> <code>/api/comments/:id</code></p>
     <p><strong>Description:</strong> Deletes a comment by its ID.</p>
-    <p><strong>Authentication:</strong> Not required.</p>
+    <p><strong>Authentication:</strong> Required.</p>
     <p><strong>Testing in Postman:</strong></p>
     <ul>
       <li>Set method to <code>DELETE</code></li>
       <li>Enter URL: <code>http://localhost:5000/api/comments/{id}</code> (Replace <code>{id}</code> with the
         actual
         comment ID)</li>
-      <li>Authentication is not required</li>
+      <li>Authentication is required</li>
       <li>Click <code>Send</code></li>
     </ul>
   </div>
@@ -506,7 +506,7 @@
     <p><strong>Method:</strong> <code>POST</code></p>
     <p><strong>Endpoint:</strong> <code>/api/comments/:commentId/like</code></p>
     <p><strong>Description:</strong> Toggles a like on a comment for the current user.</p>
-    <p><strong>Authentication:</strong> Not required.</p>
+    <p><strong>Authentication:</strong> Required.</p>
     <p><strong>Body:</strong></p>
     <pre><code>
 {
@@ -523,7 +523,7 @@
       <li>Select <code>Body</code> tab</li>
       <li>Choose <code>raw</code> and set format to <code>JSON</code></li>
       <li>Enter the JSON payload above</li>
-      <li>Authentication is not required</li>
+      <li>Authentication is required</li>
       <li>Click <code>Send</code></li>
     </ul>
   </div>
@@ -535,7 +535,7 @@
     <p><strong>Method:</strong> <code>GET</code></p>
     <p><strong>Endpoint:</strong> <code>/api/users</code></p>
     <p><strong>Description:</strong> Retrieves a list of all users.</p>
-    <p><strong>Authentication:</strong> Not required.</p>
+    <p><strong>Authentication:</strong> Required.</p>
     <p><strong>Testing in Postman:</strong></p>
     <ul>
       <li>Set method to <code>GET</code></li>
@@ -549,7 +549,7 @@
     <p><strong>Method:</strong> <code>GET</code></p>
     <p><strong>Endpoint:</strong> <code>/api/users/:id</code></p>
     <p><strong>Description:</strong> Retrieves a single user by its ID.</p>
-    <p><strong>Authentication:</strong> Not required.</p>
+    <p><strong>Authentication:</strong> Required.</p>
     <p><strong>Testing in Postman:</strong></p>
     <ul>
       <li>Set method to <code>GET</code></li>
@@ -565,7 +565,7 @@
     <p><strong>Method:</strong> <code>POST</code></p>
     <p><strong>Endpoint:</strong> <code>/api/users/register</code></p>
     <p><strong>Description:</strong> Creates a new user.</p>
-    <p><strong>Authentication:</strong> Not required.</p>
+    <p><strong>Authentication:</strong> Required.</p>
     <p><strong>Body:</strong></p>
     <pre><code>
 {
@@ -591,7 +591,7 @@
     <p><strong>Method:</strong> <code>DELETE</code></p>
     <p><strong>Endpoint:</strong> <code>/api/users/:id</code></p>
     <p><strong>Description:</strong> Deletes a user by its ID.</p>
-    <p><strong>Authentication:</strong> Not required.</p>
+    <p><strong>Authentication:</strong> Required.</p>
     <p><strong>Testing in Postman:</strong></p>
     <ul>
       <li>Set method to <code>DELETE</code></li>
@@ -607,7 +607,7 @@
     <p><strong>Method:</strong> <code>PATCH</code></p>
     <p><strong>Endpoint:</strong> <code>/api/users/:id</code></p>
     <p><strong>Description:</strong> Updates an existing user by its ID.</p>
-    <p><strong>Authentication:</strong> Not required.</p>
+    <p><strong>Authentication:</strong> Required.</p>
     <p><strong>Body:</strong> JSON object with fields to update.</p>
     <p><strong>Testing in Postman:</strong></p>
     <ul>
@@ -618,7 +618,7 @@
       <li>Select <code>Body</code> tab</li>
       <li>Choose <code>raw</code> and set format to <code>JSON</code></li>
       <li>Enter the JSON payload with fields to update</li>
-      <p><strong>Authentication:</strong> Not required.</p>
+      <p><strong>Authentication:</strong> Required.</p>
       <li>Click <code>Send</code></li>
     </ul>
   </div>
@@ -630,7 +630,7 @@
     <p><strong>Method:</strong> <code>GET</code></p>
     <p><strong>Endpoint:</strong> <code>/products/:productId/reviews</code></p>
     <p><strong>Description:</strong> Retrieves a list of all Reviews.</p>
-    <p><strong>Authentication:</strong> Not required.</p>
+    <p><strong>Authentication:</strong> Required.</p>
     <p><strong>Testing in Postman:</strong></p>
     <ul>
       <li>Set method to <code>GET</code></li>
@@ -644,7 +644,7 @@
     <p><strong>Method:</strong> <code>GET</code></p>
     <p><strong>Endpoint:</strong> <code>/api/reviews/:reviewId</code></p>
     <p><strong>Description:</strong> Retrieves a single product review by its ID.</p>
-    <p><strong>Authentication:</strong> Not required.</p>
+    <p><strong>Authentication:</strong> Required.</p>
     <p><strong>Testing in Postman:</strong></p>
     <ul>
       <li>Set method to <code>GET</code></li>
@@ -660,7 +660,7 @@
     <p><strong>Method:</strong> <code>POST</code></p>
     <p><strong>Endpoint:</strong> <code>/api/reviews</code></p>
     <p><strong>Description:</strong> Creates a new product review.</p>
-    <p><strong>Authentication:</strong> Not required.</p>
+    <p><strong>Authentication:</strong> Required.</p>
     <p><strong>Body:</strong></p>
     <pre><code>
 {
@@ -687,7 +687,7 @@
     <p><strong>Method:</strong> <code>POST</code></p>
     <p><strong>Endpoint:</strong> <code>/api/reviews/{id}/report</code></p>
     <p><strong>Description:</strong> Creates a new product report review by its ID.</p>
-    <p><strong>Authentication:</strong> Not required.</p>
+    <p><strong>Authentication:</strong> Required.</p>
     <p><strong>Body:</strong></p>
     <pre><code>
 {
@@ -713,7 +713,7 @@
     <p><strong>Method:</strong> <code>PUT</code></p>
     <p><strong>Endpoint:</strong> <code>/api/reviews/:id</code></p>
     <p><strong>Description:</strong> Updates an existing review by its ID.</p>
-    <p><strong>Authentication:</strong> Not required.</p>
+    <p><strong>Authentication:</strong> Required.</p>
     <p><strong>Body:</strong> JSON object with fields to update.</p>
     <p><strong>Testing in Postman:</strong></p>
     <ul>
@@ -733,7 +733,7 @@
     <p><strong>Method:</strong> <code>DELETE</code></p>
     <p><strong>Endpoint:</strong> <code>/api/reviews/:id</code></p>
     <p><strong>Description:</strong> Deletes a Review by its ID.</p>
-    <p><strong>Authentication:</strong> Not required.</p>
+    <p><strong>Authentication:</strong> Required.</p>
     <p><strong>Testing in Postman:</strong></p>
     <ul>
       <li>Set method to <code>DELETE</code></li>
@@ -749,7 +749,7 @@
     <p><strong>Method:</strong> <code>POST</code></p>
     <p><strong>Endpoint:</strong> <code>/api/reviews/:reviewId/like</code></p>
     <p><strong>Description:</strong> Toggles a like on a review for the current user.</p>
-    <p><strong>Authentication:</strong> Not required.</p>
+    <p><strong>Authentication:</strong> Required.</p>
     <p><strong>Body:</strong></p>
     <pre><code>
 {
@@ -766,7 +766,7 @@
       <li>Select <code>Body</code> tab</li>
       <li>Choose <code>raw</code> and set format to <code>JSON</code></li>
       <li>Enter the JSON payload above</li>
-      <li>Authentication is not required</li>
+      <li>Authentication is required</li>
       <li>Click <code>Send</code></li>
     </ul>
   </div>
@@ -778,7 +778,7 @@
     <p><strong>Method:</strong> <code>POST</code></p>
     <p><strong>Endpoint:</strong> <code>/api/feedback</code></p>
     <p><strong>Description:</strong> Creates a new feedback.</p>
-    <p><strong>Authentication:</strong> Not required.</p>
+    <p><strong>Authentication:</strong> Required.</p>
     <p><strong>Body:</strong></p>
     <pre><code>
 {
@@ -823,7 +823,7 @@
     <p><strong>Method:</strong> <code>POST</code></p>
     <p><strong>Endpoint:</strong> <code>/api/subscribe</code></p>
     <p><strong>Description:</strong> Creates a new subscriber.</p>
-    <p><strong>Authentication:</strong> Not required.</p>
+    <p><strong>Authentication:</strong> Required.</p>
     <p><strong>Body:</strong></p>
     <pre><code>
 {
@@ -849,7 +849,7 @@
     <p><strong>Method:</strong> <code>GET</code></p>
     <p><strong>Endpoint:</strong> <code>/api/addresses</code></p>
     <p><strong>Description:</strong> Retrieves a list of all addresses.</p>
-    <p><strong>Authentication:</strong> Not required.</p>
+    <p><strong>Authentication:</strong> Required.</p>
     <p><strong>Testing in Postman:</strong></p>
     <ul>
       <li>Set method to <code>GET</code></li>
@@ -869,7 +869,7 @@
     <p><strong>Method:</strong> <code>GET</code></p>
     <p><strong>Endpoint:</strong> <code>/api/addresses/:id</code></p>
     <p><strong>Description:</strong> Retrieves a single address by its ID.</p>
-    <p><strong>Authentication:</strong> Not required.</p>
+    <p><strong>Authentication:</strong> Required.</p>
     <p><strong>Testing in Postman:</strong></p>
     <ul>
       <li>Set method to <code>GET</code></li>
@@ -884,7 +884,7 @@
     <p><strong>Method:</strong> <code>POST</code></p>
     <p><strong>Endpoint:</strong> <code>/api/addresses</code></p>
     <p><strong>Description:</strong> Creates a new address.</p>
-    <p><strong>Authentication:</strong> Not required.</p>
+    <p><strong>Authentication:</strong> Required.</p>
     <p><strong>Body:</strong></p>
     <pre><code>
 {
@@ -912,7 +912,7 @@
     <p><strong>Method:</strong> <code>PATCH</code></p>
     <p><strong>Endpoint:</strong> <code>/api/addresses/:id</code></p>
     <p><strong>Description:</strong> Updates an existing address by its ID.</p>
-    <p><strong>Authentication:</strong> Not required.</p>
+    <p><strong>Authentication:</strong> Required.</p>
     <p><strong>Body:</strong> JSON object with fields to update.</p>
     <p><strong>Testing in Postman:</strong></p>
     <ul>
@@ -931,7 +931,7 @@
     <p><strong>Method:</strong> <code>DELETE</code></p>
     <p><strong>Endpoint:</strong> <code>/api/addresses/:id</code></p>
     <p><strong>Description:</strong> Deletes an address by its ID.</p>
-    <p><strong>Authentication:</strong> Not required.</p>
+    <p><strong>Authentication:</strong> Required.</p>
     <p><strong>Testing in Postman:</strong></p>
     <ul>
       <li>Set method to <code>DELETE</code></li>
@@ -948,7 +948,7 @@
     <p><strong>Method:</strong> <code>GET</code></p>
     <p><strong>Endpoint:</strong> <code>/api/orders</code></p>
     <p><strong>Description:</strong> Retrieves a list of all orders.</p>
-    <p><strong>Authentication:</strong> Not required.</p>
+    <p><strong>Authentication:</strong> Required.</p>
     <p><strong>Testing in Postman:</strong></p>
     <ul>
       <li>Set method to <code>GET</code></li>
@@ -962,7 +962,7 @@
     <p><strong>Method:</strong> <code>GET</code></p>
     <p><strong>Endpoint:</strong> <code>/api/orders/:id</code></p>
     <p><strong>Description:</strong> Retrieves a single order by its ID.</p>
-    <p><strong>Authentication:</strong> Not required.</p>
+    <p><strong>Authentication:</strong> Required.</p>
     <p><strong>Testing in Postman:</strong></p>
     <ul>
       <li>Set method to <code>GET</code></li>
@@ -977,7 +977,7 @@
     <p><strong>Method:</strong> <code>POST</code></p>
     <p><strong>Endpoint:</strong> <code>/api/orders</code></p>
     <p><strong>Description:</strong> Creates a new order.</p>
-    <p><strong>Authentication:</strong> Not required.</p>
+    <p><strong>Authentication:</strong> Required.</p>
     <p><strong>Body:</strong></p>
     <pre><code>
 {
@@ -1009,7 +1009,7 @@
     <p><strong>Method:</strong> <code>PATCH</code></p>
     <p><strong>Endpoint:</strong> <code>/api/orders/:id</code></p>
     <p><strong>Description:</strong> Updates an existing order by its ID.</p>
-    <p><strong>Authentication:</strong> Not required.</p>
+    <p><strong>Authentication:</strong> Required.</p>
     <p><strong>Body:</strong> JSON object with fields to update.</p>
     <p><strong>Testing in Postman:</strong></p>
     <ul>
@@ -1028,7 +1028,7 @@
     <p><strong>Method:</strong> <code>DELETE</code></p>
     <p><strong>Endpoint:</strong> <code>/api/orders/:id</code></p>
     <p><strong>Description:</strong> Deletes an order by its ID.</p>
-    <p><strong>Authentication:</strong> Not required.</p>
+    <p><strong>Authentication:</strong> Required.</p>
     <p><strong>Testing in Postman:</strong></p>
     <ul>
       <li>Set method to <code>DELETE</code></li>
@@ -1168,7 +1168,7 @@
     <p><strong>Method:</strong> <code>GET</code></p>
     <p><strong>Endpoint:</strong> <code>/api/profile</code></p>
     <p><strong>Description:</strong> Retrieves a list of a User profiles.</p>
-    <p><strong>Authentication:</strong> Not required.</p>
+    <p><strong>Authentication:</strong> Required.</p>
     <p><strong>Testing in Postman:</strong></p>
     <ul>
       <li>Set method to <code>GET</code></li>
@@ -1182,7 +1182,7 @@
     <p><strong>Method:</strong> <code>POST</code></p>
     <p><strong>Endpoint:</strong> <code>/api/profile</code></p>
     <p><strong>Description:</strong> Creates a new profile.</p>
-    <p><strong>Authentication:</strong> Not required.</p>
+    <p><strong>Authentication:</strong> Required.</p>
     <p><strong>Body:</strong></p>
     <pre><code>
 {
@@ -1226,7 +1226,7 @@
     <p><strong>Method:</strong> <code>PATCH/PUT</code></p>
     <p><strong>Endpoint:</strong> <code>/api/profile/:id</code></p>
     <p><strong>Description:</strong> Updates an existing profile by its ID.</p>
-    <p><strong>Authentication:</strong> Not required.</p>
+    <p><strong>Authentication:</strong> Required.</p>
     <p><strong>Body:</strong> JSON object with fields to update.</p>
     <p><strong>Testing in Postman:</strong></p>
     <ul>
@@ -1244,7 +1244,7 @@
     <p><strong>Method:</strong> <code>DELETE</code></p>
     <p><strong>Endpoint:</strong> <code>/api/profile</code></p>
     <p><strong>Description:</strong> Deletes a profile by its ID.</p>
-    <p><strong>Authentication:</strong> Not required.</p>
+    <p><strong>Authentication:</strong> Required.</p>
     <p><strong>Testing in Postman:</strong></p>
     <ul>
       <li>Set method to <code>DELETE</code></li>
@@ -1260,7 +1260,7 @@
   <p><strong>Method:</strong> <code>GET</code></p>
   <p><strong>Endpoint:</strong> <code>/api/settings</code></p>
   <p><strong>Description:</strong> Retrieves a list of a User settings.</p>
-  <p><strong>Authentication:</strong> Not required.</p>
+  <p><strong>Authentication:</strong> Required.</p>
   <p><strong>Testing in Postman:</strong></p>
   <ul>
     <li>Set method to <code>GET</code></li>
@@ -1274,7 +1274,7 @@
   <p><strong>Method:</strong> <code>POST</code></p>
   <p><strong>Endpoint:</strong> <code>/api/settings</code></p>
   <p><strong>Description:</strong> Creates a new setting.</p>
-  <p><strong>Authentication:</strong> Not required.</p>
+  <p><strong>Authentication:</strong> Required.</p>
   <p><strong>Body:</strong></p>
   <pre><code>
 {
@@ -1299,13 +1299,72 @@
   <p><strong>Method:</strong> <code>DELETE</code></p>
   <p><strong>Endpoint:</strong> <code>/api/settings</code></p>
   <p><strong>Description:</strong> Deletes a setting.</p>
-  <p><strong>Authentication:</strong> Not required.</p>
+  <p><strong>Authentication:</strong> Required.</p>
   <p><strong>Testing in Postman:</strong></p>
   <ul>
     <li>Set method to <code>DELETE</code></li>
     <li>Enter URL: <code>http://localhost:5000/api/settings</code></li>
     <li>Click <code>Send</code></li>
   </ul>
+</div>
+
+<h2>13. Authentication Endpoints</h2>
+
+<div class="endpoint">
+  <h3>Login User</h3>
+  <p><strong>Method:</strong> <code>POST</code></p>
+  <p><strong>Endpoint:</strong> <code>/api/users/login</code></p>
+  <p><strong>Description:</strong> Authenticates a user and returns a JWT token.</p>
+  <p><strong>Authentication:</strong> Required.</p>
+  <p><strong>Body:</strong></p>
+  <pre><code>
+{
+  "email": "user@example.com",
+  "password": "userpassword"
+}
+</code></pre>
+  <p><strong>Testing in Postman:</strong></p>
+  <ul>
+    <li>Set method to <code>POST</code></li>
+    <li>Enter URL: <code>http://localhost:5000/api/users/login</code></li>
+    <li>Select <code>Body</code> tab</li>
+    <li>Choose <code>raw</code> and set format to <code>JSON</code></li>
+    <li>Enter the JSON payload above</li>
+    <li>Click <code>Send</code></li>
+  </ul>
+  <p>If the credentials are correct, the response will include a JWT token that is stored as a cookie for authentication.</p>
+</div>
+
+<div class="endpoint">
+  <h3>Logout User</h3>
+  <p><strong>Method:</strong> <code>POST</code></p>
+  <p><strong>Endpoint:</strong> <code>/api/users/logout</code></p>
+  <p><strong>Description:</strong> Logs out the user by clearing the authentication token cookie.</p>
+  <p><strong>Authentication:</strong> Required.</p>
+  <p><strong>Testing in Postman:</strong></p>
+  <ul>
+    <li>Set method to <code>POST</code></li>
+    <li>Enter URL: <code>http://localhost:5000/api/users/logout</code></li>
+    <li>Ensure that you are logged in and have a valid authentication token</li>
+    <li>Click <code>Send</code></li>
+  </ul>
+  <p>Upon successful logout, the response will confirm the logout, and the JWT token will be cleared from the browser cookies.</p>
+</div>
+
+<div class="endpoint">
+  <h3>Delete User</h3>
+  <p><strong>Method:</strong> <code>DELETE</code></p>
+  <p><strong>Endpoint:</strong> <code>/api/users/:id</code></p>
+  <p><strong>Description:</strong> Deletes a user by ID.</p>
+  <p><strong>Authentication:</strong> Required.</p>
+  <p><strong>Testing in Postman:</strong></p>
+  <ul>
+    <li>Set method to <code>DELETE</code></li>
+    <li>Enter URL: <code>http://localhost:5000/api/users/{userId}</code></li>
+    <li>Ensure that you are logged in and have a valid authentication token</li>
+    <li>Click <code>Send</code></li>
+  </ul>
+  <p>Upon successful deletion, the response will confirm the user has been deleted.</p>
 </div>
 
   <h2>Additional Information</h2>
