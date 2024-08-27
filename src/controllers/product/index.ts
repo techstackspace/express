@@ -1,15 +1,13 @@
 import { Request, Response } from 'express';
 import Product from '../../models/product';
-import { error } from '../../config/debugger';
 import { Types } from 'mongoose';
 
 const getAllProducts = async (_req: Request, res: Response) => {
   try {
     const products = await Product.find();
     return res.status(200).json(products);
-  } catch (err: unknown) {
+  } catch (err) {
     if (err instanceof Error) {
-      error('Server error!', err.message);
       return res.status(500).json({ error: err.message });
     } else {
       return res.status(500).json({ error: 'Unknown error occurred' });
@@ -25,46 +23,14 @@ const getProductById = async (req: Request, res: Response) => {
       return res.status(404).json({ message: 'Product not found' });
     }
     return res.status(200).json(product);
-  } catch (err: unknown) {
+  } catch (err) {
     if (err instanceof Error) {
-      error('Server error!', err.message);
       return res.status(500).json({ error: err.message });
     } else {
       return res.status(500).json({ error: 'Unknown error occurred' });
     }
   }
 };
-
-// const getProductBySlug = async (req: Request, res: Response) => {
-//   const slug = req.params.slug;
-//   try {
-//     const product = await Product.findOne({ slug }).populate('comments');
-//     if (!product) {
-//       return res.status(404).json({ message: 'Product not found' });
-//     }
-//     return res.status(200).json(product);
-//   } catch (err: unknown) {
-//     if (err instanceof Error) {
-//       error('Server error!', err.message);
-//       return res.status(500).json({ error: err.message });
-//     } else {
-//       return res.status(500).json({ error: 'Unknown error occurred' });
-//     }
-//   }
-// };
-
-// const getAllPublishedProducts = async (_req: Request, res: Response) => {
-//   try {
-//     const publishedProducts = await Product.find({ status: 'published' });
-//     return res.status(200).json(publishedProducts);
-//   } catch (error: unknown) {
-//     if (error instanceof Error) {
-//       return res.status(500).json({ error: error.message });
-//     } else {
-//       return res.status(500).json({ error: 'Unknown error occurred' });
-//     }
-//   }
-// };
 
 const createProduct = async (req: Request, res: Response) => {
   const payload = req.body;
@@ -79,9 +45,8 @@ const createProduct = async (req: Request, res: Response) => {
     return res
       .status(201)
       .json({ message: 'Product created successfully', product: savedProduct });
-  } catch (err: unknown) {
+  } catch (err) {
     if (err instanceof Error) {
-      error('Server error!', err.message);
       return res.status(500).json({ error: err.message });
     } else {
       return res.status(500).json({ error: 'Unknown error occurred' });
@@ -108,9 +73,8 @@ const updateProduct = async (req: Request, res: Response) => {
     return res
       .status(200)
       .json({ message: 'Product updated successfully', product });
-  } catch (err: unknown) {
+  } catch (err) {
     if (err instanceof Error) {
-      error('Server error!', err.message);
       return res.status(500).json({ error: err.message });
     } else {
       return res.status(500).json({ error: 'Unknown error occurred' });
@@ -128,9 +92,8 @@ const deleteProduct = async (req: Request, res: Response) => {
     return res
       .status(200)
       .json({ message: 'Product deleted successfully', product });
-  } catch (err: unknown) {
+  } catch (err) {
     if (err instanceof Error) {
-      error('Server error!', err.message);
       return res.status(500).json({ error: err.message });
     } else {
       return res.status(500).json({ error: 'Unknown error occurred' });
@@ -164,7 +127,6 @@ const toggleLikeProduct = async (req: Request, res: Response) => {
       .json({ message: 'Like toggled successfully', product: savedProduct });
   } catch (err) {
     if (err instanceof Error) {
-      error('Server error!', err.message);
       return res.status(500).json({ error: err.message });
     } else {
       return res.status(500).json({ error: 'Unknown error occurred' });
@@ -179,6 +141,4 @@ export {
   updateProduct,
   deleteProduct,
   toggleLikeProduct,
-  // getProductBySlug,
-  // getAllPublishedProducts,
 };
