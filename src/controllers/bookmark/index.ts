@@ -1,6 +1,5 @@
 import { Request, Response } from 'express';
 import Bookmark from '../../models/bookmark';
-import { error } from '../../config/debugger';
 
 const addBookmark = async (req: Request, res: Response) => {
   const { product } = req.body;
@@ -21,7 +20,6 @@ const addBookmark = async (req: Request, res: Response) => {
     return res.status(201).json(savedBookmark);
   } catch (err) {
     if (err instanceof Error) {
-      error('Error adding bookmark:', err.message);
       return res
         .status(500)
         .json({ error: 'An error occurred while adding bookmark.' });
@@ -41,7 +39,6 @@ const removeBookmark = async (req: Request, res: Response) => {
     return res.status(200).json({ message: 'Bookmark removed successfully.' });
   } catch (err) {
     if (err instanceof Error) {
-      error('Error removing bookmark:', err.message);
       return res
         .status(500)
         .json({ error: 'An error occurred while removing bookmark.' });
@@ -56,7 +53,6 @@ const getBookmarks = async (req: Request, res: Response) => {
     return res.status(200).json(bookmarks);
   } catch (err) {
     if (err instanceof Error) {
-      error('Error getting bookmarks:', err.message);
       return res
         .status(500)
         .json({ error: 'An error occurred while getting bookmarks.' });
