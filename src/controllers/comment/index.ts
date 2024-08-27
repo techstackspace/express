@@ -1,5 +1,4 @@
 import { Request, Response } from 'express';
-import { error } from '../../config/debugger';
 import Comment from '../../models/comment';
 import Product from '../../models/product';
 import { Types } from 'mongoose';
@@ -10,7 +9,6 @@ const getAllComments = async (_req: Request, res: Response) => {
     return res.status(200).json(comments);
   } catch (err) {
     if (err instanceof Error) {
-      error('Server error!', err.message);
       return res.status(500).json({ error: err.message });
     } else {
       return res.status(500).json({ error: 'Unknown error occurred' });
@@ -29,7 +27,6 @@ const getCommentById = async (req: Request, res: Response) => {
     return res.status(200).json(comment);
   } catch (err) {
     if (err instanceof Error) {
-      error('Server error!', err.message);
       return res.status(500).json({ error: err.message });
     } else {
       return res.status(500).json({ error: 'Unknown error occurred' });
@@ -54,7 +51,6 @@ const createComment = async (req: Request, res: Response) => {
     return res.status(201).json({ comment: savedComment });
   } catch (err) {
     if (err instanceof Error) {
-      error('Server error!', err.message);
       return res.status(500).json({ error: err.message });
     } else {
       return res.status(500).json({ error: 'Unknown error occurred' });
@@ -82,7 +78,6 @@ const updateComment = async (req: Request, res: Response) => {
       .json({ message: 'Comment updated successfully', comment });
   } catch (err) {
     if (err instanceof Error) {
-      error('Server error!', err.message);
       return res.status(500).json({ error: err.message });
     } else {
       return res.status(500).json({ error: 'Unknown error occurred' });
@@ -107,7 +102,6 @@ const deleteComment = async (req: Request, res: Response) => {
       .json({ message: 'Comment deleted successfully', comment });
   } catch (err) {
     if (err instanceof Error) {
-      error('Server error!', err.message);
       return res.status(500).json({ error: err.message });
     } else {
       return res.status(500).json({ error: 'Unknown error occurred' });
@@ -144,7 +138,6 @@ const toggleLikeComment = async (req: Request, res: Response) => {
       .json({ message: 'Like toggled successfully', comment });
   } catch (err) {
     if (err instanceof Error) {
-      error('Server error!', err.message);
       return res.status(500).json({ error: err.message });
     } else {
       return res.status(500).json({ error: 'Unknown error occurred' });
