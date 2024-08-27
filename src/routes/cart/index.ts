@@ -4,11 +4,12 @@ import {
   deleteFromCart,
   getCartItems,
 } from '../../controllers/cart';
+import { authenticateToken } from '../../middleware';
 
 const router = Router();
 
-router.get('/cart', getCartItems);
-router.post('/cart', addToCart);
-router.delete('/cart/:id', deleteFromCart);
+router.get('/cart', authenticateToken, getCartItems);
+router.post('/cart', authenticateToken, addToCart);
+router.delete('/cart/:id', authenticateToken, deleteFromCart);
 
 export default router;

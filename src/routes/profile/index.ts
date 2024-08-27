@@ -6,13 +6,14 @@ import {
   patchProfile,
   createProfile,
 } from '../../controllers/profile';
+import { authenticateToken } from '../../middleware';
 
 const router = express.Router();
 
 router.get('/profile', getProfile);
-router.put('/profile', updateProfile);
-router.delete('/profile', deleteProfile);
-router.patch('/profile', patchProfile);
-router.post('/profile', createProfile);
+router.put('/profile', authenticateToken, updateProfile);
+router.delete('/profile', authenticateToken, deleteProfile);
+router.patch('/profile', authenticateToken, patchProfile);
+router.post('/profile', authenticateToken, createProfile);
 
 export default router;

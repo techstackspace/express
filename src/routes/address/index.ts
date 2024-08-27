@@ -5,12 +5,13 @@ import {
   deleteAddress,
   getUserAddresses,
 } from '../../controllers/address';
+import { authenticateToken } from '../../middleware';
 
 const router = express.Router();
 
-router.post('/address', createAddress);
-router.put('/address/:addressId', updateAddress);
-router.get('/address', getUserAddresses);
-router.delete('/address/:addressId', deleteAddress);
+router.post('/address', authenticateToken, createAddress);
+router.put('/address/:addressId', authenticateToken, updateAddress);
+router.get('/address', authenticateToken, getUserAddresses);
+router.delete('/address/:addressId', authenticateToken, deleteAddress);
 
 export default router;

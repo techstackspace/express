@@ -4,11 +4,12 @@ import {
   removeBookmark,
   getBookmarks,
 } from '../../controllers/bookmark';
+import { authenticateToken } from '../../middleware';
 
 const router = Router();
 
-router.get('/bookmarks', getBookmarks);
-router.post('/bookmarks', addBookmark);
-router.delete('/bookmarks/:id', removeBookmark);
+router.get('/bookmarks', authenticateToken, getBookmarks);
+router.post('/bookmarks', authenticateToken, addBookmark);
+router.delete('/bookmarks/:id', authenticateToken, removeBookmark);
 
 export default router;

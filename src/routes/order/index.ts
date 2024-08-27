@@ -5,12 +5,13 @@ import {
   updateOrderStatus,
   getAllOrders,
 } from '../../controllers/order';
+import { authenticateToken } from '../../middleware';
 
 const router = Router();
 
-router.post('/orders', createOrder);
-router.get('/orders/:id', getOrder);
-router.put('/orders/:id', updateOrderStatus);
-router.get('/orders', getAllOrders);
+router.post('/orders', authenticateToken, createOrder);
+router.get('/orders/:id', authenticateToken, getOrder);
+router.put('/orders/:id', authenticateToken, updateOrderStatus);
+router.get('/orders', authenticateToken, getAllOrders);
 
 export default router;

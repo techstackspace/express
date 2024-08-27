@@ -4,11 +4,12 @@ import {
   deleteSettings,
   getSettings,
 } from '../../controllers/setting';
+import { authenticateToken } from '../../middleware';
 
 const router = Router();
 
-router.get('/settings', getSettings);
-router.post('/settings', createOrUpdateSettings);
-router.delete('/settings', deleteSettings);
+router.get('/settings', authenticateToken, getSettings);
+router.post('/settings', authenticateToken, createOrUpdateSettings);
+router.delete('/settings', authenticateToken, deleteSettings);
 
 export default router;
