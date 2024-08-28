@@ -1,4 +1,5 @@
 import express, { json } from 'express';
+import cookieParser from 'cookie-parser';
 import { log } from './config/debugger';
 import connectionToDB from './config/database';
 import productRoutes from './routes/product';
@@ -18,7 +19,7 @@ const app = express();
 const port = process.env.PORT || 5000;
 
 app.use(json());
-
+app.use(cookieParser());
 connectionToDB();
 
 app.use(express.static('public'));
