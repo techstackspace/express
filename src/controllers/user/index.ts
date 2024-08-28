@@ -60,14 +60,18 @@ const createUser = async (req: Request, res: Response) => {
 };
 
 const loginUser = async (req: Request, res: Response) => {
-  const { email, password } = req.body;
+  const { identifier, password } = req.body;
 
-  if (!email || !password) {
+  if (!identifier || !password) {
     return res.status(400).json({ message: 'Missing required fields' });
   }
 
   try {
-    const user = await User.findOne({ email });
+    const isEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(identifier);
+    const user = isEmail
+      ? await User.findOne({ email: identifier })
+      : await User.findOne({ username: identifier });
+
     if (!user) {
       return res.status(404).json({ message: 'User not found' });
     }
