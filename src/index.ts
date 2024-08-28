@@ -1,4 +1,4 @@
-import express, { json } from 'express';
+import express, { json, urlencoded } from 'express';
 import cookieParser from 'cookie-parser';
 import { log } from './config/debugger';
 import connectionToDB from './config/database';
@@ -19,6 +19,7 @@ const app = express();
 const port = process.env.PORT || 5000;
 
 app.use(json());
+app.use(urlencoded({ extended: false }));
 app.use(cookieParser());
 connectionToDB();
 
