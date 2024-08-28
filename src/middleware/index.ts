@@ -13,7 +13,11 @@ const authenticateToken = (req: Request, res: Response, next: NextFunction) => {
     req.user = decoded;
     next();
   } catch (err) {
-    return res.status(401).json({ message: 'Token is not valid' });
+    if (err instanceof Error) {
+      return res.status(401).json({ message: 'Token is not valid' });
+    } else {
+      return res.status(500).json({ error: 'Unknown error occured' });
+    }
   }
 };
 
