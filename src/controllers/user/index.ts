@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import { hash, compare } from 'bcrypt';
 import User from '../../models/user';
 import { sign } from 'jsonwebtoken';
+import { encrypt } from '../../utils';
 
 const getAllUsers = async (_req: Request, res: Response) => {
   try {
@@ -87,7 +88,9 @@ const loginUser = async (req: Request, res: Response) => {
       { expiresIn: '15d' }
     );
 
-    res.cookie('token', token, {
+    const encryptedToken = encrypt(token);
+
+    res.cookie('token', encryptedToken, {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
       maxAge: 15 * 24 * 60 * 60 * 1000,
