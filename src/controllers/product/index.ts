@@ -33,15 +33,30 @@ const getProductById = async (req: Request, res: Response) => {
 };
 
 const createProduct = async (req: Request, res: Response) => {
-  const payload = req.body;
-
-  if (!payload) {
-    return res.status(400).json({ message: 'Missing required fields' });
-  }
-
   try {
+    const { files, body } = req;
+    const images: string[] = [];
+    const videos: string[] = [];
+
+    if (files && Array.isArray(files)) {
+      files.forEach((file: any) => {
+        if (file.mimetype.startsWith('image/')) {
+          images.push(file.path);
+        } else if (file.mimetype.startsWith('video/')) {
+          videos.push(file.path);
+        }
+      });
+    }
+
+    const payload = {
+      ...body,
+      images,
+      videos,
+    };
+
     const product = new Product(payload);
     const savedProduct = await product.save();
+
     return res
       .status(201)
       .json({ message: 'Product created successfully', product: savedProduct });
@@ -56,16 +71,33 @@ const createProduct = async (req: Request, res: Response) => {
 
 const updateProduct = async (req: Request, res: Response) => {
   const id = req.params.id;
-  const payload = req.body;
-  if (!payload || Object.keys(payload).length === 0) {
-    return res.status(400).json({ message: 'Missing required fields' });
-  }
   try {
+    const { files, body } = req;
+    const images: string[] = [];
+    const videos: string[] = [];
+
+    if (files && Array.isArray(files)) {
+      files.forEach((file: any) => {
+        if (file.mimetype.startsWith('image/')) {
+          images.push(file.path);
+        } else if (file.mimetype.startsWith('video/')) {
+          videos.push(file.path);
+        }
+      });
+    }
+
+    const payload = {
+      ...body,
+      images: images.length > 0 ? images : body.images,
+      videos: videos.length > 0 ? videos : body.videos,
+    };
+
     const product = await Product.findByIdAndUpdate(
       id,
       { $set: payload },
       { new: true }
     );
+
     if (!product) {
       return res.status(404).json({ message: 'Product not found' });
     }
