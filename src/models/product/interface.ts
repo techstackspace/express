@@ -22,6 +22,7 @@ interface IProduct {
   slug: string;
   status: 'draft' | 'review' | 'published';
   version: number;
+  user: ObjectId;
   calculateAverageRating(): Promise<void>;
 }
 

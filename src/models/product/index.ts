@@ -14,16 +14,16 @@ const ProductSchema = new Schema<IProduct & Document>(
       default: [],
       validate: {
         validator: (v: string[]) => v.length <= 5,
-        message: 'You cannot add more than 5 images.'
-      }
+        message: 'You cannot add more than 5 images.',
+      },
     },
     videos: {
       type: [String],
       default: [],
       validate: {
         validator: (v: string[]) => v.length <= 3,
-        message: 'You cannot add more than 3 videos.'
-      }
+        message: 'You cannot add more than 3 videos.',
+      },
     },
     pdfs: { type: [String], default: [] },
     category: { type: String, required: true },
@@ -42,6 +42,7 @@ const ProductSchema = new Schema<IProduct & Document>(
       enum: ['draft', 'review', 'published'],
       default: 'draft',
     },
+    user: { type: Schema.Types.ObjectId, ref: 'User', required: true },
   },
   { timestamps: true }
 );
