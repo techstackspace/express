@@ -292,6 +292,21 @@
   </div>
 
   <div class="endpoint">
+    <h3>Get All Products by User</h3>
+    <p><strong>Method:</strong> <code>GET</code></p>
+    <p><strong>Endpoint:</strong> <code>/api/products/user/:userId</code></p>
+    <p><strong>Description:</strong> Retrieves a list of all products created by a specific user.</p>
+    <p><strong>Authentication:</strong> Required.</p>
+    <p><strong>Testing in Postman:</strong></p>
+    <ul>
+      <li>Set method to <code>GET</code></li>
+      <li>Enter URL: <code>http://localhost:5000/api/products/user/{userId}</code> (Replace <code>{userId}</code> with
+        the actual user ID)</li>
+      <li>Click <code>Send</code></li>
+    </ul>
+  </div>
+
+  <div class="endpoint">
     <h3>Get Product By ID</h3>
     <p><strong>Method:</strong> <code>GET</code></p>
     <p><strong>Endpoint:</strong> <code>/api/products/:id</code></p>
