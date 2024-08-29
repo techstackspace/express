@@ -41,12 +41,19 @@ const createProduct = async (req: Request, res: Response) => {
     if (files && Array.isArray(files)) {
       files.forEach((file: any) => {
         if (file.mimetype.startsWith('image/')) {
-          images.push(file.path);
+          if (images.length < 5) {
+            images.push(file.path);
+          }
         } else if (file.mimetype.startsWith('video/')) {
-          videos.push(file.path);
+          if (videos.length < 3) {
+            videos.push(file.path);
+          }
         }
       });
     }
+
+    if (images.length > 5) images.length = 5;
+    if (videos.length > 3) videos.length = 3;
 
     const payload = {
       ...body,
@@ -79,12 +86,19 @@ const updateProduct = async (req: Request, res: Response) => {
     if (files && Array.isArray(files)) {
       files.forEach((file: any) => {
         if (file.mimetype.startsWith('image/')) {
-          images.push(file.path);
+          if (images.length < 5) {
+            images.push(file.path);
+          }
         } else if (file.mimetype.startsWith('video/')) {
-          videos.push(file.path);
+          if (videos.length < 3) {
+            videos.push(file.path);
+          }
         }
       });
     }
+
+    if (images.length > 5) images.length = 5;
+    if (videos.length > 3) videos.length = 3;
 
     const payload = {
       ...body,
