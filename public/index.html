@@ -4,31 +4,31 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TechStackSpace Express JS API Testing Guide | Version 1.9.0</title>
+  <title>TechStackSpace Express JS API Testing Guide | Version 1.10.0</title>
   <meta name="description"
-    content="Learn how to create and test CRUD API endpoints in the TechStackSpace Express App (Version 1.9.0) using tools like Postman, Bruno, and more.">
+    content="Learn how to create and test CRUD API endpoints in the TechStackSpace Express App (Version 1.10.0) using tools like Postman, Bruno, and more.">
   <meta name="keywords"
-    content="API testing, Express, CRUD operations, Postman, TechStackSpace, MongoDB, version 1.9.0, authentication, bcrypt, JWT, cookie-based authentication" />
+    content="API testing, Express, CRUD operations, Postman, TechStackSpace, MongoDB, version 1.10.0, authentication, bcrypt, JWT, cookie-based authentication" />
   <meta name="author" content="Bello Osagie">
-  <meta property="og:title" content="TechStackSpace API Express App Testing Guide for Version 1.9.0">
+  <meta property="og:title" content="TechStackSpace API Express App Testing Guide for Version 1.10.0">
   <meta property="og:description"
-    content="Step-by-step guide to testing API endpoints with tools like Postman and Bruno for TechStackSpace Version 1.9.0.">
+    content="Step-by-step guide to testing API endpoints with tools like Postman and Bruno for TechStackSpace Version 1.10.0.">
   <meta property="og:image"
-    content="https://res.cloudinary.com/bizstak/image/upload/v1724932698/Express%20Social%20Media%20Thumbnails/uvgzm9dxnpkuyicarkjt.png">
-  <meta property="og:url" content="https://express-v190.techstackspace.com">
+    content="https://res.cloudinary.com/bizstak/image/upload/v1724959971/Express%20Social%20Media%20Thumbnails/express-v1100_m4mwwc.png">
+  <meta property="og:url" content="https://express-v1100.techstackspace.com">
   <meta property="og:type" content="website">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="TechStackSpace API Express App Testing Guide for Version 1.9.0">
+  <meta name="twitter:title" content="TechStackSpace API Express App Testing Guide for Version 1.10.0">
   <meta name="twitter:description"
-    content="Learn how to create and test CRUD API endpoints in the TechStackSpace Express App (Version 1.9.0) using tools like Postman, Bruno, and more.">
+    content="Learn how to create and test CRUD API endpoints in the TechStackSpace Express App (Version 1.10.0) using tools like Postman, Bruno, and more.">
   <meta name="twitter:image"
-    content="https://res.cloudinary.com/bizstak/image/upload/v1724933075/Express%20Social%20Media%20Thumbnails/twitter-express-v190_ghtmca.png">
+    content="https://res.cloudinary.com/bizstak/image/upload/v1724960005/Express%20Social%20Media%20Thumbnails/twitter-express-v1100_w56mb7.png">
   <meta name="twitter:site" content="@techstackspace">
   <meta name="twitter:image:width" content="1200">
   <meta name="twitter:image:height" content="630">
-  <link rel="canonical" href="https://express-v190.techstackspace.com">
+  <link rel="canonical" href="https://express-v1100.techstackspace.com">
   <link rel="apple-touch-icon" sizes="57x57" href="./assets/favicon/apple-icon-57x57.png">
   <link rel="apple-touch-icon" sizes="60x60" href="./assets/favicon/apple-icon-60x60.png">
   <link rel="apple-touch-icon" sizes="72x72" href="./assets/favicon/apple-icon-72x72.png">
@@ -254,13 +254,13 @@
     </ul>
   </nav>
 
-  <h1>Express API Testing Guide for Version 1.9.0</h1>
+  <h1>Express API Testing Guide for Version 1.10.0</h1>
   <p>This guide provides instructions on how to test various API endpoints using HTTP clients such as <a
       href="https://www.postman.com/product/rest-client" target="_blank" rel="noopener noreferrer">Postman</a>, <a
       href="https://www.usebruno.com" target="_blank" rel="noopener noreferrer">Bruno</a>, <a
       href='https://www.thunderclient.com' target="_blank" rel="noopener noreferrer">Thunder Client</a>, <a
       href='https://www.paw.cloud' target="_blank" rel="noopener noreferrer">RapidAPI Client</a>, and <a
-      href='https://www.indomnia.com' target="_blank" rel="noopener noreferrer">Indomnia</a>.
+      href='https://www.indomnia.rest' target="_blank" rel="noopener noreferrer">Indomnia</a>.
   </p>
 
   <aside class="note">
@@ -300,8 +300,7 @@
     <p><strong>Testing in Postman:</strong></p>
     <ul>
       <li>Set method to <code>GET</code></li>
-      <li>Enter URL: <code>http://localhost:5000/api/products/{id}</code> (Replace <code>{id}</code> with the
-        actual
+      <li>Enter URL: <code>http://localhost:5000/api/products/{id}</code> (Replace <code>{id}</code> with the actual
         product ID)</li>
       <li>Click <code>Send</code></li>
     </ul>
@@ -347,7 +346,6 @@
     </ul>
   </div>
 
-
   <div class="endpoint">
     <h3>Update Product</h3>
     <p><strong>Method:</strong> <code>PATCH</code></p>
@@ -369,7 +367,6 @@
     </ul>
   </div>
 
-
   <div class="endpoint">
     <h3>Delete Product</h3>
     <p><strong>Method:</strong> <code>DELETE</code></p>
@@ -379,8 +376,7 @@
     <p><strong>Testing in Postman:</strong></p>
     <ul>
       <li>Set method to <code>DELETE</code></li>
-      <li>Enter URL: <code>http://localhost:5000/api/products/{id}</code> (Replace <code>{id}</code> with the
-        actual
+      <li>Enter URL: <code>http://localhost:5000/api/products/{id}</code> (Replace <code>{id}</code> with the actual
         product ID)</li>
       <li>Click <code>Send</code></li>
     </ul>
@@ -401,10 +397,8 @@
     <p><strong>Testing in Postman:</strong></p>
     <ul>
       <li>Set method to <code>POST</code></li>
-      <li>Enter URL: <code>http://localhost:5000/api/products/{productId}/like</code> (Replace
-        <code>{productId}</code>
-        with the actual product ID)
-      </li>
+      <li>Enter URL: <code>http://localhost:5000/api/products/{productId}/like</code> (Replace <code>{productId}</code>
+        with the actual product ID)</li>
       <li>Select <code>Body</code> tab</li>
       <li>Choose <code>raw</code> and set format to <code>JSON</code></li>
       <li>Enter the JSON payload above</li>
