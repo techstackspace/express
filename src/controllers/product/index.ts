@@ -32,6 +32,28 @@ const getProductById = async (req: Request, res: Response) => {
   }
 };
 
+const getProductsByUser = async (req: Request, res: Response) => {
+  const userId = req.params.userId;
+
+  try {
+    const products = await Product.find({ user: userId });
+
+    if (!products || products.length === 0) {
+      return res
+        .status(404)
+        .json({ message: 'No products found for this user' });
+    }
+
+    return res.status(200).json(products);
+  } catch (err) {
+    if (err instanceof Error) {
+      return res.status(500).json({ error: err.message });
+    } else {
+      return res.status(500).json({ error: 'Unknown error occurred' });
+    }
+  }
+};
+
 const createProduct = async (req: Request, res: Response) => {
   try {
     const { files, body } = req;
@@ -211,6 +233,7 @@ export {
   getAllProducts,
   createProduct,
   getProductById,
+  getProductsByUser,
   updateProduct,
   deleteProduct,
   toggleLikeProduct,
