@@ -9,8 +9,22 @@ const ProductSchema = new Schema<IProduct & Document>(
     description: { type: String, required: true },
     price: { type: Number, required: true },
     quantity: { type: Number, required: true, default: 0 },
-    images: { type: [String], default: [] },
-    videos: { type: [String], default: [] },
+    images: {
+      type: [String],
+      default: [],
+      validate: {
+        validator: (v: string[]) => v.length <= 5,
+        message: 'You cannot add more than 5 images.'
+      }
+    },
+    videos: {
+      type: [String],
+      default: [],
+      validate: {
+        validator: (v: string[]) => v.length <= 3,
+        message: 'You cannot add more than 3 videos.'
+      }
+    },
     pdfs: { type: [String], default: [] },
     category: { type: String, required: true },
     rating: { type: Number, default: 0 },
