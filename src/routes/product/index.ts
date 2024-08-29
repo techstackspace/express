@@ -14,8 +14,18 @@ const router = Router();
 
 router.get('/products', getAllProducts);
 router.get('/products/:id', getProductById);
-router.post('/products', authenticateToken, upload.array('mediaFiles'), createProduct);
-router.patch('/products/:id', authenticateToken, upload.array('mediaFiles'), updateProduct);
+router.post(
+  '/products',
+  authenticateToken,
+  upload.array('mediaFiles'),
+  createProduct
+);
+router.patch(
+  '/products/:id',
+  authenticateToken,
+  upload.array('mediaFiles'),
+  updateProduct
+);
 router.delete('/products/:id', authenticateToken, deleteProduct);
 router.post('/products/:productId/like', authenticateToken, toggleLikeProduct);
 
