@@ -6,6 +6,7 @@ import {
   getProductById,
   toggleLikeProduct,
   updateProduct,
+  getProductsByUser,
 } from '../../controllers/product';
 import { authenticateToken } from '../../middleware';
 import { uploadMedia as upload } from '../../config/multer/product';
@@ -14,6 +15,7 @@ const router = Router();
 
 router.get('/products', getAllProducts);
 router.get('/products/:id', getProductById);
+router.get('/users/:userId/products', getProductsByUser);
 router.post(
   '/products',
   authenticateToken,
