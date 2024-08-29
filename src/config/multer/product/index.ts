@@ -7,7 +7,7 @@ interface CloudinaryParams {
   folder: string;
   resource_type: string;
   format: () => Promise<string>;
-  public_id: (_req: Request, file: Express.Multer.File) => string;
+  public_id: (_req: Request, _file: Express.Multer.File) => string;
 }
 
 const storage = new CloudinaryStorage({
