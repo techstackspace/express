@@ -7,7 +7,8 @@
   <title>TechStackSpace Express JS API Testing Guide | Version 1.9.0</title>
   <meta name="description"
     content="Learn how to create and test CRUD API endpoints in the TechStackSpace Express App (Version 1.9.0) using tools like Postman, Bruno, and more.">
-  <meta name="keywords" content="API testing, Express, CRUD operations, Postman, TechStackSpace, MongoDB, version 1.9.0, authentication, bcrypt, JWT, cookie-based authentication" />
+  <meta name="keywords"
+    content="API testing, Express, CRUD operations, Postman, TechStackSpace, MongoDB, version 1.9.0, authentication, bcrypt, JWT, cookie-based authentication" />
   <meta name="author" content="Bello Osagie">
   <meta property="og:title" content="TechStackSpace API Express App Testing Guide for Version 1.9.0">
   <meta property="og:description"
@@ -331,16 +332,21 @@
   "pdfs": []
 }
 </code></pre>
+    <p><strong>Note:</strong> If uploading media files (e.g., images, videos, PDFs), include them under the key
+      <code>mediaFiles</code> in the form data. The backend will automatically assign these files to the appropriate
+      fields (images, videos, pdfs) based on their MIME types.</p>
     <p><strong>Testing in Postman:</strong></p>
     <ul>
       <li>Set method to <code>POST</code></li>
       <li>Enter URL: <code>http://localhost:5000/api/products</code></li>
       <li>Select <code>Body</code> tab</li>
-      <li>Choose <code>raw</code> and set format to <code>JSON</code></li>
-      <li>Enter the JSON payload above</li>
+      <li>Choose <code>form-data</code></li>
+      <li>Add the necessary text fields like <code>name</code>, <code>description</code>, etc.</li>
+      <li>Add a new key <code>mediaFiles</code> and upload files (images, videos, PDFs).</li>
       <li>Click <code>Send</code></li>
     </ul>
   </div>
+
 
   <div class="endpoint">
     <h3>Update Product</h3>
@@ -348,19 +354,21 @@
     <p><strong>Endpoint:</strong> <code>/api/products/:id</code></p>
     <p><strong>Description:</strong> Updates an existing product by its ID.</p>
     <p><strong>Authentication:</strong> Required.</p>
-    <p><strong>Body:</strong> JSON object with fields to update.</p>
+    <p><strong>Body:</strong> JSON object with fields to update. If uploading media files, include them under the key
+      <code>mediaFiles</code> in the form data.</p>
     <p><strong>Testing in Postman:</strong></p>
     <ul>
       <li>Set method to <code>PATCH</code></li>
-      <li>Enter URL: <code>http://localhost:5000/api/products/{id}</code> (Replace <code>{id}</code> with the
-        actual
+      <li>Enter URL: <code>http://localhost:5000/api/products/{id}</code> (Replace <code>{id}</code> with the actual
         product ID)</li>
       <li>Select <code>Body</code> tab</li>
-      <li>Choose <code>raw</code> and set format to <code>JSON</code></li>
-      <li>Enter the JSON payload with fields to update</li>
+      <li>Choose <code>form-data</code></li>
+      <li>Add the fields to update.</li>
+      <li>Add a new key <code>mediaFiles</code> and upload files (images, videos, PDFs) if needed.</li>
       <li>Click <code>Send</code></li>
     </ul>
   </div>
+
 
   <div class="endpoint">
     <h3>Delete Product</h3>
@@ -1093,75 +1101,76 @@
     </ul>
   </div>
 
-<h2>10. Cart Endpoints</h2>
+  <h2>10. Cart Endpoints</h2>
 
-<div class="endpoint">
-  <h3>Add Item to Cart</h3>
-  <p><strong>Method:</strong> <code>POST</code></p>
-  <p><strong>Endpoint:</strong> <code>/api/cart</code></p>
-  <p><strong>Description:</strong> Adds an item to the shopping cart.</p>
-  <p><strong>Authentication:</strong> Required.</p>
-  <p><strong>Body:</strong></p>
-  <pre><code>
+  <div class="endpoint">
+    <h3>Add Item to Cart</h3>
+    <p><strong>Method:</strong> <code>POST</code></p>
+    <p><strong>Endpoint:</strong> <code>/api/cart</code></p>
+    <p><strong>Description:</strong> Adds an item to the shopping cart.</p>
+    <p><strong>Authentication:</strong> Required.</p>
+    <p><strong>Body:</strong></p>
+    <pre><code>
 {
   "product": "product_id",
   "quantity": 1
 }
 </code></pre>
-  <p><strong>Testing in Postman:</strong></p>
-  <ul>
-    <li>Set method to <code>POST</code></li>
-    <li>Enter URL: <code>http://localhost:5000/api/cart</code></li>
-    <li>Select <code>Body</code> tab</li>
-    <li>Choose <code>raw</code> and set format to <code>JSON</code></li>
-    <li>Enter the JSON payload above</li>
-    <li>Click <code>Send</code></li>
-  </ul>
-</div>
+    <p><strong>Testing in Postman:</strong></p>
+    <ul>
+      <li>Set method to <code>POST</code></li>
+      <li>Enter URL: <code>http://localhost:5000/api/cart</code></li>
+      <li>Select <code>Body</code> tab</li>
+      <li>Choose <code>raw</code> and set format to <code>JSON</code></li>
+      <li>Enter the JSON payload above</li>
+      <li>Click <code>Send</code></li>
+    </ul>
+  </div>
 
-<div class="endpoint">
-  <h3>Get Cart Items</h3>
-  <p><strong>Method:</strong> <code>GET</code></p>
-  <p><strong>Endpoint:</strong> <code>/api/cart</code></p>
-  <p><strong>Description:</strong> Retrieves all items in the shopping cart.</p>
-  <p><strong>Authentication:</strong> Required.</p>
-  <p><strong>Testing in Postman:</strong></p>
-  <ul>
-    <li>Set method to <code>GET</code></li>
-    <li>Enter URL: <code>http://localhost:5000/api/cart</code></li>
-    <li>Click <code>Send</code></li>
-  </ul>
-</div>
+  <div class="endpoint">
+    <h3>Get Cart Items</h3>
+    <p><strong>Method:</strong> <code>GET</code></p>
+    <p><strong>Endpoint:</strong> <code>/api/cart</code></p>
+    <p><strong>Description:</strong> Retrieves all items in the shopping cart.</p>
+    <p><strong>Authentication:</strong> Required.</p>
+    <p><strong>Testing in Postman:</strong></p>
+    <ul>
+      <li>Set method to <code>GET</code></li>
+      <li>Enter URL: <code>http://localhost:5000/api/cart</code></li>
+      <li>Click <code>Send</code></li>
+    </ul>
+  </div>
 
-<div class="endpoint">
-  <h3>Remove Item from Cart</h3>
-  <p><strong>Method:</strong> <code>DELETE</code></p>
-  <p><strong>Endpoint:</strong> <code>/api/cart/:itemId</code></p>
-  <p><strong>Description:</strong> Removes an item from the cart by its ID.</p>
-  <p><strong>Authentication:</strong> Required.</p>
-  <p><strong>Testing in Postman:</strong></p>
-  <ul>
-    <li>Set method to <code>DELETE</code></li>
-    <li>Enter URL: <code>http://localhost:5000/api/cart/{itemId}</code> (Replace <code>{itemId}</code> with the actual cart item ID)</li>
-    <li>Click <code>Send</code></li>
-  </ul>
-</div>
+  <div class="endpoint">
+    <h3>Remove Item from Cart</h3>
+    <p><strong>Method:</strong> <code>DELETE</code></p>
+    <p><strong>Endpoint:</strong> <code>/api/cart/:itemId</code></p>
+    <p><strong>Description:</strong> Removes an item from the cart by its ID.</p>
+    <p><strong>Authentication:</strong> Required.</p>
+    <p><strong>Testing in Postman:</strong></p>
+    <ul>
+      <li>Set method to <code>DELETE</code></li>
+      <li>Enter URL: <code>http://localhost:5000/api/cart/{itemId}</code> (Replace <code>{itemId}</code> with the actual
+        cart item ID)</li>
+      <li>Click <code>Send</code></li>
+    </ul>
+  </div>
 
-<div class="endpoint">
-  <h3>Clear Cart</h3>
-  <p><strong>Method:</strong> <code>DELETE</code></p>
-  <p><strong>Endpoint:</strong> <code>/api/cart</code></p>
-  <p><strong>Description:</strong> Removes all items from the cart.</p>
-  <p><strong>Authentication:</strong> Required.</p>
-  <p><strong>Testing in Postman:</strong></p>
-  <ul>
-    <li>Set method to <code>DELETE</code></li>
-    <li>Enter URL: <code>http://localhost:5000/api/cart</code></li>
-    <li>Click <code>Send</code></li>
-  </ul>
-</div>
+  <div class="endpoint">
+    <h3>Clear Cart</h3>
+    <p><strong>Method:</strong> <code>DELETE</code></p>
+    <p><strong>Endpoint:</strong> <code>/api/cart</code></p>
+    <p><strong>Description:</strong> Removes all items from the cart.</p>
+    <p><strong>Authentication:</strong> Required.</p>
+    <p><strong>Testing in Postman:</strong></p>
+    <ul>
+      <li>Set method to <code>DELETE</code></li>
+      <li>Enter URL: <code>http://localhost:5000/api/cart</code></li>
+      <li>Click <code>Send</code></li>
+    </ul>
+  </div>
 
-<h2>11. Profile Endpoints</h2>
+  <h2>11. Profile Endpoints</h2>
 
   <div class="endpoint">
     <h3>Get Profiles</h3>
@@ -1181,39 +1190,156 @@
     <h3>Create Profile</h3>
     <p><strong>Method:</strong> <code>POST</code></p>
     <p><strong>Endpoint:</strong> <code>/api/profile</code></p>
-    <p><strong>Description:</strong> Creates a new profile.</p>
+    <p><strong>Description:</strong> Creates a new profile. The profile picture is optional and will be uploaded to
+      Cloudinary if provided.</p>
+    <p><strong>Authentication:</strong> Required.</p>
+    <p><strong>Body:</strong></p>
+    <pre><code>
+  {
+    "user": "user_id",
+    "firstName": "John",
+    "lastName": "Doe",
+    "profilePicture": "File (optional)",
+    "bio": "This is my Bio.",
+    "phoneNumber": "1234567",
+    "address": {
+      "street": "My New Address",
+      "city": "Somewhere",
+      "state": "Somewhere",
+      "zipCode": "12345",
+      "country": "LA"
+    },
+    "preferences": {
+      "language": "en",
+      "timezone": "UTC",
+      "notifications": {
+        "email": true,
+        "sms": false,
+        "push": true
+      }
+    }
+  }
+  </code></pre>
+    <p><strong>Testing in Postman:</strong></p>
+    <ul>
+      <li>Set method to <code>POST</code></li>
+      <li>Enter URL: <code>http://localhost:5000/api/profile</code></li>
+      <li>Select <code>Body</code> tab</li>
+      <li>Choose <code>form-data</code></li>
+      <li>Add fields:
+        <ul>
+          <li><code>user</code>: user_id</li>
+          <li><code>firstName</code>: John</li>
+          <li><code>lastName</code>: Doe</li>
+          <li><code>profilePicture</code>: (optional file upload)</li>
+          <li><code>bio</code>: This is my Bio.</li>
+          <li><code>phoneNumber</code>: 1234567</li>
+          <li><code>address</code>: JSON object (street, city, state, zipCode, country)</li>
+          <li><code>preferences</code>: JSON object (language, timezone, notifications)</li>
+        </ul>
+      </li>
+      <li>Click <code>Send</code></li>
+    </ul>
+  </div>
+
+
+  <div class="endpoint">
+    <h3>Update Profile</h3>
+    <p><strong>Method:</strong> <code>PUT</code></p>
+    <p><strong>Endpoint:</strong> <code>/api/profile</code></p>
+    <p><strong>Description:</strong> Updates an existing profile by the user ID. The profile picture is optional and
+      will be uploaded to Cloudinary if provided.</p>
+    <p><strong>Authentication:</strong> Required.</p>
+    <p><strong>Body:</strong> JSON object with fields to update. You can optionally include a new profile picture file.
+    </p>
+    <p><strong>Testing in Postman:</strong></p>
+    <ul>
+      <li>Set method to <code>PUT</code></li>
+      <li>Enter URL: <code>http://localhost:5000/api/profile</code></li>
+      <li>Select <code>Body</code> tab</li>
+      <li>Choose <code>form-data</code></li>
+      <li>Add fields to update, such as:
+        <ul>
+          <li><code>user</code>: user_id</li>
+          <li><code>firstName</code>: Jane (optional)</li>
+          <li><code>lastName</code>: Doe (optional)</li>
+          <li><code>profilePicture</code>: (optional file upload)</li>
+          <li><code>bio</code>: Updated bio (optional)</li>
+          <li><code>phoneNumber</code>: 7654321 (optional)</li>
+          <li><code>address</code>: JSON object (optional)</li>
+          <li><code>preferences</code>: JSON object (optional)</li>
+        </ul>
+      </li>
+      <li>Click <code>Send</code></li>
+    </ul>
+  </div>
+
+  <div class="endpoint">
+    <h3>Patch Profile</h3>
+    <p><strong>Method:</strong> <code>PATCH</code></p>
+    <p><strong>Endpoint:</strong> <code>/api/profile</code></p>
+    <p><strong>Description:</strong> Partially updates an existing profile by the user ID. The profile picture is
+      optional and will be uploaded to Cloudinary if provided.</p>
+    <p><strong>Authentication:</strong> Required.</p>
+    <p><strong>Body:</strong> JSON object with fields to update. You can optionally include a new profile picture file.
+    </p>
+    <p><strong>Testing in Postman:</strong></p>
+    <ul>
+      <li>Set method to <code>PATCH</code></li>
+      <li>Enter URL: <code>http://localhost:5000/api/profile</code></li>
+      <li>Select <code>Body</code> tab</li>
+      <li>Choose <code>form-data</code></li>
+      <li>Add fields to update, such as:
+        <ul>
+          <li><code>user</code>: user_id</li>
+          <li><code>firstName</code>: Jane (optional)</li>
+          <li><code>lastName</code>: Doe (optional)</li>
+          <li><code>profilePicture</code>: (optional file upload)</li>
+          <li><code>bio</code>: Updated bio (optional)</li>
+          <li><code>phoneNumber</code>: 7654321 (optional)</li>
+          <li><code>address</code>: JSON object (optional)</li>
+          <li><code>preferences</code>: JSON object (optional)</li>
+        </ul>
+      </li>
+      <li>Click <code>Send</code></li>
+    </ul>
+  </div>
+
+
+  <h2>12. Settings Endpoints</h2>
+
+  <div class="endpoint">
+    <h3>Get Settings</h3>
+    <p><strong>Method:</strong> <code>GET</code></p>
+    <p><strong>Endpoint:</strong> <code>/api/settings</code></p>
+    <p><strong>Description:</strong> Retrieves a list of a User settings.</p>
+    <p><strong>Authentication:</strong> Required.</p>
+    <p><strong>Testing in Postman:</strong></p>
+    <ul>
+      <li>Set method to <code>GET</code></li>
+      <li>Enter URL: <code>http://localhost:5000/api/settings</code></li>
+      <li>Click <code>Send</code></li>
+    </ul>
+  </div>
+
+  <div class="endpoint">
+    <h3>Create Settings</h3>
+    <p><strong>Method:</strong> <code>POST</code></p>
+    <p><strong>Endpoint:</strong> <code>/api/settings</code></p>
+    <p><strong>Description:</strong> Creates a new setting.</p>
     <p><strong>Authentication:</strong> Required.</p>
     <p><strong>Body:</strong></p>
     <pre><code>
 {
-  "user": "user_id",
-  "firstName": "John",
-  "lastName": "Doe",
-  "profilePicture": "https://image.example.png",
-  "bio": "This is my Bio.",
-  "phoneNumber": "1234567",
-  "address": {
-    "street": "My New Address",
-    "city": "Somewhere",
-    "state": "Somewhere",
-    "zipCode": "12345",
-    "country": "LA"
-  },
-  "preferences": {
-    "language": "en",
-    "timezone": "UTC",
-    "notifications": {
-      "email": true,
-      "sms": false,
-      "push": true
-    }
-  }
+"theme": "system",
+"profileVisibility": "private",
+"dataSharing": true,
 }
 </code></pre>
     <p><strong>Testing in Postman:</strong></p>
     <ul>
       <li>Set method to <code>POST</code></li>
-      <li>Enter URL: <code>http://localhost:5000/api/profile</code></li>
+      <li>Enter URL: <code>http://localhost:5000/api/settings</code></li>
       <li>Select <code>Body</code> tab</li>
       <li>Choose <code>raw</code> and set format to <code>JSON</code></li>
       <li>Enter the JSON payload above</li>
@@ -1222,150 +1348,79 @@
   </div>
 
   <div class="endpoint">
-    <h3>Update Profile</h3>
-    <p><strong>Method:</strong> <code>PATCH/PUT</code></p>
-    <p><strong>Endpoint:</strong> <code>/api/profile/:id</code></p>
-    <p><strong>Description:</strong> Updates an existing profile by its ID.</p>
-    <p><strong>Authentication:</strong> Required.</p>
-    <p><strong>Body:</strong> JSON object with fields to update.</p>
-    <p><strong>Testing in Postman:</strong></p>
-    <ul>
-      <li>Set method to <code>PATCH</code></li>
-      <li>Enter URL: <code>http://localhost:5000/api/profile</code></li>
-      <li>Select <code>Body</code> tab</li>
-      <li>Choose <code>raw</code> and set format to <code>JSON</code></li>
-      <li>Enter the JSON payload with fields to update</li>
-      <li>Click <code>Send</code></li>
-    </ul>
-  </div>
-
-  <div class="endpoint">
-    <h3>Delete Profile</h3>
+    <h3>Delete Settings</h3>
     <p><strong>Method:</strong> <code>DELETE</code></p>
-    <p><strong>Endpoint:</strong> <code>/api/profile</code></p>
-    <p><strong>Description:</strong> Deletes a profile by its ID.</p>
+    <p><strong>Endpoint:</strong> <code>/api/settings</code></p>
+    <p><strong>Description:</strong> Deletes a setting.</p>
     <p><strong>Authentication:</strong> Required.</p>
     <p><strong>Testing in Postman:</strong></p>
     <ul>
       <li>Set method to <code>DELETE</code></li>
-      <li>Enter URL: <code>http://localhost:5000/api/profile</code></li>
+      <li>Enter URL: <code>http://localhost:5000/api/settings</code></li>
       <li>Click <code>Send</code></li>
     </ul>
   </div>
 
-<h2>12. Settings Endpoints</h2>
+  <h2>13. Authentication Endpoints</h2>
 
-<div class="endpoint">
-  <h3>Get Settings</h3>
-  <p><strong>Method:</strong> <code>GET</code></p>
-  <p><strong>Endpoint:</strong> <code>/api/settings</code></p>
-  <p><strong>Description:</strong> Retrieves a list of a User settings.</p>
-  <p><strong>Authentication:</strong> Required.</p>
-  <p><strong>Testing in Postman:</strong></p>
-  <ul>
-    <li>Set method to <code>GET</code></li>
-    <li>Enter URL: <code>http://localhost:5000/api/settings</code></li>
-    <li>Click <code>Send</code></li>
-  </ul>
-</div>
-
-<div class="endpoint">
-  <h3>Create Settings</h3>
-  <p><strong>Method:</strong> <code>POST</code></p>
-  <p><strong>Endpoint:</strong> <code>/api/settings</code></p>
-  <p><strong>Description:</strong> Creates a new setting.</p>
-  <p><strong>Authentication:</strong> Required.</p>
-  <p><strong>Body:</strong></p>
-  <pre><code>
-{
-"theme": "system",
-"profileVisibility": "private",
-"dataSharing": true,
-}
-</code></pre>
-  <p><strong>Testing in Postman:</strong></p>
-  <ul>
-    <li>Set method to <code>POST</code></li>
-    <li>Enter URL: <code>http://localhost:5000/api/settings</code></li>
-    <li>Select <code>Body</code> tab</li>
-    <li>Choose <code>raw</code> and set format to <code>JSON</code></li>
-    <li>Enter the JSON payload above</li>
-    <li>Click <code>Send</code></li>
-  </ul>
-</div>
-
-<div class="endpoint">
-  <h3>Delete Settings</h3>
-  <p><strong>Method:</strong> <code>DELETE</code></p>
-  <p><strong>Endpoint:</strong> <code>/api/settings</code></p>
-  <p><strong>Description:</strong> Deletes a setting.</p>
-  <p><strong>Authentication:</strong> Required.</p>
-  <p><strong>Testing in Postman:</strong></p>
-  <ul>
-    <li>Set method to <code>DELETE</code></li>
-    <li>Enter URL: <code>http://localhost:5000/api/settings</code></li>
-    <li>Click <code>Send</code></li>
-  </ul>
-</div>
-
-<h2>13. Authentication Endpoints</h2>
-
-<div class="endpoint">
-  <h3>Login User</h3>
-  <p><strong>Method:</strong> <code>POST</code></p>
-  <p><strong>Endpoint:</strong> <code>/api/users/login</code></p>
-  <p><strong>Description:</strong> Authenticates a user and returns a JWT token.</p>
-  <p><strong>Authentication:</strong> Required.</p>
-  <p><strong>Body:</strong></p>
-  <pre><code>
+  <div class="endpoint">
+    <h3>Login User</h3>
+    <p><strong>Method:</strong> <code>POST</code></p>
+    <p><strong>Endpoint:</strong> <code>/api/users/login</code></p>
+    <p><strong>Description:</strong> Authenticates a user and returns a JWT token.</p>
+    <p><strong>Authentication:</strong> Required.</p>
+    <p><strong>Body:</strong></p>
+    <pre><code>
 {
   "identifier": "user@example.com",
   "password": "userpassword"
 }
 </code></pre>
-  <p><strong>Testing in Postman:</strong></p>
-  <ul>
-    <li>Set method to <code>POST</code></li>
-    <li>Enter URL: <code>http://localhost:5000/api/users/login</code></li>
-    <li>Select <code>Body</code> tab</li>
-    <li>Choose <code>raw</code> and set format to <code>JSON</code></li>
-    <li>Enter the JSON payload above</li>
-    <li>Click <code>Send</code></li>
-  </ul>
-  <p>If the credentials are correct, the response will include a JWT token that is stored as a cookie for authentication.</p>
-</div>
+    <p><strong>Testing in Postman:</strong></p>
+    <ul>
+      <li>Set method to <code>POST</code></li>
+      <li>Enter URL: <code>http://localhost:5000/api/users/login</code></li>
+      <li>Select <code>Body</code> tab</li>
+      <li>Choose <code>raw</code> and set format to <code>JSON</code></li>
+      <li>Enter the JSON payload above</li>
+      <li>Click <code>Send</code></li>
+    </ul>
+    <p>If the credentials are correct, the response will include a JWT token that is stored as a cookie for
+      authentication.</p>
+  </div>
 
-<div class="endpoint">
-  <h3>Logout User</h3>
-  <p><strong>Method:</strong> <code>POST</code></p>
-  <p><strong>Endpoint:</strong> <code>/api/users/logout</code></p>
-  <p><strong>Description:</strong> Logs out the user by clearing the authentication token cookie.</p>
-  <p><strong>Authentication:</strong> Required.</p>
-  <p><strong>Testing in Postman:</strong></p>
-  <ul>
-    <li>Set method to <code>POST</code></li>
-    <li>Enter URL: <code>http://localhost:5000/api/users/logout</code></li>
-    <li>Ensure that you are logged in and have a valid authentication token</li>
-    <li>Click <code>Send</code></li>
-  </ul>
-  <p>Upon successful logout, the response will confirm the logout, and the JWT token will be cleared from the browser cookies.</p>
-</div>
+  <div class="endpoint">
+    <h3>Logout User</h3>
+    <p><strong>Method:</strong> <code>POST</code></p>
+    <p><strong>Endpoint:</strong> <code>/api/users/logout</code></p>
+    <p><strong>Description:</strong> Logs out the user by clearing the authentication token cookie.</p>
+    <p><strong>Authentication:</strong> Required.</p>
+    <p><strong>Testing in Postman:</strong></p>
+    <ul>
+      <li>Set method to <code>POST</code></li>
+      <li>Enter URL: <code>http://localhost:5000/api/users/logout</code></li>
+      <li>Ensure that you are logged in and have a valid authentication token</li>
+      <li>Click <code>Send</code></li>
+    </ul>
+    <p>Upon successful logout, the response will confirm the logout, and the JWT token will be cleared from the browser
+      cookies.</p>
+  </div>
 
-<div class="endpoint">
-  <h3>Delete User</h3>
-  <p><strong>Method:</strong> <code>DELETE</code></p>
-  <p><strong>Endpoint:</strong> <code>/api/users/:id</code></p>
-  <p><strong>Description:</strong> Deletes a user by ID.</p>
-  <p><strong>Authentication:</strong> Required.</p>
-  <p><strong>Testing in Postman:</strong></p>
-  <ul>
-    <li>Set method to <code>DELETE</code></li>
-    <li>Enter URL: <code>http://localhost:5000/api/users/{userId}</code></li>
-    <li>Ensure that you are logged in and have a valid authentication token</li>
-    <li>Click <code>Send</code></li>
-  </ul>
-  <p>Upon successful deletion, the response will confirm the user has been deleted.</p>
-</div>
+  <div class="endpoint">
+    <h3>Delete User</h3>
+    <p><strong>Method:</strong> <code>DELETE</code></p>
+    <p><strong>Endpoint:</strong> <code>/api/users/:id</code></p>
+    <p><strong>Description:</strong> Deletes a user by ID.</p>
+    <p><strong>Authentication:</strong> Required.</p>
+    <p><strong>Testing in Postman:</strong></p>
+    <ul>
+      <li>Set method to <code>DELETE</code></li>
+      <li>Enter URL: <code>http://localhost:5000/api/users/{userId}</code></li>
+      <li>Ensure that you are logged in and have a valid authentication token</li>
+      <li>Click <code>Send</code></li>
+    </ul>
+    <p>Upon successful deletion, the response will confirm the user has been deleted.</p>
+  </div>
 
   <h2>Additional Information</h2>
   <p>Check out the <a href="https://github.com/techstackspace/express/tags" target="_blank"
