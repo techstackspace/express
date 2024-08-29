@@ -7,7 +7,7 @@ import {
   createProfile,
 } from '../../controllers/profile';
 import { authenticateToken } from '../../middleware';
-import upload from '../../config/multer';
+import { uploadImage as upload } from '../../config/multer';
 
 const router = express.Router();
 
