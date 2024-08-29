@@ -37,9 +37,10 @@ const createProduct = async (req: Request, res: Response) => {
     const { files, body } = req;
     const images: string[] = [];
     const videos: string[] = [];
+    const user = req.body.user;
 
     if (files && Array.isArray(files)) {
-      files.forEach((file: any) => {
+      files.forEach((file) => {
         if (file.mimetype.startsWith('image/')) {
           if (images.length < 5) {
             images.push(file.path);
@@ -59,6 +60,7 @@ const createProduct = async (req: Request, res: Response) => {
       ...body,
       images,
       videos,
+      user,
     };
 
     const product = new Product(payload);
@@ -78,13 +80,27 @@ const createProduct = async (req: Request, res: Response) => {
 
 const updateProduct = async (req: Request, res: Response) => {
   const id = req.params.id;
+  const userId = req.body.user;
+
   try {
+    const product = await Product.findById(id);
+
+    if (!product) {
+      return res.status(404).json({ message: 'Product not found' });
+    }
+
+    if (product.user.toString() !== userId) {
+      return res.status(403).json({
+        message: 'Forbidden: You are not authorized to update this product',
+      });
+    }
+
     const { files, body } = req;
     const images: string[] = [];
     const videos: string[] = [];
 
     if (files && Array.isArray(files)) {
-      files.forEach((file: any) => {
+      files.forEach((file) => {
         if (file.mimetype.startsWith('image/')) {
           if (images.length < 5) {
             images.push(file.path);
@@ -106,19 +122,20 @@ const updateProduct = async (req: Request, res: Response) => {
       videos: videos.length > 0 ? videos : body.videos,
     };
 
-    const product = await Product.findByIdAndUpdate(
+    const updatedProduct = await Product.findByIdAndUpdate(
       id,
       { $set: payload },
       { new: true }
     );
 
-    if (!product) {
+    if (!updatedProduct) {
       return res.status(404).json({ message: 'Product not found' });
     }
 
-    return res
-      .status(200)
-      .json({ message: 'Product updated successfully', product });
+    return res.status(200).json({
+      message: 'Product updated successfully',
+      product: updatedProduct,
+    });
   } catch (err) {
     if (err instanceof Error) {
       return res.status(500).json({ error: err.message });
@@ -130,14 +147,24 @@ const updateProduct = async (req: Request, res: Response) => {
 
 const deleteProduct = async (req: Request, res: Response) => {
   const id = req.params.id;
+  const userId = req.body.user;
+
   try {
-    const product = await Product.findByIdAndDelete(id);
+    const product = await Product.findById(id);
+
     if (!product) {
       return res.status(404).json({ message: 'Product not found' });
     }
-    return res
-      .status(200)
-      .json({ message: 'Product deleted successfully', product });
+
+    if (product.user.toString() !== userId) {
+      return res.status(403).json({
+        message: 'Forbidden: You are not authorized to delete this product',
+      });
+    }
+
+    await Product.findByIdAndDelete(id);
+
+    return res.status(200).json({ message: 'Product deleted successfully' });
   } catch (err) {
     if (err instanceof Error) {
       return res.status(500).json({ error: err.message });
