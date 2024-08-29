@@ -1,14 +1,18 @@
 import multer from 'multer';
 import { CloudinaryStorage } from 'multer-storage-cloudinary';
-import cloudinary from '../cloudinary';
+import cloudinary from '../../cloudinary';
 
 interface CloudinaryParams {
   folder: string;
+  resource_type: 'image';
   format: () => Promise<string>;
   transformation?: { width: number; height: number; crop: string }[];
 }
 
-const getFormat = async (_req: Express.Request, file: Express.Multer.File): Promise<string> => {
+const getFormat = async (
+  _req: Express.Request,
+  file: Express.Multer.File
+): Promise<string> => {
   const mimeType = file.mimetype;
   switch (mimeType) {
     case 'image/jpeg':
