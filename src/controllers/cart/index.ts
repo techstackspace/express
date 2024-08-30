@@ -1,18 +1,67 @@
 import { Request, Response } from 'express';
 import Cart from '../../models/cart';
+import { SortOrder } from 'mongoose';
 
 const getCartItems = async (req: Request, res: Response) => {
+  const userId = req.body.user;
+  const {
+    page = 1,
+    limit = 10,
+    sort = 'createdAt',
+    order = 'desc',
+    search,
+    minQuantity,
+    maxQuantity,
+    productCategory,
+  } = req.query;
+
+  const pageNumber = parseInt(page as string, 10);
+  const limitNumber = parseInt(limit as string, 10);
+  const sortOrder: SortOrder = order === 'asc' ? 1 : -1;
+
+  const query: any = { user: userId };
+
+  if (productCategory) {
+    query['product.category'] = productCategory;
+  }
+
+  if (search) {
+    query.$or = [
+      { 'product.name': { $regex: new RegExp(search as string, 'i') } },
+    ];
+  }
+
+  if (minQuantity || maxQuantity) {
+    query.quantity = {};
+    if (minQuantity) query.quantity.$gte = Number(minQuantity);
+    if (maxQuantity) query.quantity.$lte = Number(maxQuantity);
+  }
+
   try {
-    const cartItems = await Cart.find({ user: req.body.user }).populate(
-      'product'
-    );
-    return res.status(200).json(cartItems);
+    const sortOptions: { [key: string]: SortOrder } = { [sort as string]: sortOrder };
+
+    const cartItems = await Cart.find(query)
+      .populate('product')
+      .sort(sortOptions)
+      .skip((pageNumber - 1) * limitNumber)
+      .limit(limitNumber);
+
+    const totalCartItems = await Cart.countDocuments(query);
+
+    res.status(200).json({
+      cartItems,
+      totalPages: Math.ceil(totalCartItems / limitNumber),
+      currentPage: pageNumber,
+    });
   } catch (err) {
     if (err instanceof Error) {
       return res
         .status(500)
         .json({ error: 'An error occurred getting cart items.' });
     }
+    return res
+      .status(500)
+      .json({ error: 'An unknown error occurred.' });
   }
 };
 
