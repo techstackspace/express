@@ -17,6 +17,9 @@ const UserSchema = new Schema<IUser & Document>(
     },
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
+    otp: { type: String },
+    otpExpires: { type: Date },
+    isVerified: { type: Boolean, default: false },
     version: { type: Number, default: 1 },
   },
   { timestamps: true }

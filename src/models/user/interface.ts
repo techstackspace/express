@@ -6,6 +6,9 @@ interface IUser {
   username: string;
   email: string;
   password: string;
+  otp?: string;
+  otpExpires?: Date;
+  isVerified?: boolean;
   version: number;
 }
 
