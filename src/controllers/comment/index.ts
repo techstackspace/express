@@ -2,11 +2,68 @@ import { Request, Response } from 'express';
 import Comment from '../../models/comment';
 import Product from '../../models/product';
 import { Types } from 'mongoose';
+import { SortOrder } from 'mongoose';
 
-const getAllComments = async (_req: Request, res: Response) => {
+const getAllComments = async (req: Request, res: Response) => {
   try {
-    const comments = await Comment.find();
-    return res.status(200).json(comments);
+    const {
+      page = 1,
+      limit = 10,
+      sort = 'createdAt',
+      order = 'desc',
+      search,
+      minDate,
+      maxDate,
+      user,
+      product,
+      minLikes,
+      maxLikes,
+    } = req.query;
+
+    const pageNumber = parseInt(page as string, 10);
+    const limitNumber = parseInt(limit as string, 10);
+    const sortOrder: SortOrder = order === 'asc' ? 1 : -1;
+
+    const query: any = {};
+
+    if (user) {
+      query.user = user;
+    }
+
+    if (product) {
+      query.product = product;
+    }
+
+    if (search) {
+      query.content = { $regex: new RegExp(search as string, 'i') };
+    }
+
+    if (minDate || maxDate) {
+      query.createdAt = {};
+      if (minDate) query.createdAt.$gte = new Date(minDate as string);
+      if (maxDate) query.createdAt.$lte = new Date(maxDate as string);
+    }
+
+    if (minLikes || maxLikes) {
+      query.likes = {};
+      if (minLikes) query.likes.$gte = Number(minLikes);
+      if (maxLikes) query.likes.$lte = Number(maxLikes);
+    }
+
+    const sortOptions: { [key: string]: SortOrder } = { [sort as string]: sortOrder };
+
+    const comments = await Comment.find(query)
+      .sort(sortOptions)
+      .skip((pageNumber - 1) * limitNumber)
+      .limit(limitNumber);
+
+    const totalComments = await Comment.countDocuments(query);
+
+    res.status(200).json({
+      comments,
+      totalPages: Math.ceil(totalComments / limitNumber),
+      currentPage: pageNumber,
+    });
   } catch (err) {
     if (err instanceof Error) {
       return res.status(500).json({ error: err.message });
