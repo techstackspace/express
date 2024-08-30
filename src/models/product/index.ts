@@ -1,7 +1,10 @@
-import { Document, model, Schema } from 'mongoose';
+import { PaginateModel, Document, model, Schema } from 'mongoose';
 import { IProduct } from './interface';
 import Review from '../review';
 import slugify from 'slugify';
+import mongoosePaginate from 'mongoose-paginate-v2';
+
+interface IProductModel extends PaginateModel<IProduct & Document> {}
 
 const ProductSchema = new Schema<IProduct & Document>(
   {
@@ -70,5 +73,6 @@ ProductSchema.methods.calculateAverageRating = async function () {
   await this.save();
 };
 
-const Product = model<IProduct & Document>('Product', ProductSchema);
+ProductSchema.plugin(mongoosePaginate);
+const Product = model<IProduct & Document, IProductModel>('Product', ProductSchema);
 export default Product;
