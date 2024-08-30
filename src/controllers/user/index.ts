@@ -5,6 +5,18 @@ import { sign } from 'jsonwebtoken';
 import { encrypt } from '../../utils';
 import geoip from 'geoip-lite';
 import { sendMail } from '../../config/nodemailer';
+import crypto from 'crypto';
+
+const generateOTP = () => {
+  return crypto.randomBytes(3).toString('hex');
+};
+
+const sendOTPEmail = async (userEmail: string, otp: string) => {
+  const subject = 'Your OTP Code';
+  const text = `Your OTP code is ${otp}. It is valid for 15 minutes.`;
+
+  return sendMail(userEmail, subject, text);
+};
 
 const getAllUsers = async (req: Request, res: Response) => {
   const {
@@ -92,19 +104,65 @@ const createUser = async (req: Request, res: Response) => {
 
   try {
     const hashedPassword = await hash(password, 10);
+    const otp = generateOTP();
+    const otpExpires = new Date(Date.now() + 15 * 60 * 1000);
+
     const user = new User({
       name,
       username,
       email,
       password: hashedPassword,
+      otp,
+      otpExpires,
+      isVerified: false,
     });
+
+    await sendOTPEmail(email, otp);
     const savedUser = await user.save();
-    return res.status(201).json({ user: savedUser });
+
+    return res.status(201).json({ message: 'User created, OTP sent to email', user: savedUser });
   } catch (err) {
     if (err instanceof Error) {
       return res.status(500).json({ error: err.message });
     } else {
-      return res.status(500).json({ error: 'Unknown error occured' });
+      return res.status(500).json({ error: 'Unknown error occurred' });
+    }
+  }
+};
+
+const verifyOTP = async (req: Request, res: Response) => {
+  const { email, otp } = req.body;
+
+  try {
+    const user = await User.findOne({ email });
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    if (user.isVerified) {
+      return res.status(400).json({ message: 'User already verified' });
+    }
+
+    if (user.otp !== otp) {
+      return res.status(400).json({ message: 'Invalid OTP' });
+    }
+
+    if (!user.otpExpires || new Date() > user.otpExpires) {
+      return res.status(400).json({ message: 'OTP expired' });
+    }
+
+    user.isVerified = true;
+    user.otp = undefined;
+    user.otpExpires = undefined;
+    await user.save();
+
+    return res.status(200).json({ message: 'User verified successfully' });
+  } catch (err) {
+    if (err instanceof Error) {
+      return res.status(500).json({ error: err.message });
+    } else {
+      return res.status(500).json({ error: 'Unknown error occurred' });
     }
   }
 };
@@ -211,4 +269,5 @@ export {
   deleteUser,
   loginUser,
   logoutUser,
+  verifyOTP,
 };
