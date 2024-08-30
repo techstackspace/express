@@ -75,8 +75,37 @@ const getProductById = async (req: Request, res: Response) => {
 const getProductsByUser = async (req: Request, res: Response) => {
   const userId = req.params.userId;
 
+  const {
+    page = 1,
+    limit = 10,
+    minPrice,
+    maxPrice,
+    category,
+    sortBy = 'createdAt',
+    order = 'desc',
+  } = req.query;
+
   try {
-    const products = await Product.find({ user: userId });
+    const query: any = { user: userId };
+
+    if (minPrice || maxPrice) {
+      query.price = {};
+      if (minPrice) query.price.$gte = Number(minPrice);
+      if (maxPrice) query.price.$lte = Number(maxPrice);
+    }
+
+    if (category) {
+      query.category = category;
+    }
+
+    const sort = {
+      [typeof sortBy === 'string' ? sortBy : 'createdAt']: order === 'asc' ? 1 : -1,
+    };
+
+    const products = await Product.find(query)
+      .sort(sort)
+      .skip((Number(page) - 1) * Number(limit))
+      .limit(Number(limit));
 
     if (!products || products.length === 0) {
       return res
