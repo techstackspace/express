@@ -6,11 +6,13 @@ import {
   getUserById,
   loginUser,
   logoutUser,
+  verifyOTP,
 } from '../../controllers/user';
 import { authenticateToken } from '../../middleware';
 
 const router = Router();
 
+router.post('/verify-otp', verifyOTP);
 router.get('/users', getAllUsers);
 router.post('/users/register', createUser);
 router.post('/users/login', loginUser);
