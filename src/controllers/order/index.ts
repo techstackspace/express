@@ -3,6 +3,7 @@ import Order from '../../models/order';
 import Cart from '../../models/cart';
 import Address from '../../models/address';
 import { SortOrder } from 'mongoose';
+import { IProduct } from '../../models/product/interface';
 
 export const createOrder = async (req: Request, res: Response) => {
   try {
@@ -29,15 +30,23 @@ export const createOrder = async (req: Request, res: Response) => {
     const orderProducts = [];
 
     for (const item of cartItems) {
-      const price = item.product.price;
+      const product = item.product as IProduct;
+      const price = product.price;
       const quantity = item.quantity;
+
+      if (product.stock < quantity) {
+        return res.status(400).json({ error: `Insufficient stock for product: ${product.name}` });
+      }
 
       totalAmount += price * quantity;
       orderProducts.push({
-        product: item.product._id,
+        product: product._id,
         quantity: quantity,
         price: price,
       });
+
+      product.stock -= quantity;
+      await product.save();
     }
 
     const newOrder = new Order({
