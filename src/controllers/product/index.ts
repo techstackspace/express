@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import Product from '../../models/product';
-import { Types } from 'mongoose';
+import { Types, SortOrder } from 'mongoose';
 
 const getAllProducts = async (req: Request, res: Response) => {
   try {
@@ -98,8 +98,8 @@ const getProductsByUser = async (req: Request, res: Response) => {
       query.category = category;
     }
 
-    const sort = {
-      [typeof sortBy === 'string' ? sortBy : 'createdAt']: order === 'asc' ? 1 : -1,
+    const sort: { [key: string]: SortOrder } = {
+      [typeof sortBy === 'string' ? sortBy : 'createdAt']: order === 'asc' ? 'asc' : 'desc',
     };
 
     const products = await Product.find(query)
