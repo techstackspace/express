@@ -1,6 +1,13 @@
 import { Request, Response } from 'express';
 import Product from '../../models/product';
 import { Types, SortOrder } from 'mongoose';
+import { sendMail } from '../../config/nodemailer';
+import { JwtPayload } from 'jsonwebtoken';
+import User from '../../models/user';
+
+function isJwtPayload(user: string | JwtPayload | undefined): user is JwtPayload {
+  return (user as JwtPayload)?.id !== undefined;
+}
 
 const getAllProducts = async (req: Request, res: Response) => {
   try {
@@ -158,6 +165,15 @@ const createProduct = async (req: Request, res: Response) => {
 
     const product = new Product(payload);
     const savedProduct = await product.save();
+    if (isJwtPayload(req.user)) {
+      const userInfo = await User.findById(req.user?.id);
+      if (userInfo) {
+        const userEmail = userInfo?.email;
+        const subject = 'Product Created Successfully';
+        const text = `Dear ${userInfo?.name},\n\nYour product "${savedProduct.name}" has been successfully created.\n\nBest regards,\nTechStackSpace Shop`;
+        await sendMail(userEmail, subject, text);
+      }
+    }
 
     return res
       .status(201)
@@ -221,6 +237,18 @@ const updateProduct = async (req: Request, res: Response) => {
       { new: true }
     );
 
+    if (isJwtPayload(req.user)) {
+      const userInfo = await User.findById(req.user?.id);
+      if (userInfo) {
+
+        const userEmail = userInfo.email;
+        const subject = 'Product Updated Successfully';
+        const text = `Dear ${userInfo?.name},\n\nYour product "${updatedProduct?.name}" has been successfully created.\n\nBest regards,\nTechStackSpace Shop`;
+
+        await sendMail(userEmail, subject, text);
+      }
+    }
+
     if (!updatedProduct) {
       return res.status(404).json({ message: 'Product not found' });
     }
@@ -256,6 +284,17 @@ const deleteProduct = async (req: Request, res: Response) => {
     }
 
     await Product.findByIdAndDelete(id);
+
+    if (isJwtPayload(req.user)) {
+      const userInfo = await User.findById(req.user?.id);
+      if (userInfo) {
+        const userEmail = userInfo.email;
+        const subject = 'Product Deleted Successfully';
+        const text = `Dear ${userInfo.name},\n\nYour product "${product.name}" has been successfully deleted.\n\nBest regards,\nTechStackSpace Shop`;
+
+        await sendMail(userEmail, subject, text);
+      }
+    }
 
     return res.status(200).json({ message: 'Product deleted successfully' });
   } catch (err) {
