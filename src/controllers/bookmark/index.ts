@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import Bookmark from '../../models/bookmark';
+import { SortOrder } from 'mongoose';
 
 const addBookmark = async (req: Request, res: Response) => {
   const { product } = req.body;
@@ -48,9 +49,55 @@ const removeBookmark = async (req: Request, res: Response) => {
 
 const getBookmarks = async (req: Request, res: Response) => {
   const userId = req.body.user;
+  const {
+    page = 1,
+    limit = 10,
+    sort = 'createdAt',
+    order = 'desc',
+    search,
+    minDate,
+    maxDate,
+    productCategory,
+  } = req.query;
+
+  const pageNumber = parseInt(page as string, 10);
+  const limitNumber = parseInt(limit as string, 10);
+  const sortOrder: SortOrder = order === 'asc' ? 1 : -1;
+
+  const query: any = { user: userId };
+
+  if (productCategory) {
+    query['product.category'] = productCategory;
+  }
+
+  if (search) {
+    query.$or = [
+      { 'product.name': { $regex: new RegExp(search as string, 'i') } },
+    ];
+  }
+
+  if (minDate || maxDate) {
+    query.createdAt = {};
+    if (minDate) query.createdAt.$gte = new Date(minDate as string);
+    if (maxDate) query.createdAt.$lte = new Date(maxDate as string);
+  }
+
   try {
-    const bookmarks = await Bookmark.find({ user: userId }).populate('product');
-    return res.status(200).json(bookmarks);
+    const sortOptions: { [key: string]: SortOrder } = { [sort as string]: sortOrder };
+
+    const bookmarks = await Bookmark.find(query)
+      .populate('product')
+      .sort(sortOptions)
+      .skip((pageNumber - 1) * limitNumber)
+      .limit(limitNumber);
+
+    const totalBookmarks = await Bookmark.countDocuments(query);
+
+    res.status(200).json({
+      bookmarks,
+      totalPages: Math.ceil(totalBookmarks / limitNumber),
+      currentPage: pageNumber,
+    });
   } catch (err) {
     if (err instanceof Error) {
       return res
