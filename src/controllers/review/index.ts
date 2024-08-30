@@ -3,18 +3,65 @@ import Product from '../../models/product';
 import Review from '../../models/review';
 import User from '../../models/user';
 import { ObjectId } from 'mongoose';
+import { SortOrder } from 'mongoose';
 
 const getAllReviews = async (req: Request, res: Response) => {
   const { productId } = req.params;
+  const {
+    page = 1,
+    limit = 10,
+    sort = 'createdAt',
+    order = 'desc',
+    search,
+    minRating,
+    maxRating,
+    minDate,
+    maxDate,
+  } = req.query;
 
   try {
-    const product = await Product.findById(productId).populate('reviews');
+    const pageNumber = parseInt(page as string, 10);
+    const limitNumber = parseInt(limit as string, 10);
+    const sortOrder: SortOrder = order === 'asc' ? 1 : -1;
 
+    const query: any = { product: productId };
+
+    if (search) {
+      query.text = { $regex: new RegExp(search as string, 'i') };
+    }
+
+    if (minRating || maxRating) {
+      query.rating = {};
+      if (minRating) query.rating.$gte = Number(minRating);
+      if (maxRating) query.rating.$lte = Number(maxRating);
+    }
+
+    if (minDate || maxDate) {
+      query.createdAt = {};
+      if (minDate) query.createdAt.$gte = new Date(minDate as string);
+      if (maxDate) query.createdAt.$lte = new Date(maxDate as string);
+    }
+
+    const sortOptions: { [key: string]: SortOrder } = { [sort as string]: sortOrder };
+
+    const product = await Product.findById(productId);
     if (!product) {
       return res.status(404).json({ message: 'Product not found' });
     }
 
-    return res.status(200).json({ reviews: product.reviews });
+    const reviews = await Review.find(query)
+      .populate('user')
+      .sort(sortOptions)
+      .skip((pageNumber - 1) * limitNumber)
+      .limit(limitNumber);
+
+    const totalReviews = await Review.countDocuments(query);
+
+    return res.status(200).json({
+      reviews,
+      totalPages: Math.ceil(totalReviews / limitNumber),
+      currentPage: pageNumber,
+    });
   } catch (error) {
     if (error instanceof Error) {
       return res.status(500).json({ message: error.message });
