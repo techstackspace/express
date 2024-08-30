@@ -2,9 +2,49 @@ import { Request, Response } from 'express';
 import Product from '../../models/product';
 import { Types } from 'mongoose';
 
-const getAllProducts = async (_req: Request, res: Response) => {
+const getAllProducts = async (req: Request, res: Response) => {
   try {
-    const products = await Product.find();
+    const {
+      page = 1,
+      limit = 10,
+      search = '',
+      minPrice,
+      maxPrice,
+      category,
+      sortBy = 'createdAt',
+      order = 'desc',
+    } = req.query;
+
+    const query: any = {};
+
+    if (search) {
+      query.$or = [
+        { name: { $regex: search, $options: 'i' } },
+        { description: { $regex: search, $options: 'i' } },
+      ];
+    }
+
+    if (minPrice || maxPrice) {
+      query.price = {};
+      if (minPrice) query.price.$gte = Number(minPrice);
+      if (maxPrice) query.price.$lte = Number(maxPrice);
+    }
+
+    if (category) {
+      query.category = category;
+    }
+
+    const sort = {
+      [typeof sortBy === 'string' ? sortBy : 'createdAt']: order === 'asc' ? 1 : -1,
+    };
+
+    const options = {
+      page: Number(page),
+      limit: Number(limit),
+      sort,
+    };
+
+    const products = await Product.paginate(query, options);
     return res.status(200).json(products);
   } catch (err) {
     if (err instanceof Error) {
