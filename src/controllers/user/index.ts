@@ -3,6 +3,8 @@ import { hash, compare } from 'bcrypt';
 import User from '../../models/user';
 import { sign } from 'jsonwebtoken';
 import { encrypt } from '../../utils';
+import geoip from 'geoip-lite';
+import { sendMail } from '../../config/nodemailer';
 
 const getAllUsers = async (req: Request, res: Response) => {
   const {
@@ -142,6 +144,28 @@ const loginUser = async (req: Request, res: Response) => {
       secure: process.env.NODE_ENV === 'production',
       maxAge: 15 * 24 * 60 * 60 * 1000,
     });
+
+    const ip = req.ip || '';
+    const geo = ip ? geoip.lookup(ip) : null;
+    const location = geo ? `${geo.city}, ${geo.country}` : 'Unknown location';
+    const system = req.headers['user-agent'];
+    const loginTime = new Date().toLocaleString();
+
+    const emailHtml = `
+      <p>Dear ${user.name},</p>
+      <p>You have successfully logged into your account.</p>
+      <p><strong>Details:</strong></p>
+      <ul>
+        <li><strong>System:</strong> ${system}</li>
+        <li><strong>Location:</strong> ${location}</li>
+        <li><strong>Time:</strong> ${loginTime}</li>
+      </ul>
+      <p>If this wasn't you, please reset your password immediately.</p>
+      <p>Best regards,</p>
+      <p>TechStackSpace Shop</p>
+    `;
+
+    await sendMail(user.email, 'New Login Notification', emailHtml);
 
     return res.status(200).json({ message: 'Login successful', token });
   } catch (err) {
