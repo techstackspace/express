@@ -4,6 +4,7 @@ import Review from '../../models/review';
 import User from '../../models/user';
 import { ObjectId } from 'mongoose';
 import { SortOrder } from 'mongoose';
+import { sendMail } from '../../config/nodemailer';
 
 const getAllReviews = async (req: Request, res: Response) => {
   const { productId } = req.params;
@@ -138,6 +139,12 @@ const createReview = async (req: Request, res: Response) => {
     await product.save();
     await product.calculateAverageRating();
 
+    await sendMail(
+      user.email,
+      'Review Submitted Successfully',
+      `Dear ${user.name},<p>Thank you for submitting your review on ${product.name}. Your feedback is valuable to us.</p><p>Best Regards,</p>TechStackSpace Shop`
+    );
+
     return res.status(201).json({ message: 'Review added', review });
   } catch (error) {
     if (error instanceof Error) {
@@ -160,9 +167,10 @@ const updateReview = async (req: Request, res: Response) => {
     }
 
     const review = await Review.findById(reviewId);
+    const user = await User.findById(review?.user);
 
-    if (!review) {
-      return res.status(404).json({ message: 'Review not found' });
+    if (!review || !user) {
+      return res.status(404).json({ message: 'Review or User not found' });
     }
 
     review.text = text || review.text;
@@ -174,6 +182,12 @@ const updateReview = async (req: Request, res: Response) => {
     if (product) {
       await product.calculateAverageRating();
     }
+
+    await sendMail(
+      user.email,
+      'Review Updated Successfully',
+      `Dear ${user.name},<p>Your review on ${product?.name} has been updated successfully.</p><p>Best Regards,</p>TechStackSpace Shop`
+    );
 
     return res.status(200).json({ message: 'Review updated', review });
   } catch (error) {
