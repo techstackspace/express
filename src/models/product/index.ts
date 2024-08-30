@@ -6,7 +6,7 @@ import mongoosePaginate from 'mongoose-paginate-v2';
 
 interface IProductModel extends PaginateModel<IProduct & Document> {}
 
-const ProductSchema = new Schema<IProduct & Document>(
+const ProductSchema = new Schema<IProduct>(
   {
     name: { type: String, required: true },
     description: { type: String, required: true },
