@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import Order from '../../models/order';
 import Cart from '../../models/cart';
 import Address from '../../models/address';
+import { SortOrder } from 'mongoose';
 
 export const createOrder = async (req: Request, res: Response) => {
   try {
@@ -114,15 +115,77 @@ export const updateOrderStatus = async (req: Request, res: Response) => {
 
 export const getAllOrders = async (req: Request, res: Response) => {
   try {
-    const orders = await Order.find()
+    const {
+      page = 1,
+      limit = 10,
+      sort = 'createdAt',
+      order = 'desc',
+      search,
+      minDate,
+      maxDate,
+      user,
+      orderStatus,
+      minAmount,
+      maxAmount,
+      isPaid,
+    } = req.query;
+
+    const pageNumber = parseInt(page as string, 10);
+    const limitNumber = parseInt(limit as string, 10);
+    const sortOrder: SortOrder = order === 'asc' ? 1 : -1;
+
+    const query: any = {};
+
+    if (user) {
+      query.user = user;
+    }
+
+    if (orderStatus) {
+      query.orderStatus = orderStatus;
+    }
+
+    if (minAmount || maxAmount) {
+      query.totalAmount = {};
+      if (minAmount) query.totalAmount.$gte = Number(minAmount);
+      if (maxAmount) query.totalAmount.$lte = Number(maxAmount);
+    }
+
+    if (isPaid !== undefined) {
+      query.isPaid = isPaid === 'true';
+    }
+
+    if (minDate || maxDate) {
+      query.createdAt = {};
+      if (minDate) query.createdAt.$gte = new Date(minDate as string);
+      if (maxDate) query.createdAt.$lte = new Date(maxDate as string);
+    }
+
+    if (search) {
+      query.$or = [
+        { 'products.product.name': { $regex: new RegExp(search as string, 'i') } },
+        { 'shippingAddress': { $regex: new RegExp(search as string, 'i') } },
+      ];
+    }
+
+    const sortOptions: { [key: string]: SortOrder } = { [sort as string]: sortOrder };
+
+    const orders = await Order.find(query)
       .populate('user')
-      .populate('products.product');
-    res.status(200).json(orders);
+      .populate('products.product')
+      .sort(sortOptions)
+      .skip((pageNumber - 1) * limitNumber)
+      .limit(limitNumber);
+
+    const totalOrders = await Order.countDocuments(query);
+
+    res.status(200).json({
+      orders,
+      totalPages: Math.ceil(totalOrders / limitNumber),
+      currentPage: pageNumber,
+    });
   } catch (error) {
     if (error instanceof Error) {
-      res
-        .status(500)
-        .json({ error: `Failed to fetch orders: ${error.message}` });
+      res.status(500).json({ error: `Failed to fetch orders: ${error.message}` });
     } else {
       res.status(500).json({ error: 'Unknown error occurred' });
     }
