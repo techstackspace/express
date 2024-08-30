@@ -4,6 +4,8 @@ import Cart from '../../models/cart';
 import Address from '../../models/address';
 import { SortOrder } from 'mongoose';
 import { IProduct } from '../../models/product/interface';
+import { sendMail } from '../../config/nodemailer';
+import User from '../../models/user';
 
 export const createOrder = async (req: Request, res: Response) => {
   try {
@@ -63,6 +65,15 @@ export const createOrder = async (req: Request, res: Response) => {
 
     await Cart.deleteMany({ user });
 
+    const userInfo = await User.findById(user);
+    if (userInfo && userInfo.email) {
+      await sendMail(
+        userInfo.email,
+        'Order Confirmation',
+        `Your order with ID ${newOrder._id} has been placed successfully.`
+      );
+    }
+
     res.status(201).json(newOrder);
   } catch (error) {
     if (error instanceof Error) {
@@ -112,6 +123,16 @@ export const updateOrderStatus = async (req: Request, res: Response) => {
     }
 
     await order.save();
+
+    const userInfo = await User.findById(order.user);
+    if (userInfo && userInfo.email) {
+      await sendMail(
+        userInfo.email,
+        'Order Status Updated',
+        `Your order with ID ${order._id} status has been updated to ${order.orderStatus}.`
+      );
+    }
+
     res.status(200).json(order);
   } catch (error) {
     if (error instanceof Error) {
