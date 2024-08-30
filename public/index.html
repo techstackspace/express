@@ -291,6 +291,9 @@
     </ul>
     <p><strong>Example Request:</strong></p>
     <pre><code>GET /api/products?search=tablet&minPrice=200&maxPrice=800&category=electronics&sortBy=price&order=desc&page=2&limit=10</code></pre>
+    <p>You can also get products by user id</p>
+    <p><strong>Example Request:</strong></p>
+    <pre><code>GET /api/users/:userId/products?page=1&limit=5&minPrice=100&maxPrice=500&category=clothing&sortBy=price&order=asc</code></pre>
   </div>
 
   <div class="endpoint">
@@ -304,6 +307,8 @@
       <li>Set method to <code>GET</code></li>
       <li>Enter URL: <code>http://localhost:5000/api/products/user/{userId}</code> (Replace <code>{userId}</code> with
         the actual user ID)</li>
+      <li>Also you can enter URL: <code>http://localhost:5000/api/users/{userId}/product</code> (Replace <code>{userId}</code> with
+          the actual user ID)</li>
       <li>Click <code>Send</code></li>
     </ul>
   </div>
