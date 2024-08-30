@@ -4,15 +4,62 @@ import User from '../../models/user';
 import { sign } from 'jsonwebtoken';
 import { encrypt } from '../../utils';
 
-const getAllUsers = async (_req: Request, res: Response) => {
+const getAllUsers = async (req: Request, res: Response) => {
+  const {
+    page = 1,
+    limit = 10,
+    sort = 'createdAt',
+    order = 'desc',
+    search,
+    name,
+    username,
+    email,
+  } = req.query;
+
+  const pageNumber = parseInt(page as string, 10);
+  const limitNumber = parseInt(limit as string, 10);
+  const sortOrder = order === 'asc' ? 1 : -1;
+
+  const query: any = {};
+
+  if (name) {
+    query.name = { $regex: new RegExp(name as string, 'i') };
+  }
+  
+  if (username) {
+    query.username = { $regex: new RegExp(username as string, 'i') };
+  }
+
+  if (email) {
+    query.email = { $regex: new RegExp(email as string, 'i') };
+  }
+
+  if (search) {
+    query.$or = [
+      { name: { $regex: new RegExp(search as string, 'i') } },
+      { username: { $regex: new RegExp(search as string, 'i') } },
+      { email: { $regex: new RegExp(search as string, 'i') } },
+    ];
+  }
+
   try {
-    const users = await User.find();
-    res.status(200).json(users);
+    const users = await User.find(query)
+      .sort({ [sort as string]: sortOrder })
+      .skip((pageNumber - 1) * limitNumber)
+      .limit(limitNumber);
+
+    const totalUsers = await User.countDocuments(query);
+
+    res.status(200).json({
+      users,
+      totalPages: Math.ceil(totalUsers / limitNumber),
+      currentPage: pageNumber,
+    });
   } catch (err) {
     if (err instanceof Error) {
       return res.status(500).json({ error: err.message });
     } else {
-      return res.status(500).json({ error: 'Unknown error occured' });
+      return res.status(500).json({ error: 'Unknown error occurred' });
     }
   }
 };
