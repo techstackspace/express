@@ -42,7 +42,9 @@ const getAllReviews = async (req: Request, res: Response) => {
       if (maxDate) query.createdAt.$lte = new Date(maxDate as string);
     }
 
-    const sortOptions: { [key: string]: SortOrder } = { [sort as string]: sortOrder };
+    const sortOptions: { [key: string]: SortOrder } = {
+      [sort as string]: sortOrder,
+    };
 
     const product = await Product.findById(productId);
     if (!product) {

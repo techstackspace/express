@@ -50,7 +50,9 @@ const getAllComments = async (req: Request, res: Response) => {
       if (maxLikes) query.likes.$lte = Number(maxLikes);
     }
 
-    const sortOptions: { [key: string]: SortOrder } = { [sort as string]: sortOrder };
+    const sortOptions: { [key: string]: SortOrder } = {
+      [sort as string]: sortOrder,
+    };
 
     const comments = await Comment.find(query)
       .sort(sortOptions)

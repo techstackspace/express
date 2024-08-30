@@ -83,7 +83,9 @@ const getBookmarks = async (req: Request, res: Response) => {
   }
 
   try {
-    const sortOptions: { [key: string]: SortOrder } = { [sort as string]: sortOrder };
+    const sortOptions: { [key: string]: SortOrder } = {
+      [sort as string]: sortOrder,
+    };
 
     const bookmarks = await Bookmark.find(query)
       .populate('product')

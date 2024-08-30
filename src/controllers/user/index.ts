@@ -25,7 +25,7 @@ const getAllUsers = async (req: Request, res: Response) => {
   if (name) {
     query.name = { $regex: new RegExp(name as string, 'i') };
   }
-  
+
   if (username) {
     query.username = { $regex: new RegExp(username as string, 'i') };
   }

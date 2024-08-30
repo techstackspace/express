@@ -38,7 +38,9 @@ const getCartItems = async (req: Request, res: Response) => {
   }
 
   try {
-    const sortOptions: { [key: string]: SortOrder } = { [sort as string]: sortOrder };
+    const sortOptions: { [key: string]: SortOrder } = {
+      [sort as string]: sortOrder,
+    };
 
     const cartItems = await Cart.find(query)
       .populate('product')
@@ -59,9 +61,7 @@ const getCartItems = async (req: Request, res: Response) => {
         .status(500)
         .json({ error: 'An error occurred getting cart items.' });
     }
-    return res
-      .status(500)
-      .json({ error: 'An unknown error occurred.' });
+    return res.status(500).json({ error: 'An unknown error occurred.' });
   }
 };
 

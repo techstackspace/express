@@ -1,7 +1,7 @@
 import { Document, ObjectId } from 'mongoose';
 import { IComment } from '../comment/interface';
 
-interface IProduct extends Document{
+interface IProduct extends Document {
   _id: ObjectId;
   name: string;
   description: string;

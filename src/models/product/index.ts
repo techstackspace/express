@@ -74,5 +74,8 @@ ProductSchema.methods.calculateAverageRating = async function () {
 };
 
 ProductSchema.plugin(mongoosePaginate);
-const Product = model<IProduct & Document, IProductModel>('Product', ProductSchema);
+const Product = model<IProduct & Document, IProductModel>(
+  'Product',
+  ProductSchema
+);
 export default Product;

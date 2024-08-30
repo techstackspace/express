@@ -35,7 +35,9 @@ export const createOrder = async (req: Request, res: Response) => {
       const quantity = item.quantity;
 
       if (product.stock < quantity) {
-        return res.status(400).json({ error: `Insufficient stock for product: ${product.name}` });
+        return res
+          .status(400)
+          .json({ error: `Insufficient stock for product: ${product.name}` });
       }
 
       totalAmount += price * quantity;
@@ -171,12 +173,18 @@ export const getAllOrders = async (req: Request, res: Response) => {
 
     if (search) {
       query.$or = [
-        { 'products.product.name': { $regex: new RegExp(search as string, 'i') } },
-        { 'shippingAddress': { $regex: new RegExp(search as string, 'i') } },
+        {
+          'products.product.name': {
+            $regex: new RegExp(search as string, 'i'),
+          },
+        },
+        { shippingAddress: { $regex: new RegExp(search as string, 'i') } },
       ];
     }
 
-    const sortOptions: { [key: string]: SortOrder } = { [sort as string]: sortOrder };
+    const sortOptions: { [key: string]: SortOrder } = {
+      [sort as string]: sortOrder,
+    };
 
     const orders = await Order.find(query)
       .populate('user')
@@ -194,7 +202,9 @@ export const getAllOrders = async (req: Request, res: Response) => {
     });
   } catch (error) {
     if (error instanceof Error) {
-      res.status(500).json({ error: `Failed to fetch orders: ${error.message}` });
+      res
+        .status(500)
+        .json({ error: `Failed to fetch orders: ${error.message}` });
     } else {
       res.status(500).json({ error: 'Unknown error occurred' });
     }

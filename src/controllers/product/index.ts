@@ -35,7 +35,8 @@ const getAllProducts = async (req: Request, res: Response) => {
     }
 
     const sort = {
-      [typeof sortBy === 'string' ? sortBy : 'createdAt']: order === 'asc' ? 1 : -1,
+      [typeof sortBy === 'string' ? sortBy : 'createdAt']:
+        order === 'asc' ? 1 : -1,
     };
 
     const options = {
@@ -99,7 +100,8 @@ const getProductsByUser = async (req: Request, res: Response) => {
     }
 
     const sort: { [key: string]: SortOrder } = {
-      [typeof sortBy === 'string' ? sortBy : 'createdAt']: order === 'asc' ? 'asc' : 'desc',
+      [typeof sortBy === 'string' ? sortBy : 'createdAt']:
+        order === 'asc' ? 'asc' : 'desc',
     };
 
     const products = await Product.find(query)
