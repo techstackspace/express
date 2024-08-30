@@ -1,0 +1,20 @@
+getAllUsers
+- GET /users?page=1&limit=10&sort=createdAt&order=desc&name=John&username=doe123&email=john@example.com
+
+getAllProducts
+- GET /products?search=tablet&minPrice=200&maxPrice=800&category=electronics&sortBy=price&order=desc&page=2&limit=10
+
+getBookmarks
+- GET /bookmarks?page=2&limit=20&sort=createdAt&order=desc&search=Smartphone&productCategory=Electronics&minDate=2023-01-01&maxDate=2023-12-31
+
+getCartItems
+- GET /cart?page=1&limit=10&sort=createdAt&order=desc&search=Tablet&productCategory=Electronics&minQuantity=1&maxQuantity=5
+
+getAllComments
+- GET /comments?page=1&limit=10&sort=createdAt&order=desc&search=Tablet&productCategory=Electronics&minDate=2023-01-01&maxDate=2023-12-31&user=user123
+
+getAllOrders
+- GET /orders?page=1&limit=10&sort=createdAt&order=desc&search=Tablet&productCategory=Electronics&minDate=2023-01-01&maxDate=2023-12-31&minAmount=100&maxAmount=500&isPaid=true
+
+getAllReviews
+- GET /reviews?page=1&limit=10&sort=createdAt&order=desc&search=Tablet&productCategory=Electronics&minRating=4&maxRating=5&minDate=2023-01-01&maxDate=2023-12-31
