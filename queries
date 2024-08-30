@@ -1,6 +1,9 @@
 getAllUsers
 - GET /users?page=1&limit=10&sort=createdAt&order=desc&name=John&username=doe123&email=john@example.com
 
+getProductsByUser
+- GET /users/:userId/products?page=1&limit=5&minPrice=100&maxPrice=500&category=clothing&sortBy=price&order=asc
+
 getAllProducts
 - GET /products?search=tablet&minPrice=200&maxPrice=800&category=electronics&sortBy=price&order=desc&page=2&limit=10
 
