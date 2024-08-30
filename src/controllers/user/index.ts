@@ -184,6 +184,10 @@ const loginUser = async (req: Request, res: Response) => {
       return res.status(404).json({ message: 'User not found' });
     }
 
+    if (!user.isVerified) {
+      return res.status(403).json({ message: 'Account not verified. Please verify your email before logging in.' });
+    }
+
     const isMatch = await compare(password, user.password);
     if (!isMatch) {
       return res.status(401).json({ message: 'Invalid credentials' });
@@ -235,7 +239,7 @@ const loginUser = async (req: Request, res: Response) => {
   }
 };
 
-const logoutUser = (req: Request, res: Response) => {
+const logoutUser = (_req: Request, res: Response) => {
   res.clearCookie('token', {
     httpOnly: true,
     secure: process.env.NODE_ENV === 'production',
