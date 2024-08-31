@@ -5,7 +5,9 @@ import { sendMail } from '../../config/nodemailer';
 import { JwtPayload } from 'jsonwebtoken';
 import User from '../../models/user';
 
-function isJwtPayload(user: string | JwtPayload | undefined): user is JwtPayload {
+function isJwtPayload(
+  user: string | JwtPayload | undefined
+): user is JwtPayload {
   return (user as JwtPayload)?.id !== undefined;
 }
 
@@ -240,7 +242,6 @@ const updateProduct = async (req: Request, res: Response) => {
     if (isJwtPayload(req.user)) {
       const userInfo = await User.findById(req.user?.id);
       if (userInfo) {
-
         const userEmail = userInfo.email;
         const subject = 'Product Updated Successfully';
         const text = `Dear ${userInfo?.name},\n\nYour product "${updatedProduct?.name}" has been successfully created.\n\nBest regards,\nTechStackSpace Shop`;
