@@ -1,19 +1,28 @@
 import { Request, Response } from 'express';
 import Cart from '../../models/cart';
 import { SortOrder } from 'mongoose';
+import {
+  addToCartSchema,
+  deleteFromCartSchema,
+  getCartItemsSchema,
+} from '../../validation/cart';
 
 const getCartItems = async (req: Request, res: Response) => {
+  const { error, value } = getCartItemsSchema.validate(req.query);
+  if (error) {
+    return res.status(400).json({ error: error.details[0].message });
+  }
   const userId = req.body.user;
   const {
-    page = 1,
-    limit = 10,
-    sort = 'createdAt',
-    order = 'desc',
+    page,
+    limit,
+    sort,
+    order,
     search,
     minQuantity,
     maxQuantity,
     productCategory,
-  } = req.query;
+  } = value;
 
   const pageNumber = parseInt(page as string, 10);
   const limitNumber = parseInt(limit as string, 10);
@@ -66,7 +75,11 @@ const getCartItems = async (req: Request, res: Response) => {
 };
 
 const addToCart = async (req: Request, res: Response) => {
-  const { product, quantity, user } = req.body;
+  const { error, value } = addToCartSchema.validate(req.body);
+  if (error) {
+    return res.status(400).json({ error: error.details[0].message });
+  }
+  const { product, quantity, user } = value;
 
   if (!product || !quantity || !user) {
     return res
@@ -95,8 +108,12 @@ const addToCart = async (req: Request, res: Response) => {
 };
 
 const deleteFromCart = async (req: Request, res: Response) => {
+  const { error, value } = deleteFromCartSchema.validate(req.body);
+  if (error) {
+    return res.status(400).json({ error: error.details[0].message });
+  }
   const { id } = req.params;
-  const { user } = req.body;
+  const { user } = value;
 
   if (!user) {
     return res.status(400).json({ message: 'User is required.' });
