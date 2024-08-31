@@ -1,8 +1,17 @@
 import { Request, Response } from 'express';
 import Bookmark from '../../models/bookmark';
 import { SortOrder } from 'mongoose';
+import {
+  addBookmarkSchema,
+  getBookmarksSchema,
+  removeBookmarkSchema,
+} from '../../validation/bookmark';
 
 const addBookmark = async (req: Request, res: Response) => {
+  const { error } = addBookmarkSchema.validate(req.body);
+  if (error) {
+    return res.status(400).json({ message: error.details[0].message });
+  }
   const { product } = req.body;
   const userId = req.body.user;
 
@@ -29,6 +38,13 @@ const addBookmark = async (req: Request, res: Response) => {
 };
 
 const removeBookmark = async (req: Request, res: Response) => {
+  const { error } = removeBookmarkSchema.validate({
+    ...req.params,
+    user: req.body.user,
+  });
+  if (error) {
+    return res.status(400).json({ message: error.details[0].message });
+  }
   const { id } = req.params;
   const userId = req.body.user;
 
@@ -48,6 +64,13 @@ const removeBookmark = async (req: Request, res: Response) => {
 };
 
 const getBookmarks = async (req: Request, res: Response) => {
+  const { error } = getBookmarksSchema.validate({
+    ...req.query,
+    user: req.body.user,
+  });
+  if (error) {
+    return res.status(400).json({ message: error.details[0].message });
+  }
   const userId = req.body.user;
   const {
     page = 1,
