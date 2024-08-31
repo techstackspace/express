@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import { verify } from 'jsonwebtoken';
-import { decrypt } from '../utils';
+import { decrypt } from '../utils/cookie';
 
 const authenticateToken = (req: Request, res: Response, next: NextFunction) => {
   const token = req.cookies?.token;
