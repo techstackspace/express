@@ -4,31 +4,31 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TechStackSpace Express JS API Testing Guide | Version 1.12.0</title>
+  <title>TechStackSpace Express JS API Testing Guide | Version 1.13.0</title>
   <meta name="description"
-    content="Learn how to create and test CRUD API endpoints in the TechStackSpace Express App (Version 1.12.0) using tools like Postman, Bruno, and more.">
+    content="Learn how to create and test CRUD API endpoints in the TechStackSpace Express App (Version 1.13.0) using tools like Postman, Bruno, and more.">
   <meta name="keywords"
-    content="API testing, Express, CRUD operations, Postman, TechStackSpace, MongoDB, version 1.12.0, authentication, bcrypt, JWT, cookie-based authentication" />
+    content="API testing, Express, CRUD operations, Postman, TechStackSpace, MongoDB, version 1.13.0, authentication, bcrypt, JWT, cookie-based authentication" />
   <meta name="author" content="Bello Osagie">
-  <meta property="og:title" content="TechStackSpace API Express App Testing Guide for Version 1.12.0">
+  <meta property="og:title" content="TechStackSpace API Express App Testing Guide for Version 1.13.0">
   <meta property="og:description"
-    content="Step-by-step guide to testing API endpoints with tools like Postman and Bruno for TechStackSpace Version 1.12.0.">
+    content="Step-by-step guide to testing API endpoints with tools like Postman and Bruno for TechStackSpace Version 1.13.0.">
   <meta property="og:image"
-    content="https://res.cloudinary.com/bizstak/image/upload/v1725052296/Express%20Social%20Media%20Thumbnails/express-v1120_hsnovy.png">
-  <meta property="og:url" content="https://express-v1120.techstackspace.com">
+    content="https://res.cloudinary.com/bizstak/image/upload/v1725063699/Express%20Social%20Media%20Thumbnails/express-v1130_qpr4es.png">
+  <meta property="og:url" content="https://express-v1130.techstackspace.com">
   <meta property="og:type" content="website">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="TechStackSpace API Express App Testing Guide for Version 1.12.0">
+  <meta name="twitter:title" content="TechStackSpace API Express App Testing Guide for Version 1.13.0">
   <meta name="twitter:description"
-    content="Learn how to create and test CRUD API endpoints in the TechStackSpace Express App (Version 1.12.0) using tools like Postman, Bruno, and more.">
+    content="Learn how to create and test CRUD API endpoints in the TechStackSpace Express App (Version 1.13.0) using tools like Postman, Bruno, and more.">
   <meta name="twitter:image"
-    content="https://res.cloudinary.com/bizstak/image/upload/v1725052252/Express%20Social%20Media%20Thumbnails/twitter-express-v1120_qsynxf.png">
+    content="https://res.cloudinary.com/bizstak/image/upload/v1725063785/Express%20Social%20Media%20Thumbnails/twitter-express-v1130_hwvylx.png">
   <meta name="twitter:site" content="@techstackspace">
   <meta name="twitter:image:width" content="1200">
   <meta name="twitter:image:height" content="630">
-  <link rel="canonical" href="https://express-v1120.techstackspace.com">
+  <link rel="canonical" href="https://express-v1130.techstackspace.com">
   <link rel="apple-touch-icon" sizes="57x57" href="./assets/favicon/apple-icon-57x57.png">
   <link rel="apple-touch-icon" sizes="60x60" href="./assets/favicon/apple-icon-60x60.png">
   <link rel="apple-touch-icon" sizes="72x72" href="./assets/favicon/apple-icon-72x72.png">
@@ -254,7 +254,7 @@
     </ul>
   </nav>
 
-  <h1>Express API Testing Guide for Version 1.12.0</h1>
+  <h1>Express API Testing Guide for Version 1.13.0</h1>
   <p>This guide provides instructions on how to test various API endpoints using HTTP clients such as <a
       href="https://www.postman.com/product/rest-client" target="_blank" rel="noopener noreferrer">Postman</a>, <a
       href="https://www.usebruno.com" target="_blank" rel="noopener noreferrer">Bruno</a>, <a
@@ -307,8 +307,9 @@
       <li>Set method to <code>GET</code></li>
       <li>Enter URL: <code>http://localhost:5000/api/products/user/{userId}</code> (Replace <code>{userId}</code> with
         the actual user ID)</li>
-      <li>Also you can enter URL: <code>http://localhost:5000/api/users/{userId}/product</code> (Replace <code>{userId}</code> with
-          the actual user ID)</li>
+      <li>Also you can enter URL: <code>http://localhost:5000/api/users/{userId}/product</code> (Replace
+        <code>{userId}</code> with
+        the actual user ID)</li>
       <li>Click <code>Send</code></li>
     </ul>
   </div>
@@ -584,8 +585,7 @@
     <p><strong>Testing in Postman:</strong></p>
     <ul>
       <li>Set method to <code>GET</code></li>
-      <li>Enter URL: <code>http://localhost:5000/api/users/{id}</code> (Replace <code>{id}</code> with the actual
-        user
+      <li>Enter URL: <code>http://localhost:5000/api/users/{id}</code> (Replace <code>{id}</code> with the actual user
         ID)</li>
       <li>Click <code>Send</code></li>
     </ul>
@@ -595,8 +595,8 @@
     <h3>Create User</h3>
     <p><strong>Method:</strong> <code>POST</code></p>
     <p><strong>Endpoint:</strong> <code>/api/users/register</code></p>
-    <p><strong>Description:</strong> Creates a new user.</p>
-    <p><strong>Authentication:</strong> Required.</p>
+    <p><strong>Description:</strong> Creates a new user and sends an OTP to the user's email.</p>
+    <p><strong>Authentication:</strong> Not required.</p>
     <p><strong>Body:</strong></p>
     <pre><code>
 {
@@ -615,6 +615,35 @@
       <li>Enter the JSON payload above</li>
       <li>Click <code>Send</code></li>
     </ul>
+    <p><strong>Response:</strong> The response will include a message indicating that the user has been created and that
+      an OTP has been sent to their email.</p>
+  </div>
+
+  <div class="endpoint">
+    <h3>Verify OTP</h3>
+    <p><strong>Method:</strong> <code>POST</code></p>
+    <p><strong>Endpoint:</strong> <code>/api/users/verify-otp</code></p>
+    <p><strong>Description:</strong> Verifies the OTP sent to the user's email. This completes the registration process.
+    </p>
+    <p><strong>Authentication:</strong> Not required.</p>
+    <p><strong>Body:</strong></p>
+    <pre><code>
+{
+  "otp": "123456",
+  "email": "your-email@mail.com"
+}
+</code></pre>
+    <p><strong>Testing in Postman:</strong></p>
+    <ul>
+      <li>Set method to <code>POST</code></li>
+      <li>Enter URL: <code>http://localhost:5000/api/users/verify-otp</code></li>
+      <li>Select <code>Body</code> tab</li>
+      <li>Choose <code>raw</code> and set format to <code>JSON</code></li>
+      <li>Enter the JSON payload above</li>
+      <li>Click <code>Send</code></li>
+    </ul>
+    <p><strong>Response:</strong> The response will indicate whether the OTP is valid and if the user has been
+      successfully verified.</p>
   </div>
 
   <div class="endpoint">
@@ -626,8 +655,7 @@
     <p><strong>Testing in Postman:</strong></p>
     <ul>
       <li>Set method to <code>DELETE</code></li>
-      <li>Enter URL: <code>http://localhost:5000/api/users/{id}</code> (Replace <code>{id}</code> with the actual
-        user
+      <li>Enter URL: <code>http://localhost:5000/api/users/{id}</code> (Replace <code>{id}</code> with the actual user
         ID)</li>
       <li>Click <code>Send</code></li>
     </ul>
@@ -643,16 +671,15 @@
     <p><strong>Testing in Postman:</strong></p>
     <ul>
       <li>Set method to <code>PATCH</code></li>
-      <li>Enter URL: <code>http://localhost:5000/api/users/{id}</code> (Replace <code>{id}</code> with the actual
-        user
+      <li>Enter URL: <code>http://localhost:5000/api/users/{id}</code> (Replace <code>{id}</code> with the actual user
         ID)</li>
       <li>Select <code>Body</code> tab</li>
       <li>Choose <code>raw</code> and set format to <code>JSON</code></li>
       <li>Enter the JSON payload with fields to update</li>
-      <p><strong>Authentication:</strong> Required.</p>
       <li>Click <code>Send</code></li>
     </ul>
   </div>
+
 
   <h2>4. Review Endpoints</h2>
 
