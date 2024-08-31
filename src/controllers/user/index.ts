@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 import { hash, compare } from 'bcrypt';
 import User from '../../models/user';
 import { sign } from 'jsonwebtoken';
-import { encrypt } from '../../utils';
+import { encrypt } from '../../utils/cookie';
 import geoip from 'geoip-lite';
 import { sendMail } from '../../config/nodemailer';
 import crypto from 'crypto';
@@ -122,7 +122,12 @@ const createUser = async (req: Request, res: Response) => {
 
     const { otp: _, otpExpires: __, ...userWithoutOtp } = savedUser.toObject();
 
-    return res.status(201).json({ message: 'User created, OTP sent to email', user: userWithoutOtp });
+    return res
+      .status(201)
+      .json({
+        message: 'User created, OTP sent to email',
+        user: userWithoutOtp,
+      });
   } catch (err) {
     if (err instanceof Error) {
       return res.status(500).json({ error: err.message });
@@ -131,7 +136,6 @@ const createUser = async (req: Request, res: Response) => {
     }
   }
 };
-
 
 const verifyOTP = async (req: Request, res: Response) => {
   const { email, otp } = req.body;
@@ -188,7 +192,12 @@ const loginUser = async (req: Request, res: Response) => {
     }
 
     if (!user.isVerified) {
-      return res.status(403).json({ message: 'Account not verified. Please verify your email before logging in.' });
+      return res
+        .status(403)
+        .json({
+          message:
+            'Account not verified. Please verify your email before logging in.',
+        });
     }
 
     const isMatch = await compare(password, user.password);
