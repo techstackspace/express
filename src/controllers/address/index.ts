@@ -1,9 +1,14 @@
 import { Request, Response } from 'express';
 import Address from '../../models/address';
 import User from '../../models/user';
+import { addressSchema, updateAddressSchema } from '../../validation/address';
 
 const createAddress = async (req: Request, res: Response) => {
   try {
+    const { error } = addressSchema.validate(req.body);
+    if (error) {
+      return res.status(400).json({ error: error.details[0].message });
+    }
     const {
       user,
       addressLine1,
@@ -45,6 +50,10 @@ const createAddress = async (req: Request, res: Response) => {
 
 const updateAddress = async (req: Request, res: Response) => {
   try {
+    const { error } = updateAddressSchema.validate(req.body);
+    if (error) {
+      return res.status(400).json({ error: error.details[0].message });
+    }
     const { addressId } = req.params;
     const {
       addressLine1,
