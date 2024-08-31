@@ -21,3 +21,6 @@ getAllOrders
 
 getAllReviews
 - GET /reviews?page=1&limit=10&sort=createdAt&order=desc&search=Tablet&productCategory=Electronics&minRating=4&maxRating=5&minDate=2023-01-01&maxDate=2023-12-31
+
+globalSearch
+- GET /search?searchTerm=example
