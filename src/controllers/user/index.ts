@@ -122,12 +122,10 @@ const createUser = async (req: Request, res: Response) => {
 
     const { otp: _, otpExpires: __, ...userWithoutOtp } = savedUser.toObject();
 
-    return res
-      .status(201)
-      .json({
-        message: 'User created, OTP sent to email',
-        user: userWithoutOtp,
-      });
+    return res.status(201).json({
+      message: 'User created, OTP sent to email',
+      user: userWithoutOtp,
+    });
   } catch (err) {
     if (err instanceof Error) {
       return res.status(500).json({ error: err.message });
@@ -192,12 +190,10 @@ const loginUser = async (req: Request, res: Response) => {
     }
 
     if (!user.isVerified) {
-      return res
-        .status(403)
-        .json({
-          message:
-            'Account not verified. Please verify your email before logging in.',
-        });
+      return res.status(403).json({
+        message:
+          'Account not verified. Please verify your email before logging in.',
+      });
     }
 
     const isMatch = await compare(password, user.password);
