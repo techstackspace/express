@@ -4,7 +4,9 @@ import User from '../../models/user';
 import { JwtPayload } from 'jsonwebtoken';
 import { sendMail } from '../../config/nodemailer';
 
-function isJwtPayload(user: string | JwtPayload | undefined): user is JwtPayload {
+function isJwtPayload(
+  user: string | JwtPayload | undefined
+): user is JwtPayload {
   return (user as JwtPayload)?.id !== undefined;
 }
 
