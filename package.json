@@ -1,6 +1,6 @@
 {
   "name": "express",
-  "version": "1.12.0",
+  "version": "1.13.0",
   "description": "Learn everything express. Each version of a project introduce one or more of the core features of express - routing, middleware, request and response handling, templating engines, session management, security, error handling, static file serving, real-time communication, API development, database integration, deployment, extensibility, testing, internationalization (i18n), logging and monitoring, file uploads, webhooks, and command-line interface (CLI) ",
   "main": "dist/index.js",
   "scripts": {
