@@ -4,7 +4,9 @@ import User from '../../models/user';
 import { sendMail } from '../../config/nodemailer';
 import { JwtPayload } from 'jsonwebtoken';
 
-function isJwtPayload(user: string | JwtPayload | undefined): user is JwtPayload {
+function isJwtPayload(
+  user: string | JwtPayload | undefined
+): user is JwtPayload {
   return (user as JwtPayload)?.id !== undefined;
 }
 
@@ -65,27 +67,26 @@ const createFeedback = async (req: Request, res: Response) => {
 
     const savedFeedback = await feedback.save();
     if (isJwtPayload(req.user)) {
+      if (contactPermission) {
+        const user = await User.findById(req.user?.id);
+        if (user) {
+          const userEmail = user?.email;
+          const subject = 'Thank You for Your Feedback!';
+          const text = `<p>Dear ${user?.name},</p><p>Thank you for your feedback on our ${feedbackType}.</p><p>Best regards,<br>TechStackSpace Shop</p>`;
+          await sendMail(userEmail, subject, text);
 
-    if (contactPermission) {
-      const user = await User.findById(req.user?.id);
-      if (user) {
-        const userEmail = user?.email;
-        const subject = 'Thank You for Your Feedback!';
-        const text = `<p>Dear ${user?.name},</p><p>Thank you for your feedback on our ${feedbackType}.</p><p>Best regards,<br>TechStackSpace Shop</p>`;
-        await sendMail(userEmail, subject, text);
+          // const mailOptions = {
+          //   from: '"Your Company" <no-reply@yourcompany.com>',
+          //   to: user.email, // User's email
+          //   subject: 'Thank You for Your Feedback!',
+          //   text: `Dear ${user.name},\n\nThank you for your feedback on our ${feedbackType}.\n\nBest regards,\nYour Company`, // Plain text body
+          //   html: `<p>Dear ${user.name},</p><p>Thank you for your feedback on our ${feedbackType}.</p><p>Best regards,<br>Your Company</p>`, // HTML body
+          // };
 
-        // const mailOptions = {
-        //   from: '"Your Company" <no-reply@yourcompany.com>',
-        //   to: user.email, // User's email
-        //   subject: 'Thank You for Your Feedback!', 
-        //   text: `Dear ${user.name},\n\nThank you for your feedback on our ${feedbackType}.\n\nBest regards,\nYour Company`, // Plain text body
-        //   html: `<p>Dear ${user.name},</p><p>Thank you for your feedback on our ${feedbackType}.</p><p>Best regards,<br>Your Company</p>`, // HTML body
-        // };
-
-        // await transporter.sendMail(mailOptions);
+          // await transporter.sendMail(mailOptions);
+        }
       }
     }
-  }
 
     return res.status(201).json({
       message: 'Feedback submitted successfully.',
