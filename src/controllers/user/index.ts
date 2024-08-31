@@ -120,7 +120,9 @@ const createUser = async (req: Request, res: Response) => {
     await sendOTPEmail(email, otp);
     const savedUser = await user.save();
 
-    return res.status(201).json({ message: 'User created, OTP sent to email', user: savedUser });
+    const { otp: _, otpExpires: __, ...userWithoutOtp } = savedUser.toObject();
+
+    return res.status(201).json({ message: 'User created, OTP sent to email', user: userWithoutOtp });
   } catch (err) {
     if (err instanceof Error) {
       return res.status(500).json({ error: err.message });
@@ -129,6 +131,7 @@ const createUser = async (req: Request, res: Response) => {
     }
   }
 };
+
 
 const verifyOTP = async (req: Request, res: Response) => {
   const { email, otp } = req.body;
