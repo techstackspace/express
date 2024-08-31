@@ -3,9 +3,25 @@ import Comment from '../../models/comment';
 import Product from '../../models/product';
 import { Types } from 'mongoose';
 import { SortOrder } from 'mongoose';
+import Joi from 'joi';
+import {
+  commentCreationSchema,
+  commentUpdateSchema,
+  querySchema,
+  toggleLikeSchema,
+} from '../../validation/comment';
+
+const validateRequest = (schema: Joi.Schema, data: any) => {
+  const { error, value } = schema.validate(data);
+  if (error) {
+    throw new Error(error.details[0].message);
+  }
+  return value;
+};
 
 const getAllComments = async (req: Request, res: Response) => {
   try {
+    const validatedQuery = validateRequest(querySchema, req.query);
     const {
       page = 1,
       limit = 10,
@@ -18,7 +34,7 @@ const getAllComments = async (req: Request, res: Response) => {
       product,
       minLikes,
       maxLikes,
-    } = req.query;
+    } = validatedQuery;
 
     const pageNumber = parseInt(page as string, 10);
     const limitNumber = parseInt(limit as string, 10);
@@ -94,7 +110,8 @@ const getCommentById = async (req: Request, res: Response) => {
 };
 
 const createComment = async (req: Request, res: Response) => {
-  const { user, product, content } = req.body;
+  const validatedBody = validateRequest(commentCreationSchema, req.body);
+  const { user, product, content } = validatedBody;
   if (!user || !product || !content) {
     return res.status(400).json({ message: 'Missing required field' });
   }
@@ -124,9 +141,10 @@ const updateComment = async (req: Request, res: Response) => {
     return res.status(400).json({ message: 'Missing required field' });
   }
   try {
+    const validatedBody = validateRequest(commentUpdateSchema, req.body);
     const comment = await Comment.findByIdAndUpdate(
       id,
-      { $set: payload },
+      { $set: validatedBody },
       { new: true }
     );
     if (!comment) {
@@ -169,8 +187,9 @@ const deleteComment = async (req: Request, res: Response) => {
 };
 
 const toggleLikeComment = async (req: Request, res: Response) => {
+  const validatedBody = validateRequest(toggleLikeSchema, req.body);
   const { commentId } = req.params;
-  const { user: userId } = req.body;
+  const { user: userId } = validatedBody;
 
   if (!Types.ObjectId.isValid(commentId) || !Types.ObjectId.isValid(userId)) {
     return res.status(400).json({ message: 'Invalid ID format' });
