@@ -4,8 +4,8 @@ import { log, error } from '../debugger';
 const transporter = nodemailer.createTransport({
   service: 'Gmail',
   host: 'smtp.gmail.com',
-  port: 587, // Typically 587 for StartTLS or 465 for SSL
-  secure: false, // Set to true if using SSL
+  port: 587,
+  secure: false,
   auth: {
     user: process.env.EMAIL_USER,
     pass: process.env.EMAIL_PASS,
