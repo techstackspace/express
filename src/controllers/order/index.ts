@@ -9,11 +9,11 @@ import User from '../../models/user';
 
 export const createOrder = async (req: Request, res: Response) => {
   try {
-    const { user, shippingAddress, paymentMethod/* , paymentStatus */ } = req.body;
+    const { user, shippingAddress, paymentMethod, paymentStatus } = req.body;
 
-    // if (paymentStatus !== 'successful') {
-    //   return res.status(400).json({ error: 'Payment was not successful' });
-    // }
+    if (paymentStatus !== 'successful') {
+      return res.status(400).json({ error: 'Payment was not successful' });
+    }
 
     let address = shippingAddress;
     if (!address) {
