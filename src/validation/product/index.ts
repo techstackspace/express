@@ -8,6 +8,7 @@ export const productValidationSchema = Joi.object({
   images: Joi.array().items(Joi.string().uri()).max(5),
   videos: Joi.array().items(Joi.string().uri()).max(3),
   pdfs: Joi.array().items(Joi.string().uri()).optional(),
+  pdfContents: Joi.array().items(Joi.string().uri()).optional(),
   category: Joi.string().min(3).max(50).required(),
   rating: Joi.number().min(0).max(5).optional(),
   reviews: Joi.array().items(Joi.string().regex(/^[0-9a-fA-F]{24}$/)).optional(),
