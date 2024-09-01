@@ -4,6 +4,7 @@ import { Types, SortOrder } from 'mongoose';
 import { sendMail } from '../../config/nodemailer';
 import { JwtPayload } from 'jsonwebtoken';
 import User from '../../models/user';
+import { extractPdfContent } from '../../utils/pdf';
 
 function isJwtPayload(
   user: string | JwtPayload | undefined
@@ -139,10 +140,12 @@ const createProduct = async (req: Request, res: Response) => {
     const { files, body } = req;
     const images: string[] = [];
     const videos: string[] = [];
+    const pdfs: string[] = [];
+    const pdfContents: string[] = [];
     const user = req.body.user;
 
     if (files && Array.isArray(files)) {
-      files.forEach((file) => {
+      for (const file of files) {
         if (file.mimetype.startsWith('image/')) {
           if (images.length < 5) {
             images.push(file.path);
@@ -151,8 +154,12 @@ const createProduct = async (req: Request, res: Response) => {
           if (videos.length < 3) {
             videos.push(file.path);
           }
+        } else if (file.mimetype === 'application/pdf') {
+          const content = await extractPdfContent(file.path);
+          pdfs.push(file.path);
+          pdfContents.push(content);
         }
-      });
+      }
     }
 
     if (images.length > 5) images.length = 5;
@@ -162,24 +169,25 @@ const createProduct = async (req: Request, res: Response) => {
       ...body,
       images,
       videos,
+      pdfs,
+      pdfContents,
       user,
     };
 
     const product = new Product(payload);
     const savedProduct = await product.save();
-    if (isJwtPayload(req.user)) {
-      const userInfo = await User.findById(req.user?.id);
+
+    if (req.user && isJwtPayload(req.user)) {
+      const userInfo = await User.findById(req.user.id);
       if (userInfo) {
-        const userEmail = userInfo?.email;
+        const userEmail = userInfo.email;
         const subject = 'Product Created Successfully';
-        const text = `Dear ${userInfo?.name},\n\nYour product "${savedProduct.name}" has been successfully created.\n\nBest regards,\nTechStackSpace Shop`;
+        const text = `Dear ${userInfo.name},\n\nYour product "${savedProduct.name}" has been successfully created.\n\nBest regards,\nTechStackSpace Shop`;
         await sendMail(userEmail, subject, text);
       }
     }
 
-    return res
-      .status(201)
-      .json({ message: 'Product created successfully', product: savedProduct });
+    return res.status(201).json({ message: 'Product created successfully', product: savedProduct });
   } catch (err) {
     if (err instanceof Error) {
       return res.status(500).json({ error: err.message });
