@@ -12,6 +12,7 @@ import { authenticateToken } from '../../middleware';
 import { uploadMedia as upload } from '../../config/multer/product';
 import { validateRequest } from '../../validation';
 import { productValidationSchema } from '../../validation/product';
+import uploadPdf from '../../config/multer/pdf';
 
 const router = Router();
 
@@ -22,6 +23,7 @@ router.post(
   '/products',
   authenticateToken,
   upload.array('mediaFiles'),
+  uploadPdf.single('pdf'),
   validateRequest(productValidationSchema),
   createProduct
 );
