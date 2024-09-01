@@ -29,6 +29,7 @@ const ProductSchema = new Schema<IProduct>(
       },
     },
     pdfs: { type: [String], default: [] },
+    pdfContents: { type: [String], default: [] },
     category: { type: String, required: true },
     rating: { type: Number, default: 0 },
     reviews: { type: [Schema.Types.ObjectId], ref: 'Review', default: [] },
