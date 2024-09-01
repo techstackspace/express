@@ -10,6 +10,7 @@ interface IProduct extends Document {
   images?: string[];
   videos?: string[];
   pdfs?: string[];
+  pdfContents?: string[]
   category: string;
   rating?: number;
   reviews?: ObjectId[];
