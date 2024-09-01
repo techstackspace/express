@@ -1,4 +1,4 @@
-import { model, Schema } from 'mongoose';
+import { Document, model, Schema } from 'mongoose';
 import { IUser } from './interface';
 
 const UserSchema = new Schema<IUser & Document>(
@@ -17,8 +17,8 @@ const UserSchema = new Schema<IUser & Document>(
     },
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
-    otp: { type: String },
-    otpExpires: { type: Date },
+    otp: { type: String, default: null },
+    otpExpires: { type: Date, default: null },
     isVerified: { type: Boolean, default: false },
     version: { type: Number, default: 1 },
   },

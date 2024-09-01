@@ -19,7 +19,7 @@ const feedbackSchema = Joi.object({
     )
     .optional(),
   contactPermission: Joi.boolean().optional(),
-  appVersion: Joi.string().optional().default('1.3.0'),
+  appVersion: Joi.string().default('1.3.0'),
   platform: Joi.string().valid('mobile', 'tablet', 'desktop', 'web').required(),
   browserInfo: Joi.string().required(),
 });
