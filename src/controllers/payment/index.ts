@@ -12,7 +12,7 @@ export const createPayment = async (req: Request, res: Response) => {
       tx_ref: `order-${orderId}`,
       amount: totalAmount,
       currency: 'NGN',
-      redirect_url: 'https://your-website.com/payment/callback',
+      redirect_url: 'https://techstackspace.com/payment/callback',
       payment_options: 'card, banktransfer, ussd',
       customer: {
         email,
