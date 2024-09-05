@@ -274,6 +274,60 @@ const deleteUser = async (req: Request, res: Response) => {
   }
 };
 
+export const forgotPassword = async (req: Request, res: Response) => {
+  try {
+    const { email } = req.body;
+
+    const user = await User.findOne({ email });
+    if (!user) return res.status(400).json({ message: 'User not found' });
+
+    const otp = Math.floor(100000 + Math.random() * 900000).toString();
+    const resetToken = crypto.randomBytes(32).toString('hex');
+    user.otp = otp;
+    user.otpExpires = new Date(Date.now() + 10 * 60 * 1000);
+    user.resetToken = crypto.createHash('sha256').update(resetToken).digest('hex');
+    user.resetTokenExpires = new Date(Date.now() + 60 * 60 * 1000);
+
+    await user.save();
+
+    const resetUrl = `${req.protocol}://${req.get('host')}/reset-password/${resetToken}`;
+    const message = `
+      <p>Your OTP is ${otp}. It will expire in 10 minutes.</p>
+      <p>Or you can reset your password using this <a href="${resetUrl}">link</a>.</p>
+    `;
+
+    await sendMail(user.email, 'Password Reset Request', message);
+
+    res.status(200).json({ message: 'OTP sent to your email' });
+  } catch (error) {
+    return res.status(500).json({ message: error instanceof Error ? error.message : 'Unknown error' });
+  }
+};
+
+export const resetPassword = async (req: Request, res: Response) => {
+  try {
+    const { token, password } = req.body;
+
+    const hashedToken = crypto.createHash('sha256').update(token).digest('hex');
+
+    const user = await User.findOne({
+      resetToken: hashedToken,
+      resetTokenExpires: { $gt: Date.now() },
+    });
+
+    if (!user) return res.status(400).json({ message: 'Invalid or expired token' });
+
+    user.password = await hash(password, 12);
+    user.resetToken = undefined;
+    user.resetTokenExpires = undefined;
+    await user.save();
+
+    res.status(200).json({ message: 'Password reset successfully' });
+  } catch (error) {
+    return res.status(500).json({ message: error instanceof Error ? error.message : 'Unknown error' });
+  }
+};
+
 export {
   getAllUsers,
   getUserById,
