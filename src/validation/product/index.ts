@@ -11,13 +11,24 @@ export const productValidationSchema = Joi.object({
   pdfContents: Joi.array().items(Joi.string().uri()).optional(),
   category: Joi.string().min(3).max(50).required(),
   rating: Joi.number().min(0).max(5).optional(),
-  reviews: Joi.array().items(Joi.string().regex(/^[0-9a-fA-F]{24}$/)).optional(),
+  reviews: Joi.array()
+    .items(Joi.string().regex(/^[0-9a-fA-F]{24}$/))
+    .optional(),
   tags: Joi.array().items(Joi.string().min(1)).required(),
   brand: Joi.string().min(2).max(50).required(),
   stock: Joi.number().min(0).required(),
-  likes: Joi.array().items(Joi.string().regex(/^[0-9a-fA-F]{24}$/)).optional(),
-  comments: Joi.array().items(Joi.string().regex(/^[0-9a-fA-F]{24}$/)).optional(),
+  likes: Joi.array()
+    .items(Joi.string().regex(/^[0-9a-fA-F]{24}$/))
+    .optional(),
+  comments: Joi.array()
+    .items(Joi.string().regex(/^[0-9a-fA-F]{24}$/))
+    .optional(),
   isPublished: Joi.boolean().optional(),
-  status: Joi.string().valid('draft', 'review', 'published').default('draft').optional(),
-  user: Joi.string().regex(/^[0-9a-fA-F]{24}$/).required(),
+  status: Joi.string()
+    .valid('draft', 'review', 'published')
+    .default('draft')
+    .optional(),
+  user: Joi.string()
+    .regex(/^[0-9a-fA-F]{24}$/)
+    .required(),
 });

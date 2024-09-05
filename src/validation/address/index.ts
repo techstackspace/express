@@ -1,7 +1,9 @@
 import Joi from 'joi';
 
 const addressSchema = Joi.object({
-  user: Joi.string().regex(/^[0-9a-fA-F]{24}$/).required(),
+  user: Joi.string()
+    .regex(/^[0-9a-fA-F]{24}$/)
+    .required(),
   addressLine1: Joi.string().required(),
   addressLine2: Joi.string().optional().allow(''),
   city: Joi.string().required(),

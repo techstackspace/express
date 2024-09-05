@@ -5,7 +5,7 @@ const objectId = Joi.string().regex(/^[0-9a-fA-F]{24}$/);
 const addToCartSchema = Joi.object({
   product: objectId.required(),
   quantity: Joi.number().integer().min(1).required(),
-  user: objectId.required(), 
+  user: objectId.required(),
 });
 
 const getCartItemsSchema = Joi.object({

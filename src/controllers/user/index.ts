@@ -285,7 +285,10 @@ export const forgotPassword = async (req: Request, res: Response) => {
     const resetToken = crypto.randomBytes(32).toString('hex');
     user.otp = otp;
     user.otpExpires = new Date(Date.now() + 10 * 60 * 1000);
-    user.resetToken = crypto.createHash('sha256').update(resetToken).digest('hex');
+    user.resetToken = crypto
+      .createHash('sha256')
+      .update(resetToken)
+      .digest('hex');
     user.resetTokenExpires = new Date(Date.now() + 60 * 60 * 1000);
 
     await user.save();
@@ -300,7 +303,11 @@ export const forgotPassword = async (req: Request, res: Response) => {
 
     res.status(200).json({ message: 'OTP sent to your email' });
   } catch (error) {
-    return res.status(500).json({ message: error instanceof Error ? error.message : 'Unknown error' });
+    return res
+      .status(500)
+      .json({
+        message: error instanceof Error ? error.message : 'Unknown error',
+      });
   }
 };
 
@@ -315,7 +322,8 @@ export const resetPassword = async (req: Request, res: Response) => {
       resetTokenExpires: { $gt: Date.now() },
     });
 
-    if (!user) return res.status(400).json({ message: 'Invalid or expired token' });
+    if (!user)
+      return res.status(400).json({ message: 'Invalid or expired token' });
 
     user.password = await hash(password, 12);
     user.resetToken = undefined;
@@ -324,7 +332,11 @@ export const resetPassword = async (req: Request, res: Response) => {
 
     res.status(200).json({ message: 'Password reset successfully' });
   } catch (error) {
-    return res.status(500).json({ message: error instanceof Error ? error.message : 'Unknown error' });
+    return res
+      .status(500)
+      .json({
+        message: error instanceof Error ? error.message : 'Unknown error',
+      });
   }
 };
 

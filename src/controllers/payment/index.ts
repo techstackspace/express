@@ -24,11 +24,15 @@ export const createPayment = async (req: Request, res: Response) => {
       },
     };
 
-    const response = await axios.post('https://api.flutterwave.com/v3/payments', paymentData, {
-      headers: {
-        Authorization: `Bearer ${FLUTTERWAVE_SECRET_KEY}`,
-      },
-    });
+    const response = await axios.post(
+      'https://api.flutterwave.com/v3/payments',
+      paymentData,
+      {
+        headers: {
+          Authorization: `Bearer ${FLUTTERWAVE_SECRET_KEY}`,
+        },
+      }
+    );
 
     res.status(200).json(response.data);
   } catch (error) {
@@ -37,34 +41,39 @@ export const createPayment = async (req: Request, res: Response) => {
 };
 
 export const handlePaymentCallback = async (req: Request, res: Response) => {
-    try {
-      const { tx_ref, status } = req.body;
-  
-      if (status === 'successful') {
-        const paymentVerificationResponse = await axios.get(`https://api.flutterwave.com/v3/transactions/${tx_ref}/verify`, {
+  try {
+    const { tx_ref, status } = req.body;
+
+    if (status === 'successful') {
+      const paymentVerificationResponse = await axios.get(
+        `https://api.flutterwave.com/v3/transactions/${tx_ref}/verify`,
+        {
           headers: {
             Authorization: `Bearer ${FLUTTERWAVE_SECRET_KEY}`,
           },
-        });
-  
-        if (paymentVerificationResponse.data.status === 'success') {
-          const { orderId } = paymentVerificationResponse.data.data;
-          const order = await Order.findById(orderId);
-          if (order) {
-            order.isPaid = true;
-            order.paidAt = new Date();
-            await order.save();
-            res.status(200).json({ message: 'Payment successful and order updated' });
-          } else {
-            res.status(404).json({ error: 'Order not found' });
-          }
+        }
+      );
+
+      if (paymentVerificationResponse.data.status === 'success') {
+        const { orderId } = paymentVerificationResponse.data.data;
+        const order = await Order.findById(orderId);
+        if (order) {
+          order.isPaid = true;
+          order.paidAt = new Date();
+          await order.save();
+          res
+            .status(200)
+            .json({ message: 'Payment successful and order updated' });
         } else {
-          res.status(400).json({ error: 'Payment verification failed' });
+          res.status(404).json({ error: 'Order not found' });
         }
       } else {
-        res.status(400).json({ error: 'Payment failed' });
+        res.status(400).json({ error: 'Payment verification failed' });
       }
-    } catch (error) {
-      res.status(500).json({ error: 'Failed to handle payment callback' });
+    } else {
+      res.status(400).json({ error: 'Payment failed' });
     }
-  };
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to handle payment callback' });
+  }
+};

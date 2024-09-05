@@ -187,7 +187,9 @@ const createProduct = async (req: Request, res: Response) => {
       }
     }
 
-    return res.status(201).json({ message: 'Product created successfully', product: savedProduct });
+    return res
+      .status(201)
+      .json({ message: 'Product created successfully', product: savedProduct });
   } catch (err) {
     if (err instanceof Error) {
       return res.status(500).json({ error: err.message });
