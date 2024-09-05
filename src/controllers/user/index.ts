@@ -303,11 +303,9 @@ export const forgotPassword = async (req: Request, res: Response) => {
 
     res.status(200).json({ message: 'OTP sent to your email' });
   } catch (error) {
-    return res
-      .status(500)
-      .json({
-        message: error instanceof Error ? error.message : 'Unknown error',
-      });
+    return res.status(500).json({
+      message: error instanceof Error ? error.message : 'Unknown error',
+    });
   }
 };
 
@@ -332,11 +330,9 @@ export const resetPassword = async (req: Request, res: Response) => {
 
     res.status(200).json({ message: 'Password reset successfully' });
   } catch (error) {
-    return res
-      .status(500)
-      .json({
-        message: error instanceof Error ? error.message : 'Unknown error',
-      });
+    return res.status(500).json({
+      message: error instanceof Error ? error.message : 'Unknown error',
+    });
   }
 };
 

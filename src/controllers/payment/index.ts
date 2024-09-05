@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import axios from 'axios';
 import Order from '../../models/order';
+import { error } from '../../config/debugger';
 
 const FLUTTERWAVE_SECRET_KEY = process.env.FLUTTERWAVE_SECRET_KEY;
 
@@ -35,7 +36,8 @@ export const createPayment = async (req: Request, res: Response) => {
     );
 
     res.status(200).json(response.data);
-  } catch (error) {
+  } catch (err) {
+    error(err);
     res.status(500).json({ error: 'Failed to create payment' });
   }
 };
@@ -73,7 +75,8 @@ export const handlePaymentCallback = async (req: Request, res: Response) => {
     } else {
       res.status(400).json({ error: 'Payment failed' });
     }
-  } catch (error) {
+  } catch (err) {
+    error(err);
     res.status(500).json({ error: 'Failed to handle payment callback' });
   }
 };
