@@ -19,6 +19,8 @@ const UserSchema = new Schema<IUser & Document>(
     password: { type: String, required: true },
     otp: { type: String, default: null },
     otpExpires: { type: Date, default: null },
+    resetToken: { type: String, default: null },
+    resetTokenExpires: { type: Date, default: null },
     isVerified: { type: Boolean, default: false },
     version: { type: Number, default: 1 },
   },

@@ -8,6 +8,8 @@ interface IUser {
   password: string;
   otp?: string;
   otpExpires?: Date;
+  resetToken?: string;
+  resetTokenExpires?: Date;
   isVerified?: boolean;
   version: number;
 }
