@@ -19,7 +19,7 @@ export const createPayment = async (req: Request, res: Response) => {
         email,
       },
       customizations: {
-        title: 'Techstack',
+        title: 'TechStackSpace Store',
         description: 'Payment for items in cart',
         logo: 'https://res.cloudinary.com/bizstak/image/upload/v1724889968/likqkw7ggv6jpqb9akwo.avif',
       },
