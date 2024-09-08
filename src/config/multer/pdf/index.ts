@@ -5,13 +5,13 @@ const storage: StorageEngine = multer.diskStorage({
     cb(null, 'uploads/pdfs');
   },
   filename: (_req, file, cb) => {
-    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
+    const uniqueSuffix = `${Date.now()}-${Math.round(Math.random() * 1e9)}`;
     cb(null, `${uniqueSuffix}-${file.originalname}`);
   },
 });
 
 const uploadPdf = multer({
-  storage: storage,
+  storage,
   fileFilter: (_req, file, cb) => {
     if (file.mimetype === 'application/pdf') {
       cb(null, true);
