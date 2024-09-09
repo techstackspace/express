@@ -1,11 +1,13 @@
 import multer, { StorageEngine } from 'multer';
+import { Types } from 'mongoose';
+const objectId = new Types.ObjectId();
 
 const storage: StorageEngine = multer.diskStorage({
   destination: (_req, _file, cb) => {
     cb(null, 'uploads/pdfs');
   },
   filename: (_req, file, cb) => {
-    const uniqueSuffix = `${Date.now()}-${Math.round(Math.random() * 1e9)}`;
+    const uniqueSuffix = `${Date.now()}-${objectId}`;
     cb(null, `${uniqueSuffix}-${file.originalname}`);
   },
 });
