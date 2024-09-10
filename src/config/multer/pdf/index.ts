@@ -1,7 +1,7 @@
 import multer, { StorageEngine } from 'multer';
 import { Types } from 'mongoose';
-const objectId = new Types.ObjectId();
 
+const objectId = new Types.ObjectId();
 const storage: StorageEngine = multer.diskStorage({
   destination: (_req, _file, cb) => {
     cb(null, 'uploads/pdfs');
