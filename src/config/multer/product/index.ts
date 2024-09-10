@@ -2,6 +2,7 @@ import multer from 'multer';
 import { CloudinaryStorage } from 'multer-storage-cloudinary';
 import cloudinary from '../../cloudinary';
 import { Request } from 'express';
+import { Types } from 'mongoose';
 
 interface CloudinaryParams {
   folder: string;
@@ -10,6 +11,7 @@ interface CloudinaryParams {
   public_id: (_req: Request, _file: Express.Multer.File) => string;
 }
 
+const objectId = new Types.ObjectId();
 const storage = new CloudinaryStorage({
   cloudinary,
   params: {
@@ -21,7 +23,7 @@ const storage = new CloudinaryStorage({
       return 'bin';
     },
     public_id: (_req: Request, file: Express.Multer.File) => {
-      return `${Date.now()}-${file.originalname}`;
+      return `${Date.now()}-${objectId}-${file.originalname}`;
     },
   } as unknown as CloudinaryParams,
 });
