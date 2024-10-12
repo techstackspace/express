@@ -122,11 +122,3 @@ To clone and initialize the project:
 ## License
 
 This project is licensed under the [MIT License](LICENSE).
-
-### Summary
-
-- The **Installation** section guides users through cloning the repository and installing dependencies.
-- **Scripts** section describes each npm script and its purpose.
-- **Development** explains how to run the project in development mode and check code quality.
-- **Cloning the Repository** provides a step-by-step guide for setting up the project from scratch.
-- **License** section mentions the project's license.
